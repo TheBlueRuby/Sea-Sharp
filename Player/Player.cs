@@ -2,7 +2,7 @@ using Godot;
 
 public partial class Player : CharacterBody2D {
 	private const float speed = 150.0f;
-	private const float jump_vel = -500.0f;
+	private const float jump_vel = -300.0f;
 
 	// Get the gravity from the project settings to be synced with RigidBody nodes.
 	private float gravity = ProjectSettings.GetSetting("physics/2d/default_gravity").AsSingle();

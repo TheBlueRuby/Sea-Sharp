@@ -1,0 +1,27 @@
+[gd_scene load_steps=4 format=3 uid="uid://bt5anxh2x67j2"]
+
+[ext_resource type="Texture2D" uid="uid://bqhpuwer3qhf0" path="res://Camera/Water Overlay/water.png" id="1_0g20w"]
+[ext_resource type="Script" path="res://Camera/Water Overlay/WaterEffect.cs" id="1_6fdee"]
+[ext_resource type="Material" uid="uid://b2cd2dxfmv64p" path="res://Camera/Water Overlay/watermaterial.tres" id="1_gpmq5"]
+
+[node name="WaterEffect" type="Node2D"]
+script = ExtResource("1_6fdee")
+
+[node name="Layer1" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 1, 0.0980392)
+z_index = 128
+texture_repeat = 2
+material = ExtResource("1_gpmq5")
+texture = ExtResource("1_0g20w")
+flip_h = true
+region_enabled = true
+region_rect = Rect2(0, 0, 960, 480)
+
+[node name="Layer2" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 1, 0.0980392)
+z_index = 128
+texture_repeat = 2
+material = ExtResource("1_gpmq5")
+texture = ExtResource("1_0g20w")
+region_enabled = true
+region_rect = Rect2(0, 0, 960, 480)
