@@ -1,0 +1,27 @@
+[gd_scene load_steps=5 format=3 uid="uid://darcpmn4nbf3r"]
+
+[ext_resource type="PackedScene" uid="uid://bmkgbrswd37va" path="res://Player/Player.tscn" id="1_dwvur"]
+[ext_resource type="Texture2D" uid="uid://bsxj6s2xumdcx" path="res://icon.svg" id="2_simxi"]
+[ext_resource type="Script" path="res://Scripts/CameraController.cs" id="3_ke6q8"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wn207"]
+size = Vector2(128, 128)
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Player" parent="." instance=ExtResource("1_dwvur")]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, 95)
+scale = Vector2(2, 0.5)
+texture = ExtResource("2_simxi")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Sprite2D"]
+collision_mask = 7
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite2D/StaticBody2D"]
+shape = SubResource("RectangleShape2D_wn207")
+
+[node name="Camera2D" type="Camera2D" parent="." node_paths=PackedStringArray("target")]
+script = ExtResource("3_ke6q8")
+target = NodePath("../Player")
