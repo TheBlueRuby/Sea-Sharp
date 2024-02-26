@@ -4,11 +4,11 @@ public partial class CameraController : Camera2D {
 	[Export]
 	private Node2D target;
 
-	private int stillWidth = 32;
-	private int stillHeight = 64;
+	private const int stillWidth = 32;
+	private const int stillHeight = 64;
 
-	private int speed = 150;
-	private int lerpFactor = 5;
+	private const int speed = 150;
+	private const int lerpFactor = 5;
 
 	private Vector2 zoomAmount = Vector2.One * 0.01f;
 
