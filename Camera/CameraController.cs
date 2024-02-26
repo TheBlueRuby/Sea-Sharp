@@ -10,7 +10,10 @@ public partial class CameraController : Camera2D {
 	private int speed = 150;
 	private int lerpFactor = 5;
 
-	private Vector2 zoomAmount = new(0.01f, 0.01f);
+	private Vector2 zoomAmount = Vector2.One * 0.01f;
+
+	private Vector2 minZoom = Vector2.One * 0.75f;
+	private Vector2 maxZoom = Vector2.One * 2;
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta) {
@@ -38,10 +41,10 @@ public partial class CameraController : Camera2D {
 
 		Position = pos;
 
-		if (Input.IsActionPressed("zoom_in")) {
+		if (Input.IsActionPressed("zoom_in") && Zoom < maxZoom) {
 			Zoom += zoomAmount;
 		}
-		if (Input.IsActionPressed("zoom_out")) {
+		if (Input.IsActionPressed("zoom_out") && Zoom > minZoom) {
 			Zoom -= zoomAmount;
 		}
 		if (Input.IsActionPressed("zoom_reset")) {
