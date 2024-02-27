@@ -83,6 +83,32 @@ public partial class Player : CharacterBody2D {
 
 	private void OnPickupAreaBodyEntered(Node2D body)
 	{
-		GD.Print("Pickup Found!");
+		if (body is Pickup pickup)
+		{
+			switch (pickup.pickupType) {
+				case "test":
+					GD.Print("Test pickup collected");
+					break;
+				case "health":
+					// Add health to the player
+					break;
+				case "ammo":
+					// Add ammo to the player
+					break;
+				case "healthMax":
+					// Increase the player's max health
+					break;
+				case "ammoMax":
+					// Increase the player's max ammo
+					break;
+				default:
+					break;
+			}
+
+			// Delete the pickup from the world
+			pickup.Collect();
+		} else {
+			GD.Print("Not a pickup");
+		}
 	}
 }
