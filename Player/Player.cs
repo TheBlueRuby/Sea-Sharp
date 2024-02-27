@@ -80,4 +80,9 @@ public partial class Player : CharacterBody2D {
 		}
 		hitbox.Scale = hbScale;
 	}
+
+	private void OnPickupAreaBodyEntered(Node2D body)
+	{
+		GD.Print("Pickup Found!");
+	}
 }
