@@ -15,6 +15,10 @@ run/main_scene="res://WorldMap.tscn"
 config/features=PackedStringArray("4.2", "C#", "GL Compatibility")
 config/icon="res://icon.svg"
 
+[autoload]
+
+CacheParticles="*res://CacheParticles.tscn"
+
 [display]
 
 window/size/viewport_width=320

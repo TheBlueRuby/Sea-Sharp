@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://bl6jqx0c3edjl"]
+
+[ext_resource type="Script" path="res://Scripts/CacheParticles.cs" id="1_8oyin"]
+
+[node name="LoadShaders" type="CanvasLayer"]
+offset = Vector2(-100, -100)
+transform = Transform2D(1, 0, 0, 1, -100, -100)
+script = ExtResource("1_8oyin")

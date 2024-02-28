@@ -20,4 +20,3 @@ scale = Vector2(0.125, 0.125)
 texture = ExtResource("1_42xjo")
 
 [node name="PickupParticles" parent="." instance=ExtResource("3_00t5l")]
-trail_enabled = false

@@ -7,22 +7,25 @@ public partial class Pickup : Node2D {
 	[Export]
 	public string pickupType = "test";
 
-	public PickupParticles particles;
+	public GpuParticles2D particles;
 	public Sprite2D sprite;
 
 	public override void _Ready() {
 		// Load the particle effect
-		particles = GetNode<PickupParticles>("PickupParticles");
+		particles = GetNode<GpuParticles2D>("PickupParticles");
 		sprite = GetNode<Sprite2D>("Sprite2D");
 
 	}
 
-	public void Collect() {
+	public async void Collect() {
 		// Hide the texture so particles are visible
 		sprite.Visible = false;
 
 		// Spawn a set of particles
-		particles.Burst();
+		particles.Emitting = true;
+
+		// Waits until particles are done emitting
+		await ToSignal(GetTree().CreateTimer(3), "timeout");
 
 		// Delete the object
 		QueueFree();
