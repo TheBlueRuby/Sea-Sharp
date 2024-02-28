@@ -20,7 +20,7 @@ public partial class Player : CharacterBody2D {
 		hitbox = GetNode<CollisionShape2D>("Hitbox");
 		texture = hitbox.GetNode<Sprite2D>("Texture");
 
-		// Load the front and side sprites.
+		// Load the front and side sprites and hitboxes.
 		front_sprite = GD.Load<CompressedTexture2D>("res://Player/front.png");
 		side_sprite = GD.Load<CompressedTexture2D>("res://Player/side.png");
 		front_hitbox = GD.Load<ConvexPolygonShape2D>("res://Player/Collision/player_front.tres");
@@ -30,7 +30,7 @@ public partial class Player : CharacterBody2D {
 	public override void _PhysicsProcess(double delta) {
 		Vector2 velocity = Velocity;
 
-		// Add the gravity.
+		// Add gravity.
 		if (!IsOnFloor())
 			velocity.Y += gravity * (float)delta;
 
@@ -39,7 +39,6 @@ public partial class Player : CharacterBody2D {
 			velocity.Y = jump_vel;
 
 		// Get the input direction and handle the movement/deceleration.
-		// As good practice, you should replace UI actions with custom gameplay actions.
 		float direction = Input.GetAxis("move_left", "move_right");
 		if (direction != 0) {
 			velocity.X = direction * speed;
@@ -47,12 +46,14 @@ public partial class Player : CharacterBody2D {
 			velocity.X = Mathf.MoveToward(Velocity.X, 0, speed);
 		}
 
+		// Set the facing sprites.
 		if (velocity.X == 0) {
 			SetFacing("front");
 		} else {
 			SetFacing(velocity.X > 0 ? "right" : "left");
 		}
 
+		// Update player
 		Velocity = velocity;
 		MoveAndSlide();
 	}
@@ -66,6 +67,7 @@ public partial class Player : CharacterBody2D {
 				hitbox.Shape = front_hitbox;
 				break;
 			case "left":
+				// Flips the right facing sprite to face left.
 				hbScale.X = -1;
 				texture.Texture = side_sprite;
 				hitbox.Shape = side_hitbox;
@@ -105,7 +107,7 @@ public partial class Player : CharacterBody2D {
 					break;
 			}
 
-			// Delete the pickup from the world
+			// Spawn particles and delete the pickup object
 			pickup.Collect();
 		} else {
 			GD.Print("Not a pickup");

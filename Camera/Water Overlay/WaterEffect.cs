@@ -5,16 +5,18 @@ public partial class WaterEffect : Node2D {
 	// Layers of water for the parallax effect.
 	Sprite2D layer1;
 	Sprite2D layer2;
+
+	// Speed and maximum offsets
 	private const int maxDist = 64;
 	private const float speed = 0.2f;
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready() {
+		// Populate variables with objects
 		layer1 = GetNode<Sprite2D>("Layer1");
 		layer2 = GetNode<Sprite2D>("Layer2");
 	}
 
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta) {
 		Vector2 pos1 = layer1.Position;
 		Vector2 pos2 = layer2.Position;

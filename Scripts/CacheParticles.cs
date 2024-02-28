@@ -5,9 +5,10 @@ public partial class CacheParticles : CanvasLayer
 {
 	ParticleProcessMaterial pickupParticles; // Particles for pickups
 	
-	// Called when the node enters the scene tree for the first time.
+
 	public override void _Ready()
 	{
+		// Load shader data into variables
 		pickupParticles = GD.Load<ParticleProcessMaterial>("res://Pickups/ParticleEffects/PickupParticles.tres");
 
 		// List should be updated every new particle added
@@ -15,7 +16,7 @@ public partial class CacheParticles : CanvasLayer
 			pickupParticles
 		};
 		
-		// Looping through array and loading the shaders
+		// Looping through array and loading the shaders into memory
 		foreach (ParticleProcessMaterial particleProcessMaterial in particleProcessMaterials)
 		{
 			GpuParticles2D particlesInstance = new() {
