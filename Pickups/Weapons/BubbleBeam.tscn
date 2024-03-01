@@ -1,0 +1,22 @@
+[gd_scene load_steps=5 format=3 uid="uid://d0qpj6g6k77us"]
+
+[ext_resource type="Script" path="res://Pickups/Pickup.cs" id="1_kvf71"]
+[ext_resource type="Texture2D" uid="uid://b6sgmokeqk652" path="res://Pickups/Weapons/BubbleBeam.png" id="2_hs3cw"]
+[ext_resource type="PackedScene" uid="uid://tuq08db2kqeu" path="res://Pickups/ParticleEffects/PickupParticles.tscn" id="3_ra4yh"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_n3gv1"]
+size = Vector2(16, 16)
+
+[node name="Pickup" type="StaticBody2D"]
+collision_layer = 8
+collision_mask = 2
+script = ExtResource("1_kvf71")
+pickupType = "BubbleBeam"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_n3gv1")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_hs3cw")
+
+[node name="PickupParticles" parent="." instance=ExtResource("3_ra4yh")]

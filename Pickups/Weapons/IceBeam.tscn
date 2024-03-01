@@ -1,0 +1,22 @@
+[gd_scene load_steps=5 format=3 uid="uid://c14rhln64b1sf"]
+
+[ext_resource type="Script" path="res://Pickups/Pickup.cs" id="1_4pbld"]
+[ext_resource type="Texture2D" uid="uid://cfej7h5m5abat" path="res://Pickups/Weapons/IceBeam.png" id="2_fgvqu"]
+[ext_resource type="PackedScene" uid="uid://tuq08db2kqeu" path="res://Pickups/ParticleEffects/PickupParticles.tscn" id="3_ditmh"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_n3gv1"]
+size = Vector2(16, 16)
+
+[node name="Pickup" type="StaticBody2D"]
+collision_layer = 8
+collision_mask = 2
+script = ExtResource("1_4pbld")
+pickupType = "IceBeam"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_n3gv1")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_fgvqu")
+
+[node name="PickupParticles" parent="." instance=ExtResource("3_ditmh")]
