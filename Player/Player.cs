@@ -1,3 +1,4 @@
+using System;
 using Godot;
 
 public partial class Player : CharacterBody2D {
@@ -14,6 +15,8 @@ public partial class Player : CharacterBody2D {
 	private CompressedTexture2D side_sprite;
 	private ConvexPolygonShape2D front_hitbox;
 	private ConvexPolygonShape2D side_hitbox;
+
+	public Items inventory;
 
 	public override void _Ready() {
 		// Load the hitbox and texture.
@@ -83,10 +86,8 @@ public partial class Player : CharacterBody2D {
 		hitbox.Scale = hbScale;
 	}
 
-	private void OnPickupAreaBodyEntered(Node2D body)
-	{
-		if (body is Pickup pickup)
-		{
+	private void OnPickupAreaBodyEntered(Node2D body) {
+		if (body is Pickup pickup) {
 			switch (pickup.pickupType) {
 				case "test":
 					GD.Print("Test pickup collected");
@@ -104,6 +105,17 @@ public partial class Player : CharacterBody2D {
 					// Increase the player's max ammo
 					break;
 				default:
+					if (pickup.pickupType.Contains("Beam")) {
+						inventory.ModifyBeams(Items.StringToBeamType(pickup.pickupType), true);
+						GD.Print(inventory.BeamsOwned);
+					} else {
+						try {
+							inventory.ModifyItems(Items.StringToItemType(pickup.pickupType), true);
+						} catch {
+							GD.PrintErr("Error: " + pickup.pickupType + " is not a valid item type.");
+						}
+						GD.Print(inventory.ItemsOwned);
+					}
 					break;
 			}
 
