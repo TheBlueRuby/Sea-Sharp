@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://da0bc18rxyslt"]
 
-[ext_resource type="Script" path="res://Pickups/Pickup.cs" id="1_hc68d"]
+[ext_resource type="Script" path="res://Pickups/ItemPickup.cs" id="1_dsr0f"]
 [ext_resource type="Texture2D" uid="uid://bmcbrrf0i51u8" path="res://Pickups/Armor/PressureSuit.png" id="2_r0bg0"]
 [ext_resource type="PackedScene" uid="uid://tuq08db2kqeu" path="res://Pickups/ParticleEffects/PickupParticles.tscn" id="3_6px6p"]
 
@@ -10,8 +10,8 @@ size = Vector2(16, 16)
 [node name="Pickup" type="StaticBody2D"]
 collision_layer = 8
 collision_mask = 2
-script = ExtResource("1_hc68d")
-pickupType = "PressureSuit"
+script = ExtResource("1_dsr0f")
+Type = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_n3gv1")

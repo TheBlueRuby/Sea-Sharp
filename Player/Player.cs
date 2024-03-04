@@ -16,7 +16,7 @@ public partial class Player : CharacterBody2D {
 	private ConvexPolygonShape2D front_hitbox;
 	private ConvexPolygonShape2D side_hitbox;
 
-	public Items inventory;
+	public Items inventory = new();
 
 	public override void _Ready() {
 		// Load the hitbox and texture.
@@ -87,40 +87,37 @@ public partial class Player : CharacterBody2D {
 	}
 
 	private void OnPickupAreaBodyEntered(Node2D body) {
-		if (body is Pickup pickup) {
-			switch (pickup.pickupType) {
-				case "test":
-					GD.Print("Test pickup collected");
-					break;
-				case "health":
-					// Add health to the player
-					break;
-				case "ammo":
-					// Add ammo to the player
-					break;
-				case "healthMax":
-					// Increase the player's max health
-					break;
-				case "ammoMax":
-					// Increase the player's max ammo
-					break;
-				default:
-					if (pickup.pickupType.Contains("Beam")) {
-						inventory.ModifyBeams(Items.StringToBeamType(pickup.pickupType), true);
-						GD.Print(inventory.BeamsOwned);
-					} else {
-						try {
-							inventory.ModifyItems(Items.StringToItemType(pickup.pickupType), true);
-						} catch {
-							GD.PrintErr("Error: " + pickup.pickupType + " is not a valid item type.");
-						}
-						GD.Print(inventory.ItemsOwned);
-					}
-					break;
+		if (body is Collectible collectible) {
+			if (collectible is Pickup pickup) {
+				switch (pickup.Type) {
+					case "test":
+						GD.Print("Test pickup collected");
+						break;
+					case "health":
+						// Add health to the player
+						break;
+					case "ammo":
+						// Add ammo to the player
+						break;
+					case "healthMax":
+						// Increase the player's max health
+						break;
+					case "ammoMax":
+						// Increase the player's max ammo
+						break;
+				}
+			} else {
+				if (collectible is BeamPickup beam) {
+					inventory.ModifyBeams(beam.Type, true);
+					GD.Print(inventory.BeamsOwned.PrintArray());
+				} else if (collectible is ItemPickup item) {
+					inventory.ModifyItems(item.Type, true);
+					GD.Print(inventory.ItemsOwned.PrintArray());
+				}
 			}
 
 			// Spawn particles and delete the pickup object
-			pickup.Collect();
+			collectible.Collect();
 		} else {
 			GD.Print("Not a pickup");
 		}

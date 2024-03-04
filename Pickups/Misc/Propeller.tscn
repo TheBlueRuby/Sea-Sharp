@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://bqmctjn7sfx0y"]
 
-[ext_resource type="Script" path="res://Pickups/Pickup.cs" id="1_eah0g"]
+[ext_resource type="Script" path="res://Pickups/ItemPickup.cs" id="1_10g5m"]
 [ext_resource type="Texture2D" uid="uid://b883liifm8j2l" path="res://Pickups/Misc/Propeller.png" id="2_twv0i"]
 [ext_resource type="PackedScene" uid="uid://tuq08db2kqeu" path="res://Pickups/ParticleEffects/PickupParticles.tscn" id="3_rrb6s"]
 
@@ -10,8 +10,8 @@ size = Vector2(16, 16)
 [node name="Pickup" type="StaticBody2D"]
 collision_layer = 8
 collision_mask = 2
-script = ExtResource("1_eah0g")
-pickupType = "Propeller"
+script = ExtResource("1_10g5m")
+Type = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_n3gv1")

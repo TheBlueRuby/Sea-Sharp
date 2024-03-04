@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://do3w04sq16emj"]
 
-[ext_resource type="Script" path="res://Pickups/Pickup.cs" id="1_xvr4u"]
+[ext_resource type="Script" path="res://Pickups/ItemPickup.cs" id="1_v3wl0"]
 [ext_resource type="Texture2D" uid="uid://cpqn3a43jb08w" path="res://Pickups/Misc/Flippers.png" id="2_o15cq"]
 [ext_resource type="PackedScene" uid="uid://tuq08db2kqeu" path="res://Pickups/ParticleEffects/PickupParticles.tscn" id="3_4etcw"]
 
@@ -10,8 +10,8 @@ size = Vector2(16, 16)
 [node name="Pickup" type="StaticBody2D"]
 collision_layer = 8
 collision_mask = 2
-script = ExtResource("1_xvr4u")
-pickupType = "Flippers"
+script = ExtResource("1_v3wl0")
+Type = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_n3gv1")

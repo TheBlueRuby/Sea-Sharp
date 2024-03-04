@@ -1,3 +1,6 @@
+using System.Diagnostics;
+
+[DebuggerDisplay("{PrintArray(), nq}")]
 public class BitArray {
 	private int array;
 
@@ -10,8 +13,9 @@ public class BitArray {
 	/// </summary>
 	/// <param name="bit">The bit to check.</param>
 	/// <returns>True if the bit is set, otherwise false.</returns>
-	public bool CheckBit(int bit) {
-		return (array & bit) == bit;
+	public bool CheckBit(int pos)
+	{
+		return (array & (1 << pos)) != 0;
 	}
 
 	/// <summary>
@@ -40,6 +44,19 @@ public class BitArray {
 	/// <param name="bit">The index of the bit to clear.</param>
 	public void ClearBit(int bit) {
 		array &= (~array | bit);
+	}
+
+	public string PrintArray() {
+		string output = "";
+		for (int i = 0; i < 32; i++)
+		{
+			if (CheckBit(i)) {
+				output += "1";
+			} else {
+				output += "0";
+			}
+		}
+		return output;
 	}
 
 }

@@ -6,20 +6,21 @@ public class Items {
 	/// </summary>
 	public enum BeamTypes {
 		None = 0,
-		BubbleBeam,
-		PressureBeam,
-		IceBeam,
-		HeatBeam,
+		BubbleBeam = 1,
+		PressureBeam = 2,
+		IceBeam = 4,
+		HeatBeam = 8,
 	}
 
 	/// <summary>
 	/// Represents the types of items that a player can have.
 	/// </summary>
 	public enum ItemTypes {
+		Test = 0,
 		AnglerCap = 1,
-		Flippers,
-		Propeller,
-		PressureSuit,
+		Flippers = 2,
+		Propeller = 4,
+		PressureSuit = 8,
 	}
 
 	/// <summary>

@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://do8ommytvhdyi"]
 
-[ext_resource type="Script" path="res://Pickups/Pickup.cs" id="1_qcdpl"]
+[ext_resource type="Script" path="res://Pickups/BeamPickup.cs" id="1_74gbf"]
 [ext_resource type="Texture2D" uid="uid://bgmhsia6avnq2" path="res://Pickups/Weapons/PressureBeam.png" id="2_gbgwx"]
 [ext_resource type="PackedScene" uid="uid://tuq08db2kqeu" path="res://Pickups/ParticleEffects/PickupParticles.tscn" id="3_abpjo"]
 
@@ -10,8 +10,8 @@ size = Vector2(16, 16)
 [node name="Pickup" type="StaticBody2D"]
 collision_layer = 8
 collision_mask = 2
-script = ExtResource("1_qcdpl")
-pickupType = "PressureBeam"
+script = ExtResource("1_74gbf")
+Type = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_n3gv1")
