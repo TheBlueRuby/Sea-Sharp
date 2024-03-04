@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://ble2d3ds2kkpf"]
+
+[ext_resource type="Texture2D" uid="uid://dmolba2thcie6" path="res://Prefabs/Objects/Clam/clam.png" id="1_3xkrq"]
+[ext_resource type="Script" path="res://Prefabs/Objects/Clam/Clam.cs" id="1_pftkm"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_67d5v"]
+size = Vector2(112, 112)
+
+[node name="Clam" type="Node2D"]
+script = ExtResource("1_pftkm")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_67d5v")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_3xkrq")
+
+[connection signal="body_entered" from="Area2D" to="." method="OnPlayerEnter"]
+[connection signal="body_exited" from="Area2D" to="." method="OnPlayerExit"]
