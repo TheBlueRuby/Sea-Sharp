@@ -1,6 +1,6 @@
 using System;
 using Godot;
-using static Items;
+using static Inventory;
 
 public partial class Collectible : Node2D {
 	public GpuParticles2D particles;

@@ -16,7 +16,7 @@ public partial class Player : CharacterBody2D {
 	private ConvexPolygonShape2D front_hitbox;
 	private ConvexPolygonShape2D side_hitbox;
 
-	public Items inventory = new();
+	public Inventory inventory = new();
 
 	public override void _Ready() {
 		// Load the hitbox and texture.

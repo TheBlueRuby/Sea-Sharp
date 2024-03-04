@@ -1,6 +1,9 @@
 using System;
 
-public class Items {
+/// <summary>
+/// A class that represents an inventory system for the player
+/// </summary>
+public class Inventory {
 	/// <summary>Represents the types of beams that a player can have.</summary>
 	public enum BeamTypes {
 		None = 0,
@@ -31,8 +34,8 @@ public class Items {
 	/// <summary>Items that have been collected by the player.</summary>
 	public BitArray ItemsOwned { get; set; }
 
-	/// <summary>Initializes a new instance of the <see cref="Items"/> class.</summary>
-	public Items() {
+	/// <summary>Initializes a new instance of the <see cref="Inventory"/> class.</summary>
+	public Inventory() {
 		ActiveBeam = BeamTypes.None;
 		ActiveItems = new BitArray();
 		BeamsOwned = new BitArray();

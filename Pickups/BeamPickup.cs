@@ -1,6 +1,6 @@
 using System;
 using Godot;
-using static Items;
+using static Inventory;
 
 public partial class BeamPickup : Collectible {
 	// To compare against in player script
