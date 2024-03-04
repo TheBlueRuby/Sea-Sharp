@@ -1,9 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://darcpmn4nbf3r"]
+[gd_scene load_steps=4 format=3 uid="uid://darcpmn4nbf3r"]
 
 [ext_resource type="PackedScene" uid="uid://cu5wc2laagv5v" path="res://Camera/MainCamera.tscn" id="1_bqltn"]
 [ext_resource type="PackedScene" uid="uid://bmkgbrswd37va" path="res://Player/Player.tscn" id="1_dwvur"]
 [ext_resource type="TileSet" uid="uid://cvvslic3qpfhg" path="res://Sand Tileset/sand.tres" id="3_00mkw"]
-[ext_resource type="PackedScene" uid="uid://b1quy2rkabkdt" path="res://Pickups/PickupBase.tscn" id="4_74cjh"]
 
 [node name="Node2D" type="Node2D"]
 
@@ -17,5 +16,4 @@ tile_set = ExtResource("3_00mkw")
 format = 2
 layer_0/tile_data = PackedInt32Array(393206, 524288, 3, 393207, 589824, 3, 393208, 589824, 3, 393209, 589824, 3, 393210, 589824, 3, 393211, 589824, 3, 393212, 589824, 3, 393213, 589824, 3, 393214, 589824, 3, 393215, 589824, 3, 327680, 589824, 3, 327681, 589824, 3, 327682, 589824, 3, 327683, 589824, 3, 327684, 589824, 3, 327685, 589824, 3, 327686, 589824, 3, 327687, 589824, 3, 327688, 589824, 3, 327689, 720896, 3, 262153, 720896, 0, 262152, 655360, 0, 262151, 655360, 0, 262150, 655360, 0, 262149, 655360, 0, 262148, 655360, 0, 262147, 655360, 0, 262146, 393216, 1, 262145, 589824, 2, 262144, 589824, 2, 327679, 589824, 2, 327677, 327680, 1, 327676, 655360, 0, 327675, 655360, 0, 327674, 655360, 0, 327673, 655360, 0, 327672, 655360, 0, 327671, 655360, 0, 327670, 524288, 0, 131073, 720896, 0, 131072, 655360, 0, 196607, 655360, 0, 196606, 524288, 0, 262141, 524288, 0, 262142, 327680, 1, 262143, 589824, 2, 196608, 589824, 2, 196609, 393216, 1, 196610, 720896, 0, 327678, 589824, 2)
 
-[node name="TestPickup" parent="." instance=ExtResource("4_74cjh")]
-position = Vector2(-56, 40)
+[node name="Pickups" type="Node" parent="."]
