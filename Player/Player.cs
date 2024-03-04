@@ -30,16 +30,35 @@ public partial class Player : CharacterBody2D {
 		side_hitbox = GD.Load<ConvexPolygonShape2D>("res://Player/Collision/player_side.tres");
 	}
 
+	/// <summary>
+	/// Runs every physics update frame
+	/// </summary>
+	/// <param name="delta">The elapsed time between now and the last frame</param>
 	public override void _PhysicsProcess(double delta) {
 		Vector2 velocity = Velocity;
+		velocity = Movement(delta, velocity);
 
+		// Update player
+		Velocity = velocity;
+		MoveAndSlide();
+	}
+
+	/// <summary>
+	/// Handles the movement of the player based on input and delta time.
+	/// </summary>
+	/// <param name="delta">The time elapsed since the last frame.</param>
+	/// <param name="velocity">The current velocity of the player.</param>
+	/// <returns>The updated velocity of the player.</returns>
+	private Vector2 Movement(double delta, Vector2 velocity) {
 		// Add gravity.
-		if (!IsOnFloor())
+		if (!IsOnFloor()) {
 			velocity.Y += gravity * (float)delta;
+		}
 
 		// Handle Jump.
-		if (Input.IsActionPressed("move_jump") && IsOnFloor())
+		if (Input.IsActionPressed("move_jump") && IsOnFloor()) {
 			velocity.Y = jump_vel;
+		}
 
 		// Get the input direction and handle the movement/deceleration.
 		float direction = Input.GetAxis("move_left", "move_right");
@@ -56,11 +75,13 @@ public partial class Player : CharacterBody2D {
 			SetFacing(velocity.X > 0 ? "right" : "left");
 		}
 
-		// Update player
-		Velocity = velocity;
-		MoveAndSlide();
+		return velocity;
 	}
 
+	/// <summary>
+	/// Sets the sprite and hitboxes for facing to the front and side
+	/// </summary>
+	/// <param name="side">The direction the player is facing</param>
 	public void SetFacing(string side) {
 		Vector2 hbScale = hitbox.Scale;
 		switch (side) {
@@ -86,40 +107,63 @@ public partial class Player : CharacterBody2D {
 		hitbox.Scale = hbScale;
 	}
 
+	/// <summary>
+	/// Called when an item on the "Pickup" collision layer collides with the player
+	/// </summary>
+	/// <param name="body">The object that collided with the player</param>
 	private void OnPickupAreaBodyEntered(Node2D body) {
-		if (body is Collectible collectible) {
-			if (collectible is Pickup pickup) {
-				switch (pickup.Type) {
-					case "test":
-						GD.Print("Test pickup collected");
-						break;
-					case "health":
-						// Add health to the player
-						break;
-					case "ammo":
-						// Add ammo to the player
-						break;
-					case "healthMax":
-						// Increase the player's max health
-						break;
-					case "ammoMax":
-						// Increase the player's max ammo
-						break;
-				}
-			} else {
-				if (collectible is BeamPickup beam) {
-					inventory.ModifyBeams(beam.Type, true);
-					GD.Print(inventory.BeamsOwned.PrintArray());
-				} else if (collectible is ItemPickup item) {
-					inventory.ModifyItems(item.Type, true);
-					GD.Print(inventory.ItemsOwned.PrintArray());
-				}
-			}
+		if (body is not Collectible collectible) {
+			GD.Print("Not collectible");
+			return;
+		}
+		
+		switch (collectible) {
+			case Pickup pickup:
+				CollectPickup(pickup);
+				break;
 
-			// Spawn particles and delete the pickup object
-			collectible.Collect();
-		} else {
-			GD.Print("Not a pickup");
+			case BeamPickup beam:
+				inventory.ModifyBeams(beam.Type, true);
+				GD.Print(inventory.BeamsOwned.PrintArray());
+				break;
+
+			case ItemPickup item:
+				inventory.ModifyItems(item.Type, true);
+				GD.Print(inventory.ItemsOwned.PrintArray());
+				break;
+
+			default:
+				break;
+		}
+
+		// Spawn particles and delete the pickup object
+		collectible.Collect();
+
+	}
+
+	/// <summary>
+	/// Called to collect the pickup and apply its effects
+	/// </summary>
+	/// <param name="pickup">A copy of the pickup's data</param>
+	private static void CollectPickup(Pickup pickup) {
+		switch (pickup.Type) {
+			case "test":
+				GD.Print("Test pickup collected");
+				break;
+			case "health":
+				// Add health to the player
+				break;
+			case "ammo":
+				// Add ammo to the player
+				break;
+			case "healthMax":
+				// Increase the player's max health
+				break;
+			case "ammoMax":
+				// Increase the player's max ammo
+				break;
+			default:
+				break;
 		}
 	}
 }

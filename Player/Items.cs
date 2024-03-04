@@ -1,9 +1,7 @@
 using System;
 
 public class Items {
-	/// <summary>
-	/// Represents the types of beams that a player can have.
-	/// </summary>
+	/// <summary>Represents the types of beams that a player can have.</summary>
 	public enum BeamTypes {
 		None = 0,
 		BubbleBeam = 1,
@@ -12,9 +10,7 @@ public class Items {
 		HeatBeam = 8,
 	}
 
-	/// <summary>
-	/// Represents the types of items that a player can have.
-	/// </summary>
+	/// <summary>Represents the types of items that a player can have.</summary>
 	public enum ItemTypes {
 		Test = 0,
 		AnglerCap = 1,
@@ -23,29 +19,19 @@ public class Items {
 		PressureSuit = 8,
 	}
 
-	/// <summary>
-	/// Currently equipped beam.
-	/// </summary>
+	/// <summary>Currently equipped beam.</summary>
 	public BeamTypes ActiveBeam { get; set; }
 
-	/// <summary>
-	/// Currently equipped items.
-	/// </summary>
+	/// <summary>Currently equipped items.</summary>
 	public BitArray ActiveItems { get; set; }
 
-	/// <summary>
-	/// Beams that have been collected by the player.
-	/// </summary>
+	/// <summary>Beams that have been collected by the player.</summary>
 	public BitArray BeamsOwned { get; set; }
 
-	/// <summary>
-	/// Items that have been collected by the player.
-	/// </summary>
+	/// <summary>Items that have been collected by the player.</summary>
 	public BitArray ItemsOwned { get; set; }
 
-	/// <summary>
-	/// Initializes a new instance of the <see cref="Items"/> class.
-	/// </summary>
+	/// <summary>Initializes a new instance of the <see cref="Items"/> class.</summary>
 	public Items() {
 		ActiveBeam = BeamTypes.None;
 		ActiveItems = new BitArray();

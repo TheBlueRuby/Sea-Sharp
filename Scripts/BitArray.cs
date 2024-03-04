@@ -13,8 +13,7 @@ public class BitArray {
 	/// </summary>
 	/// <param name="bit">The bit to check.</param>
 	/// <returns>True if the bit is set, otherwise false.</returns>
-	public bool CheckBit(int pos)
-	{
+	public bool CheckBit(int pos) {
 		return (array & (1 << pos)) != 0;
 	}
 
@@ -38,23 +37,19 @@ public class BitArray {
 	public void SetBit(int bit) {
 		array |= bit;
 	}
+
 	/// <summary>
 	/// Clears the specified bit in the BitArray.
 	/// </summary>
 	/// <param name="bit">The index of the bit to clear.</param>
 	public void ClearBit(int bit) {
-		array &= (~array | bit);
+		array &= ~array | bit;
 	}
 
 	public string PrintArray() {
 		string output = "";
-		for (int i = 0; i < 32; i++)
-		{
-			if (CheckBit(i)) {
-				output += "1";
-			} else {
-				output += "0";
-			}
+		for (int i = 0; i < 32; i++) {
+			output += CheckBit(i) ? "1" : "0";
 		}
 		return output;
 	}
