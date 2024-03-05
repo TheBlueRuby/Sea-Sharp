@@ -4,6 +4,7 @@ using Godot;
 public partial class Clam : Node2D {
 	private PackedScene clamPearl;
 	private Sprite2D texture;
+	private bool isPearlCollected;
 
 	private Texture2D closedTexture;
 	private Texture2D openTexture;
@@ -21,12 +22,22 @@ public partial class Clam : Node2D {
 
 	private void OnPlayerEnter(Node2D body) {
 		texture.Texture = openTexture;
+		if (!isPearlCollected) {
+			Collectible collectible = (Collectible)clamPearl.Instantiate();
+			CallDeferred("add_child", collectible);
+		}
+	}
+
+	private void OnPlayerCollect(Node2D body) {
+		isPearlCollected = true;
 	}
 
 
 	private void OnPlayerExit(Node2D body) {
 		texture.Texture = closedTexture;
+
+		Node pickup = GetNodeOrNull("Pickup");
+		pickup?.QueueFree();
 	}
 
 }
-
