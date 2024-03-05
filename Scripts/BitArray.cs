@@ -18,6 +18,16 @@ public class BitArray {
 	}
 
 	/// <summary>
+	/// Checks if a specific bit is set in the array.
+	/// Assumes pos is a power of 2
+	/// </summary>
+	/// <param name="bit">The bit to check as a power of 2.</param>
+	/// <returns>True if the bit is set, otherwise false.</returns>
+	public bool CheckBitPow(int pos) {
+		return (array & pos) != 0;
+	}
+
+	/// <summary>
 	/// Sets the value of a specific bit in the BitArray.
 	/// </summary>
 	/// <param name="bit">The index of the bit to set.</param>

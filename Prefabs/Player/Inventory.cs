@@ -69,7 +69,7 @@ public class Inventory {
 	/// <param name="beam">The beam type to check.</param>
 	/// <returns>True if the player has the specified beam type, false otherwise.</returns>
 	public bool HasBeam(BeamTypes beam) {
-		return BeamsOwned.CheckBit((int)beam);
+		return BeamsOwned.CheckBitPow((int)beam);
 	}
 
 	/// <summary>
@@ -78,7 +78,7 @@ public class Inventory {
 	/// <param name="item">The name of the item to check.</param>
 	/// <returns>True if the player has the item; otherwise, false.</returns>
 	public bool HasItem(ItemTypes item) {
-		return ItemsOwned.CheckBit((int)item);
+		return ItemsOwned.CheckBitPow((int)item);
 	}
 
 	/// <summary>
