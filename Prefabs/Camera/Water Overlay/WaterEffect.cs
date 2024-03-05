@@ -30,11 +30,11 @@ public partial class WaterEffect : Node2D {
 		pos2.Y += speed;
 
 		// If layers are out of the screen, reset their position
-		if (pos1.X > maxDist) {
+		while(pos1.X > maxDist) {
 			pos1.X -= maxDist;
 			pos1.Y += maxDist;
 		}
-		if (pos2.X > maxDist) {
+		while(pos2.X > maxDist) {
 			pos2.X -= maxDist;
 			pos2.Y -= maxDist;
 		}

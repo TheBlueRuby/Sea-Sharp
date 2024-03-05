@@ -1,21 +1,23 @@
-[gd_scene load_steps=5 format=3 uid="uid://rwe54bhahinv"]
+[gd_scene load_steps=6 format=3 uid="uid://rwe54bhahinv"]
 
 [ext_resource type="Script" path="res://Scripts/GameLoop.gd" id="1_cpuk4"]
-[ext_resource type="PackedScene" uid="uid://cu5wc2laagv5v" path="res://Prefabs/Camera/MainCamera.tscn" id="1_dtw72"]
+[ext_resource type="Script" path="res://Prefabs/Camera/CameraController.cs" id="2_ie2vd"]
 [ext_resource type="PackedScene" uid="uid://bmkgbrswd37va" path="res://Prefabs/Player/Player.tscn" id="2_npi3e"]
 [ext_resource type="PackedScene" uid="uid://dch8dyylb7526" path="res://addons/MetroidvaniaSystem/Template/Nodes/Minimap.tscn" id="4_r2tun"]
+[ext_resource type="PackedScene" uid="uid://bt5anxh2x67j2" path="res://Prefabs/Camera/Water Overlay/WaterEffect.tscn" id="5_u2rt4"]
 
 [node name="GameLoop" type="Node2D"]
 script = ExtResource("1_cpuk4")
 
-[node name="MainCamera" parent="." node_paths=PackedStringArray("target") instance=ExtResource("1_dtw72")]
-position = Vector2(160, 90)
+[node name="MainCamera" type="Camera2D" parent="." node_paths=PackedStringArray("target")]
+script = ExtResource("2_ie2vd")
 target = NodePath("../Player")
 
 [node name="Player" parent="." instance=ExtResource("2_npi3e")]
 position = Vector2(160, 90)
 
 [node name="UI" type="CanvasLayer" parent="."]
+layer = 2
 
 [node name="Minimap" parent="UI" instance=ExtResource("4_r2tun")]
 anchors_preset = 1
@@ -25,3 +27,17 @@ offset_left = -24.0
 offset_right = 72.0
 grow_horizontal = 0
 scale = Vector2(0.25, 0.25)
+
+[node name="WaterEffectLayer" type="CanvasLayer" parent="."]
+
+[node name="WaterEffectContainer" type="Control" parent="WaterEffectLayer"]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="WaterEffect" parent="WaterEffectLayer/WaterEffectContainer" instance=ExtResource("5_u2rt4")]

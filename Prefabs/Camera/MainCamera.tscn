@@ -1,9 +1,0 @@
-[gd_scene load_steps=3 format=3 uid="uid://cu5wc2laagv5v"]
-
-[ext_resource type="Script" path="res://Prefabs/Camera/CameraController.cs" id="1_06qeq"]
-[ext_resource type="PackedScene" uid="uid://bt5anxh2x67j2" path="res://Prefabs/Camera/Water Overlay/WaterEffect.tscn" id="2_kd6em"]
-
-[node name="MainCamera" type="Camera2D"]
-script = ExtResource("1_06qeq")
-
-[node name="WaterEffect" parent="." instance=ExtResource("2_kd6em")]
