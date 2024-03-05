@@ -8,6 +8,10 @@
 
 config_version=5
 
+[addons]
+
+metroidvania_system/settings_file="res://MetSysSettings.tres"
+
 [application]
 
 config/name="Sea-Sharp"
@@ -18,6 +22,7 @@ config/icon="res://icon.svg"
 [autoload]
 
 CacheParticles="*res://CacheParticles.tscn"
+MetSys="*res://addons/MetroidvaniaSystem/Nodes/Singleton.tscn"
 
 [display]
 
@@ -31,6 +36,10 @@ window/stretch/aspect="keep_height"
 [dotnet]
 
 project/assembly_name="Sea-Sharp"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/MetroidvaniaSystem/EditorExtension/plugin.cfg", "res://addons/MetroidvaniaSystem/plugin.cfg")
 
 [input]
 
