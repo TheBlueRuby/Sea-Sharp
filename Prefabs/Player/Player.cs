@@ -96,12 +96,12 @@ public partial class Player : CharacterBody2D {
 	private Vector2 FlipperMovement(double delta, Vector2 velocity) {
 		// Add gravity.
 		if (!IsOnFloor()) {
-			velocity.Y += gravity * (float)delta * 0.75f;
+			velocity.Y += gravity * (float)delta * 0.5f;
 		}
 
 		// Handle Jump.
 		if (Input.IsActionPressed("move_jump") && IsOnFloor()) {
-			velocity.Y = jump_vel;
+			velocity.Y = jump_vel * 0.75f;
 		}
 
 		// Get the input direction and handle the movement/deceleration.
@@ -109,15 +109,12 @@ public partial class Player : CharacterBody2D {
 		if (direction != 0) {
 			velocity.X = direction * speed;
 		} else {
-			velocity.X = Mathf.MoveToward(Velocity.X, 0, 50.0f);
+			velocity.X = Mathf.MoveToward(Velocity.X, 0, 5f);
 		}
 
 		// Set the facing sprites.
-		if (velocity.X == 0) {
-			SetSprite("front", true);
-		} else {
-			SetSprite(velocity.X > 0 ? "right" : "left", true);
-		}
+		SetSprite(velocity.X > 0 ? "right" : "left", true);
+
 
 		return velocity;
 
