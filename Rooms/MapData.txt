@@ -1,10 +1,10 @@
 [-1,0,0]
 1,0,0,0|||:bod76ex7vdbba
 [0,0,0]
-0,0,1,0|||:darcpmn4nbf3r
+1,0,1,0|||:darcpmn4nbf3r
 [1,0,0]
--1,0,0,0|||:cv75sh0fvrwbf
+-1,0,1,0|||:cv75sh0fvrwbf
 [2,0,0]
 -1,0,-1,0|||:cv75sh0fvrwbf
 [3,0,0]
-0,0,-1,0|||:cv75sh0fvrwbf
+1,0,-1,0|||:cv75sh0fvrwbf
