@@ -16,7 +16,7 @@ public partial class CameraController : Camera2D {
 	private Vector2 zoomAmount = Vector2.One * 0.01f;
 
 	// Zoom limits
-	private Vector2 minZoom = Vector2.One * 0.75f;
+	private Vector2 minZoom = Vector2.One;
 	private Vector2 maxZoom = Vector2.One * 2;
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
