@@ -23,6 +23,7 @@ config/icon="res://icon.svg"
 
 CacheParticles="*res://CacheParticles.tscn"
 MetSys="*res://addons/MetroidvaniaSystem/Nodes/Singleton.tscn"
+MetSysCompat="*res://Scripts/MetSysCompat.tscn"
 
 [display]
 

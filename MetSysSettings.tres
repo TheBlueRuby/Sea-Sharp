@@ -8,5 +8,8 @@ script = ExtResource("1_o5ohi")
 theme = ExtResource("2_l0h1g")
 map_root_folder = "res://Rooms/"
 in_game_cell_size = Vector2(320, 176)
-collectible_list = Array[Dictionary]([])
+collectible_list = Array[Dictionary]([{
+"element": "Flippers",
+"icon": "res://Prefabs/Pickups/Misc/Flippers.png"
+}])
 assign_uid_to_rooms = true

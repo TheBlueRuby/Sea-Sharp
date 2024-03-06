@@ -179,6 +179,9 @@ public partial class Player : CharacterBody2D {
 				break;
 		}
 
+		// Save the game
+		GetTree().Root.GetNode("GameLoop").Call("save_game");
+
 		// Spawn particles and delete the pickup object
 		collectible.Collect();
 
@@ -208,5 +211,18 @@ public partial class Player : CharacterBody2D {
 			default:
 				break;
 		}
+	}
+
+	public string GetInventory() {
+		return $"{inventory.ItemsOwned.PrintArray()}-{inventory.BeamsOwned.PrintArray()}-{inventory.ActiveBeam}-{inventory.ActiveItems.PrintArray()}";
+	}
+
+	
+	public void SetInventory(string saveData) {
+		string[] saveFields = saveData.Split("-");
+		inventory.ItemsOwned = BitArray.FromString(saveFields[0]);
+		inventory.BeamsOwned = BitArray.FromString(saveFields[1]);
+		inventory.ActiveBeam = (BeamTypes)Enum.Parse(typeof(BeamTypes), saveFields[2]);
+		inventory.ActiveItems = BitArray.FromString(saveFields[3]);
 	}
 }

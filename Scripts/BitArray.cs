@@ -64,4 +64,14 @@ public class BitArray {
 		return output;
 	}
 
+	public static BitArray FromString(string stringRep) {
+		BitArray output = new BitArray();
+		for (int i = 0; i < 32; i++) {
+			if (stringRep[i] == '1') {
+				output.SetBit(2^i);
+			}
+		}
+		return output;
+	}
+
 }
