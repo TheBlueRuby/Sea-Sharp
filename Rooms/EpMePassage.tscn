@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://biish8p3u12nw"]
 
 [ext_resource type="PackedScene" uid="uid://bsg0351mx3b4u" path="res://addons/MetroidvaniaSystem/Nodes/RoomInstance.tscn" id="1_6wxma"]
-[ext_resource type="TileSet" uid="uid://cvvslic3qpfhg" path="res://Prefabs/Sand Tileset/sand.tres" id="1_yyq4o"]
+[ext_resource type="TileSet" uid="uid://cvvslic3qpfhg" path="res://Prefabs/Tilesets/Sand/sand.tres" id="1_yyq4o"]
 [ext_resource type="PackedScene" uid="uid://83f2l10ylffa" path="res://Prefabs/Objects/Door/Door.tscn" id="3_weudk"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4d8pb"]

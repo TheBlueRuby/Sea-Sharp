@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://bb4sff664f3cn"]
 
-[ext_resource type="TileSet" uid="uid://cvvslic3qpfhg" path="res://Prefabs/Sand Tileset/sand.tres" id="1_brste"]
+[ext_resource type="TileSet" uid="uid://cvvslic3qpfhg" path="res://Prefabs/Tilesets/Sand/sand.tres" id="1_brste"]
 [ext_resource type="PackedScene" uid="uid://83f2l10ylffa" path="res://Prefabs/Objects/Door/Door.tscn" id="2_bhts6"]
 
 [node name="SaveRoom" type="TileMap"]

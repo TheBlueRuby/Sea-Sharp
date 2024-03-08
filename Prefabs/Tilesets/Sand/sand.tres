@@ -1,9 +1,9 @@
 [gd_resource type="TileSet" load_steps=3 format=3 uid="uid://cvvslic3qpfhg"]
 
-[ext_resource type="Texture2D" uid="uid://bq1pmgt5namiy" path="res://Prefabs/Sand Tileset/tiles.png" id="1_p2edu"]
+[ext_resource type="Texture2D" uid="uid://bq1pmgt5namiy" path="res://Prefabs/Tilesets/Sand/sand.png" id="1_mjpkc"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_67a2e"]
-texture = ExtResource("1_p2edu")
+texture = ExtResource("1_mjpkc")
 0:0/0 = 0
 0:0/0/terrain_set = 0
 0:0/0/terrain = 0
