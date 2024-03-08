@@ -13,7 +13,7 @@ layer_0/tile_data = PackedInt32Array(327680, 0, 1, 9, 131072, 3, 0, 65536, 0, 65
 
 [node name="RoomInstance" parent="." instance=ExtResource("2_6xxv8")]
 
-[node name="Clam" parent="." instance=ExtResource("3_b30lu")]
+[node name="FlippersClam" parent="." instance=ExtResource("3_b30lu")]
 position = Vector2(40, 104)
 clamPearl = ExtResource("4_nr2ly")
 
