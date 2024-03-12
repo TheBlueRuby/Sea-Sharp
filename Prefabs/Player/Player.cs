@@ -4,7 +4,7 @@ using static Inventory;
 
 public partial class Player : CharacterBody2D {
 	private const float speed = 150.0f;
-	private const float jump_vel = -300.0f;
+	private const float jump_vel = -350.0f;
 
 	// Get the gravity from the project settings to be synced with RigidBody nodes.
 	private float gravity = ProjectSettings.GetSetting("physics/2d/default_gravity").AsSingle();
@@ -14,11 +14,11 @@ public partial class Player : CharacterBody2D {
 
 	private CompressedTexture2D spr_front;
 	private CompressedTexture2D spr_side;
-	private ConvexPolygonShape2D hb_front;
-	private ConvexPolygonShape2D hb_side;
+	private RectangleShape2D hb_front;
+	private RectangleShape2D hb_side;
 
 	private CompressedTexture2D spr_flpr;
-	private ConvexPolygonShape2D hb_flpr;
+	private RectangleShape2D hb_flpr;
 
 	public Inventory inventory = new();
 
@@ -32,12 +32,12 @@ public partial class Player : CharacterBody2D {
 		// Load the front and side sprites and hitboxes.
 		spr_front = GD.Load<CompressedTexture2D>("res://Prefabs/Player/front.png");
 		spr_side = GD.Load<CompressedTexture2D>("res://Prefabs/Player/side.png");
-		hb_front = GD.Load<ConvexPolygonShape2D>("res://Prefabs/Player/Collision/player_front.tres");
-		hb_side = GD.Load<ConvexPolygonShape2D>("res://Prefabs/Player/Collision/player_side.tres");
+		hb_front = GD.Load<RectangleShape2D>("res://Prefabs/Player/Collision/player_front.tres");
+		hb_side = GD.Load<RectangleShape2D>("res://Prefabs/Player/Collision/player_side.tres");
 
 		// Load the flipper sprites and hitboxes.
 		spr_flpr = GD.Load<CompressedTexture2D>("res://Prefabs/Player/side_flpr.png");
-		hb_flpr = GD.Load<ConvexPolygonShape2D>("res://Prefabs/Player/Collision/player_side_flpr.tres");
+		hb_flpr = GD.Load<RectangleShape2D>("res://Prefabs/Player/Collision/player_side_flpr.tres");
 	}
 
 	/// <summary>
