@@ -1,7 +1,9 @@
-[gd_resource type="TileSet" load_steps=5 format=3 uid="uid://cysxa0vowrp15"]
+[gd_resource type="TileSet" load_steps=6 format=3 uid="uid://cysxa0vowrp15"]
 
 [ext_resource type="Texture2D" uid="uid://bq1pmgt5namiy" path="res://Prefabs/Tilesets/Sand/sand.png" id="1_lyihm"]
 [ext_resource type="Texture2D" uid="uid://blap16r1kh2c2" path="res://Prefabs/Tilesets/Rock/rock.png" id="2_sm2pn"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_24545"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_bkfy6"]
 texture = ExtResource("1_lyihm")
@@ -961,7 +963,8 @@ texture = ExtResource("2_sm2pn")
 
 [resource]
 physics_layer_0/collision_layer = 1
-physics_layer_0/collision_mask = 7
+physics_layer_0/collision_mask = 23
+physics_layer_0/physics_material = SubResource("PhysicsMaterial_24545")
 terrain_set_0/mode = 0
 terrain_set_0/terrain_0/name = "Sand"
 terrain_set_0/terrain_0/color = Color(1, 1, 0, 1)

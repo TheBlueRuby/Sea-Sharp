@@ -26,20 +26,18 @@ public partial class Beam : CharacterBody2D {
 		}
 
 		if (canPhase) {
-			CollisionMask = 4; // only enemies, no tiles
+			CollisionMask = 36; // only enemies and doors, no tiles
 		}
 	}
 
 	public override void _PhysicsProcess(double delta) {
 		var collision = MoveAndCollide(Velocity * (float)delta);
 
-		if (collision == null) {
-			return;
+		if (collision != null) {
+			if (collision.GetCollider().HasMethod("Hit")) {
+				collision.GetCollider().Call("Hit");
+			}
+			QueueFree();
 		}
-
-		if (collision.GetCollider().HasMethod("hit")) {
-			collision.GetCollider().Call("hit");
-		}
-		QueueFree();
 	}
 }

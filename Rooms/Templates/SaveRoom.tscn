@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://bb4sff664f3cn"]
 
 [ext_resource type="TileSet" uid="uid://cysxa0vowrp15" path="res://Prefabs/Tilesets/tiles.tres" id="1_3rxco"]
-[ext_resource type="PackedScene" uid="uid://83f2l10ylffa" path="res://Prefabs/Objects/Door/Door.tscn" id="2_bhts6"]
+[ext_resource type="PackedScene" uid="uid://83f2l10ylffa" path="res://Prefabs/Objects/Door/ProxDoor/ProxDoor.tscn" id="2_bhts6"]
 
 [node name="SaveRoom" type="TileMap"]
 tile_set = ExtResource("1_3rxco")
