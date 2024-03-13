@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://bsb3l8tkkai5p"]
+
+[ext_resource type="PackedScene" uid="uid://bsg0351mx3b4u" path="res://addons/MetroidvaniaSystem/Nodes/RoomInstance.tscn" id="1_bt6tf"]
+[ext_resource type="PackedScene" uid="uid://bb4sff664f3cn" path="res://Rooms/Templates/SaveRoom.tscn" id="1_u0apd"]
+
+[node name="Map" type="Node2D"]
+
+[node name="SaveRoom" parent="." instance=ExtResource("1_u0apd")]
+
+[node name="RoomInstance" parent="." instance=ExtResource("1_bt6tf")]

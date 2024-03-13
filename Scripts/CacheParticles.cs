@@ -9,7 +9,7 @@ public partial class CacheParticles : CanvasLayer
 	public override void _Ready()
 	{
 		// Load shader data into variables
-		pickupParticles = GD.Load<ParticleProcessMaterial>("res://Pickups/ParticleEffects/PickupParticles.tres");
+		pickupParticles = GD.Load<ParticleProcessMaterial>("res://Prefabs/Pickups/ParticleEffects/PickupParticles.tres");
 
 		// List should be updated every new particle added
 		ParticleProcessMaterial[] particleProcessMaterials = {
