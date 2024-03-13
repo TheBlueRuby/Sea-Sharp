@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bd28atk6rsabv"
-path="res://.godot/imported/door.png-b4f1f0b6d7907ee373caf584a1ea0479.ctex"
+uid="uid://dukaysue5rnwc"
+path="res://.godot/imported/ProxDoor.png-88a843a7f8e8fd3f78e2b72dd5919582.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Prefabs/Objects/Door/door.png"
-dest_files=["res://.godot/imported/door.png-b4f1f0b6d7907ee373caf584a1ea0479.ctex"]
+source_file="res://Prefabs/Objects/Door/ProxDoor/ProxDoor.png"
+dest_files=["res://.godot/imported/ProxDoor.png-88a843a7f8e8fd3f78e2b72dd5919582.ctex"]
 
 [params]
 

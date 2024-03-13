@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://bsg0351mx3b4u" path="res://addons/MetroidvaniaSystem/Nodes/RoomInstance.tscn" id="1_frpbp"]
 [ext_resource type="TileSet" uid="uid://cysxa0vowrp15" path="res://Prefabs/Tilesets/tiles.tres" id="1_jp7p4"]
-[ext_resource type="PackedScene" uid="uid://83f2l10ylffa" path="res://Prefabs/Objects/Door/Door.tscn" id="3_lmo3p"]
+[ext_resource type="PackedScene" uid="uid://clhftppyfrx07" path="res://Prefabs/Objects/Door/BubbleDoor/BubbleDoor.tscn" id="3_lmo3p"]
 
 [node name="Map" type="TileMap"]
 tile_set = ExtResource("1_jp7p4")

@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://dwws48qk4otud"]
+[gd_scene load_steps=5 format=3 uid="uid://dwws48qk4otud"]
 
 [ext_resource type="TileSet" uid="uid://cysxa0vowrp15" path="res://Prefabs/Tilesets/tiles.tres" id="1_j1jrx"]
 [ext_resource type="PackedScene" uid="uid://bsg0351mx3b4u" path="res://addons/MetroidvaniaSystem/Nodes/RoomInstance.tscn" id="1_kjbl0"]
-[ext_resource type="PackedScene" uid="uid://83f2l10ylffa" path="res://Prefabs/Objects/Door/Door.tscn" id="3_kmtnh"]
+[ext_resource type="PackedScene" uid="uid://clhftppyfrx07" path="res://Prefabs/Objects/Door/BubbleDoor/BubbleDoor.tscn" id="3_kmtnh"]
+[ext_resource type="PackedScene" uid="uid://83f2l10ylffa" path="res://Prefabs/Objects/Door/ProxDoor/ProxDoor.tscn" id="4_33fbm"]
 
 [node name="Map" type="TileMap"]
 tile_set = ExtResource("1_j1jrx")
@@ -11,12 +12,12 @@ layer_0/tile_data = PackedInt32Array(-65536, 655361, 0, 0, 589825, 2, 65536, 589
 
 [node name="RoomInstance" parent="." instance=ExtResource("1_kjbl0")]
 
-[node name="Door2" parent="." instance=ExtResource("3_kmtnh")]
-position = Vector2(8, 104)
-
 [node name="Door3" parent="." instance=ExtResource("3_kmtnh")]
 position = Vector2(8, 280)
 
 [node name="Door4" parent="." instance=ExtResource("3_kmtnh")]
 position = Vector2(312, 312)
 scale = Vector2(-1, 1)
+
+[node name="Door" parent="." instance=ExtResource("4_33fbm")]
+position = Vector2(8, 104)

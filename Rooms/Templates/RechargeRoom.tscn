@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://cdx6ui1gu6jvp"]
 
 [ext_resource type="TileSet" uid="uid://cysxa0vowrp15" path="res://Prefabs/Tilesets/tiles.tres" id="1_qo413"]
-[ext_resource type="PackedScene" uid="uid://83f2l10ylffa" path="res://Prefabs/Objects/Door/Door.tscn" id="2_ajlib"]
+[ext_resource type="PackedScene" uid="uid://clhftppyfrx07" path="res://Prefabs/Objects/Door/BubbleDoor/BubbleDoor.tscn" id="2_ajlib"]
 
 [node name="RechargeRoom" type="TileMap"]
 tile_set = ExtResource("1_qo413")
