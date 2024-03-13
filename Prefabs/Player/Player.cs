@@ -22,6 +22,13 @@ public partial class Player : CharacterBody2D {
 
 	public Inventory inventory = new();
 
+	private const float beamCooldown = 0.25f;
+	private float beamCooldownTimer = 0f;
+	private PackedScene bubbleBeam;
+	private PackedScene heatBeam;
+	private PackedScene iceBeam;
+	private BeamTypes[] changeOrder = new BeamTypes[] { BeamTypes.None, BeamTypes.BubbleBeam, BeamTypes.HeatBeam, BeamTypes.IceBeam };
+
 	private bool usingFlipper;
 
 	public override void _Ready() {
@@ -38,6 +45,11 @@ public partial class Player : CharacterBody2D {
 		// Load the flipper sprites and hitboxes.
 		spr_flpr = GD.Load<CompressedTexture2D>("res://Prefabs/Player/side_flpr.png");
 		hb_flpr = GD.Load<RectangleShape2D>("res://Prefabs/Player/Collision/player_side_flpr.tres");
+
+		// Load beams
+		bubbleBeam = GD.Load<PackedScene>("res://Prefabs/Player/Beams/BubbleBeam.tscn");
+		heatBeam = GD.Load<PackedScene>("res://Prefabs/Player/Beams/HeatBeam.tscn");
+		iceBeam = GD.Load<PackedScene>("res://Prefabs/Player/Beams/IceBeam.tscn");
 	}
 
 	/// <summary>
@@ -56,6 +68,13 @@ public partial class Player : CharacterBody2D {
 		// Update player
 		Velocity = velocity;
 		MoveAndSlide();
+
+		if (beamCooldownTimer > 0) {
+			beamCooldownTimer -= (float)delta;
+		}
+		CheckFire();
+
+		CheckSave();
 	}
 
 	/// <summary>
@@ -213,16 +232,91 @@ public partial class Player : CharacterBody2D {
 		}
 	}
 
+	/// <summary>
+	/// Gets the inventory data as a formatted string.
+	/// </summary>
+	/// <returns>A formatted string representing the inventory data.</returns>
 	public string GetInventory() {
 		return $"{inventory.ItemsOwned.PrintArray()}-{inventory.BeamsOwned.PrintArray()}-{inventory.ActiveBeam}-{inventory.ActiveItems.PrintArray()}";
 	}
 
-	
+
+	/// <summary>
+	/// Sets the inventory data based on the provided formatted string.
+	/// </summary>
+	/// <param name="saveData">A formatted string representing the inventory data.</param>
 	public void SetInventory(string saveData) {
 		string[] saveFields = saveData.Split("-");
 		inventory.ItemsOwned = BitArray.FromString(saveFields[0]);
 		inventory.BeamsOwned = BitArray.FromString(saveFields[1]);
 		inventory.ActiveBeam = (BeamTypes)Enum.Parse(typeof(BeamTypes), saveFields[2]);
 		inventory.ActiveItems = BitArray.FromString(saveFields[3]);
+	}
+
+	/// <summary>
+	/// Checks if the player can fire the weapon. If they can, spawn a beam.
+	/// </summary>
+	public void CheckFire() {
+		// Attack
+		if (Input.IsActionPressed("wpn_attack")) {
+			// If not in cooldown
+			if (beamCooldownTimer <= 0) {
+				Beam beamInstance = null;
+				// Select beam to spawn
+				switch (inventory.ActiveBeam) {
+					case BeamTypes.BubbleBeam:
+						beamInstance = bubbleBeam.Instantiate<Beam>();
+						break;
+					case BeamTypes.HeatBeam:
+						beamInstance = heatBeam.Instantiate<Beam>();
+						break;
+					case BeamTypes.IceBeam:
+						beamInstance = iceBeam.Instantiate<Beam>();
+						break;
+				}
+
+				// Spawn beam
+				if (beamInstance != null) {
+					beamInstance.Start((int)hitbox.Scale.X, GlobalPosition, inventory.HasBeam(BeamTypes.PressureBeam));
+					GetTree().Root.AddChild(beamInstance);
+				}
+
+				// Reset cooldown
+				beamCooldownTimer = beamCooldown;
+			}
+		}
+
+		// Change weapon
+		if (Input.IsActionJustPressed("wpn_change")) {
+			int index = Array.IndexOf(changeOrder, inventory.ActiveBeam);
+			bool newWeaponSelected = false;
+			int repeats = 0;
+			// Cycle through array until next available beam is selected
+			while (!newWeaponSelected) {
+				if (index >= changeOrder.Length) {
+					index = 0;
+				}
+				// GD.Print(index);
+				if (inventory.HasBeam(changeOrder[index])) {
+					inventory.ActiveBeam = changeOrder[index];
+					newWeaponSelected = true;
+				}
+				index++;
+				repeats++;
+				if (repeats >= changeOrder.Length) {
+					break;
+				}
+			}
+
+		}
+	}
+
+	/// <summary>
+	/// Saves the game when the save key is pressed (default ESC)
+	/// </summary>
+	public void CheckSave() {
+		if (Input.IsActionJustPressed("save")) {
+			GetTree().Root.GetNode("MetSysCompat").Call("save_game");
+		}
 	}
 }
