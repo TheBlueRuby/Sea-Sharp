@@ -1,0 +1,27 @@
+[gd_scene load_steps=3 format=3 uid="uid://bxj3onvf5bc86"]
+
+[ext_resource type="Script" path="res://Prefabs/Enemies/WalkingEnemy.cs" id="1_474me"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_c5lrs"]
+size = Vector2(16, 16)
+
+[node name="WalkingEnemy" type="CharacterBody2D"]
+collision_layer = 4
+collision_mask = 55
+platform_on_leave = 2
+platform_floor_layers = 4294967293
+script = ExtResource("1_474me")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+
+[node name="NavAgent" type="NavigationAgent2D" parent="."]
+
+[node name="Timer" type="Timer" parent="."]
+
+[node name="Hitbox" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_c5lrs")
+
+[node name="LineOfSight" type="RayCast2D" parent="."]
+collision_mask = 35
+
+[connection signal="timeout" from="Timer" to="." method="_OnTimerTimeout"]
