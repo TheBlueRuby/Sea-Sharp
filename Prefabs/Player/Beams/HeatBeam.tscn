@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://bm3bbb8xh1ti1"]
 
 [ext_resource type="Script" path="res://Prefabs/Player/Beams/Beam.cs" id="1_ywlbj"]
-[ext_resource type="Texture2D" uid="uid://8ybja2qaywsj" path="res://Prefabs/Player/Beams/BubbleBeam.png" id="2_6pxry"]
+[ext_resource type="Texture2D" uid="uid://cosrn0ssbu7ku" path="res://Prefabs/Player/Beams/HeatBeam.png" id="2_vgpx4"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ob4u2"]
 size = Vector2(8, 4)
@@ -15,4 +15,4 @@ script = ExtResource("1_ywlbj")
 shape = SubResource("RectangleShape2D_ob4u2")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("2_6pxry")
+texture = ExtResource("2_vgpx4")
