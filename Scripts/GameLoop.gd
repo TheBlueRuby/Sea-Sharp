@@ -43,6 +43,8 @@ func save_game():
 func init_room():
 	MetSys.get_current_room_instance().adjust_camera_limits($MainCamera)
 	
+static func get_singleton() -> Game:
+	return (Game as Script).get_meta(&"singleton") as Game
 
 # If room is saved with UID then grab the room's name for loading
 func get_uid_room(uid: String) -> String:

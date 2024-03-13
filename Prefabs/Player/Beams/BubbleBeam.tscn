@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://dw5gi007fjq8m"]
+
+[ext_resource type="Script" path="res://Prefabs/Player/Beams/Beam.cs" id="1_6qn52"]
+[ext_resource type="Texture2D" uid="uid://8ybja2qaywsj" path="res://Prefabs/Player/Beams/BubbleBeam.png" id="2_i3v5p"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ob4u2"]
+size = Vector2(8, 4)
+
+[node name="Beam" type="CharacterBody2D"]
+collision_layer = 16
+collision_mask = 5
+script = ExtResource("1_6qn52")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_ob4u2")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_i3v5p")
