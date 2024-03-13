@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://biish8p3u12nw"]
+[gd_scene load_steps=6 format=3 uid="uid://biish8p3u12nw"]
 
 [ext_resource type="PackedScene" uid="uid://bsg0351mx3b4u" path="res://addons/MetroidvaniaSystem/Nodes/RoomInstance.tscn" id="1_6wxma"]
 [ext_resource type="TileSet" uid="uid://cysxa0vowrp15" path="res://Prefabs/Tilesets/tiles.tres" id="1_u4s7v"]
 [ext_resource type="PackedScene" uid="uid://clhftppyfrx07" path="res://Prefabs/Objects/Door/BubbleDoor/BubbleDoor.tscn" id="3_weudk"]
+[ext_resource type="PackedScene" uid="uid://6u3v3l28jeun" path="res://Prefabs/Objects/Door/PressureDoor/PressureDoor.tscn" id="4_4cqak"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4d8pb"]
 size = Vector2(352, 192)
@@ -17,12 +18,12 @@ layer_0/tile_data = PackedInt32Array(65535, 524288, 1, 131071, 524288, 3, -1, 52
 [node name="Door" parent="." instance=ExtResource("3_weudk")]
 position = Vector2(8, 56)
 
-[node name="Door2" parent="." instance=ExtResource("3_weudk")]
-position = Vector2(312, 56)
-scale = Vector2(-1, 1)
-
 [node name="Area2D" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 position = Vector2(160, 272)
 shape = SubResource("RectangleShape2D_4d8pb")
+
+[node name="Door2" parent="." instance=ExtResource("4_4cqak")]
+position = Vector2(312, 56)
+scale = Vector2(-1, 1)

@@ -34,6 +34,10 @@ public partial class Door : Node2D {
 	}
 
 	private void OnPlayerActivate(Node2D body) {
+
+		if (beamType == "Pressure" && !GetTree().Root.GetNode<Player>("GameLoop/Player").inventory.HasItem(Inventory.ItemTypes.PressureSuit)) {
+			return;
+		}
 		playerInArea = true;
 		OpenDoor();
 	}
@@ -46,6 +50,9 @@ public partial class Door : Node2D {
 	private void OnBeamActivate(Node2D body) {
 		// If beam is the same type as the door or the door is a proximity door
 		if (body.SceneFilePath.Contains(beamType) || beamType == "Prox") {
+			OpenDoor();
+		}
+		if (beamType == "Pressure" && GetTree().Root.GetNode<Player>("GameLoop/Player").inventory.HasItem(Inventory.ItemTypes.PressureSuit)) {
 			OpenDoor();
 		}
 	}
