@@ -278,7 +278,7 @@ public partial class Player : CharacterBody2D {
 				// Spawn beam
 				if (beamInstance != null) {
 					beamInstance.Start((int)hitbox.Scale.X, GlobalPosition, inventory.HasBeam(BeamTypes.PressureBeam));
-					GetTree().Root.AddChild(beamInstance);
+					GetTree().Root.GetNode("GameLoop/Map").AddChild(beamInstance);
 				}
 
 				// Reset cooldown
