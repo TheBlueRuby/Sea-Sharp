@@ -49,7 +49,7 @@ public class Inventory {
 	/// <param name="active">The active state to set.</param>
 	public void SetActiveItem(ItemTypes item, bool active) {
 		if (HasItem(item)) {
-			ActiveItems.SetBitVal((int)item, active);
+			ActiveItems.SetBitVal((uint)item, active);
 		}
 	}
 
@@ -88,9 +88,9 @@ public class Inventory {
 	/// <param name="add">A boolean value indicating whether to add or remove the beam type.</param>
 	public void ModifyBeams(BeamTypes beam, bool add) {
 		if (add) {
-			BeamsOwned.SetBit((int)beam);
+			BeamsOwned.SetBit((uint)beam);
 		} else {
-			BeamsOwned.ClearBit((int)beam);
+			BeamsOwned.ClearBit((uint)beam);
 		}
 	}
 
@@ -101,9 +101,9 @@ public class Inventory {
 	/// <param name="add">A boolean value indicating whether to add or remove the item.</param>
 	public void ModifyItems(ItemTypes item, bool add) {
 		if (add) {
-			ItemsOwned.SetBit((int)item);
+			ItemsOwned.SetBit((uint)item);
 		} else {
-			ItemsOwned.ClearBit((int)item);
+			ItemsOwned.ClearBit((uint)item);
 		}
 	}
 

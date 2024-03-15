@@ -2,7 +2,7 @@ using System.Diagnostics;
 
 [DebuggerDisplay("{PrintArray(), nq}")]
 public class BitArray {
-	private int array;
+	private uint array;
 
 	public BitArray() {
 		array = 0;
@@ -32,7 +32,7 @@ public class BitArray {
 	/// </summary>
 	/// <param name="bit">The index of the bit to set.</param>
 	/// <param name="on">The value to set the bit to. True for 1, false for 0.</param>
-	public void SetBitVal(int bit, bool on) {
+	public void SetBitVal(uint bit, bool on) {
 		if (on) {
 			SetBit(bit);
 		} else {
@@ -44,7 +44,7 @@ public class BitArray {
 	/// Sets the specified bit in the BitArray.
 	/// </summary>
 	/// <param name="bit">The bit to set.</param>
-	public void SetBit(int bit) {
+	public void SetBit(uint bit) {
 		array |= bit;
 	}
 
@@ -52,7 +52,7 @@ public class BitArray {
 	/// Clears the specified bit in the BitArray.
 	/// </summary>
 	/// <param name="bit">The index of the bit to clear.</param>
-	public void ClearBit(int bit) {
+	public void ClearBit(uint bit) {
 		array &= ~array | bit;
 	}
 
@@ -66,8 +66,8 @@ public class BitArray {
 
 	public static BitArray FromString(string stringRep) {
 		BitArray output = new BitArray();
-		for (int i = 0; i < 32; i++) {
-			if (stringRep[i] == '1') {
+		for (uint i = 0; i < 32; i++) {
+			if (stringRep[(int)i] == '1') {
 				output.SetBit(2^i);
 			}
 		}
