@@ -69,4 +69,11 @@ public partial class KingCrab : CharacterBody2D {
 		state = KingCrabState.MovingLeft;
 		Velocity = velocity;
 	}
+
+
+	private void OnHitPlayer(Node2D body) {
+		if (body is Player player) {
+			player.Hit(33);
+		}
+	}
 }
