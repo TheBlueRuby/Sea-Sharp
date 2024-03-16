@@ -29,6 +29,11 @@ public partial class Player : CharacterBody2D {
 	private PackedScene iceBeam;
 	private BeamTypes[] changeOrder = new BeamTypes[] { BeamTypes.None, BeamTypes.BubbleBeam, BeamTypes.HeatBeam, BeamTypes.IceBeam };
 
+	public int maxHealth = 100;
+	public int health;
+	private const float invSeconds = 1f;
+	private float invTimer;
+
 	private bool usingFlipper;
 
 	public override void _Ready() {
@@ -50,6 +55,8 @@ public partial class Player : CharacterBody2D {
 		bubbleBeam = GD.Load<PackedScene>("res://Prefabs/Player/Beams/BubbleBeam.tscn");
 		heatBeam = GD.Load<PackedScene>("res://Prefabs/Player/Beams/HeatBeam.tscn");
 		iceBeam = GD.Load<PackedScene>("res://Prefabs/Player/Beams/IceBeam.tscn");
+
+		health = maxHealth;
 	}
 
 	/// <summary>
@@ -75,6 +82,14 @@ public partial class Player : CharacterBody2D {
 		CheckFire();
 
 		CheckSave();
+
+		// Update health bar
+		GetTree().Root.GetNode<ProgressBar>("GameLoop/UI/HealthBar").Value = ((float)health / (float)maxHealth) * 100;
+
+		// Count down I-Frames
+		if (invTimer > 0f) {
+			invTimer -= (float)delta;
+		}
 	}
 
 	/// <summary>
@@ -317,6 +332,13 @@ public partial class Player : CharacterBody2D {
 	public void CheckSave() {
 		if (Input.IsActionJustPressed("save")) {
 			GetTree().Root.GetNode("MetSysCompat").Call("save_game");
+		}
+	}
+
+	public void Hit(int damage) {
+		if (invTimer <= 0) {
+			health -= damage;
+			invTimer = invSeconds;
 		}
 	}
 }
