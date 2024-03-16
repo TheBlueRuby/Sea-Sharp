@@ -24,4 +24,12 @@ shape = SubResource("RectangleShape2D_c5lrs")
 [node name="LineOfSight" type="RayCast2D" parent="."]
 collision_mask = 35
 
+[node name="Hurtbox" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 2
+
+[node name="HurtboxColl" type="CollisionShape2D" parent="Hurtbox"]
+shape = SubResource("RectangleShape2D_c5lrs")
+
 [connection signal="timeout" from="Timer" to="." method="_OnTimerTimeout"]
+[connection signal="body_entered" from="Hurtbox" to="." method="OnHitPlayer"]

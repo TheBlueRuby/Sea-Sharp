@@ -12,6 +12,9 @@ public partial class WalkingEnemy : CharacterBody2D {
 	public int MAX_SEE_DIST = 256;
 
 	[Export]
+	public int DAMAGE;
+
+	[Export]
 	public Node2D player;
 
 	private NavigationAgent2D navAgent;
@@ -25,7 +28,7 @@ public partial class WalkingEnemy : CharacterBody2D {
 		Init();
 	}
 
-	public void Init(int speed = 100, int jumpVel = 450, int maxSeeDist = 256) {
+	public void Init(int speed = 100, int jumpVel = 450, int maxSeeDist = 256, int damage = 5) {
 		navAgent = GetNode<NavigationAgent2D>("NavAgent");
 		playerScanner = GetNode<RayCast2D>("LineOfSight");
 		player ??= GetTree().Root.GetNode<Node2D>("GameLoop/Player");
@@ -36,6 +39,7 @@ public partial class WalkingEnemy : CharacterBody2D {
 		SPEED = speed;
 		JUMP_VEL = jumpVel;
 		MAX_SEE_DIST = maxSeeDist;
+		DAMAGE = damage;
 	}
 
 	public override void _PhysicsProcess(double delta) {
@@ -82,4 +86,11 @@ public partial class WalkingEnemy : CharacterBody2D {
 	private void Hit() {
 		QueueFree();
 	}
+
+	private void OnHitPlayer(Node2D body) {
+		if (body is Player player) {
+			player.Hit(DAMAGE);
+		}
+	}
 }
+
