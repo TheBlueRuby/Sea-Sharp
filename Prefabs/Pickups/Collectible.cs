@@ -19,7 +19,7 @@ public partial class Collectible : Node2D {
 		MetSysCompat = GetTree().Root.GetNode<Node>("MetSysCompat");
 
 		// Set object owner for MetSys
-		Owner = GetParent().GetParent();
+		Owner = GetTree().Root.GetNode("GameLoop/Map");
 
 		// Register as a MetSys object.
 		// If the object has already been registered, delete.

@@ -6,10 +6,11 @@ public partial class KingCrab : CharacterBody2D {
 		MovingLeft,
 		MovingRight,
 		Jumping,
+		Dead,
 	}
 
 	private const int jumpVel = -300;
-	private KingCrabState state;
+	private KingCrabState state = KingCrabState.MovingLeft;
 	private RandomNumberGenerator rng;
 
 	private float gravity = ProjectSettings.GetSetting("physics/2d/default_gravity").AsSingle();
@@ -22,6 +23,8 @@ public partial class KingCrab : CharacterBody2D {
 	public Sprite2D sprite;
 	private ProgressBar healthBar;
 
+	private PackedScene drop;
+
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready() {
 		rng = new RandomNumberGenerator();
@@ -32,9 +35,14 @@ public partial class KingCrab : CharacterBody2D {
 		particles = GetNode<GpuParticles2D>("BossParticles");
 		sprite = GetNode<Sprite2D>("Sprite2D");
 		healthBar = GetNode<ProgressBar>("HealthBar");
+
+		drop = GD.Load<PackedScene>("res://Prefabs/Pickups/Misc/AnglerCap.tscn");
 	}
 
 	public override void _PhysicsProcess(double delta) {
+		if (state == KingCrabState.Dead) {
+			return;
+		}
 		if (IsOnFloor() && rng.RandiRange(0, 50) == 0) {
 			state = KingCrabState.Jumping;
 		}
@@ -58,7 +66,7 @@ public partial class KingCrab : CharacterBody2D {
 		MoveAndSlide();
 
 		healthBar.Value = ((float)health / (float)maxHealth) * 100;
-		GD.Print(health);
+		// GD.Print(health);
 		if (health <= 0) {
 			Die();
 		}
@@ -102,6 +110,10 @@ public partial class KingCrab : CharacterBody2D {
 	}
 
 	private async void Die() {
+		state = KingCrabState.Dead;
+
+		// Spawn item drop
+		SpawnItem();
 
 		// Hide the texture so particles are visible
 		sprite.Visible = false;
@@ -118,5 +130,11 @@ public partial class KingCrab : CharacterBody2D {
 		await ToSignal(GetTree().CreateTimer(3), "timeout");
 
 		QueueFree();
+	}
+
+	private void SpawnItem() {
+		Node2D droppedItem = (Node2D)drop.Instantiate();
+		droppedItem.GlobalPosition = GlobalPosition;
+		CallDeferred("add_sibling", droppedItem);
 	}
 }
