@@ -24,6 +24,9 @@ public partial class KingCrab : CharacterBody2D {
 	private ProgressBar healthBar;
 
 	private PackedScene drop;
+	
+	private Node MetSys;
+	private Node MetSysCompat;
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready() {
@@ -37,6 +40,19 @@ public partial class KingCrab : CharacterBody2D {
 		healthBar = GetNode<ProgressBar>("HealthBar");
 
 		drop = GD.Load<PackedScene>("res://Prefabs/Pickups/Misc/AnglerCap.tscn");
+
+		// Initialise the MetSys pointer
+		MetSys = GetTree().Root.GetNode<Node>("MetSys");
+		MetSysCompat = GetTree().Root.GetNode<Node>("MetSysCompat");
+
+		// Set object owner for MetSys
+		Owner = GetTree().Root.GetNode("GameLoop/Map");
+
+		// Register as a MetSys object.
+		// If the object has already been registered, delete.
+		if ((bool)MetSysCompat.Call("register_obj_marker", this)) {
+			QueueFree();
+		}
 	}
 
 	public override void _PhysicsProcess(double delta) {
@@ -111,6 +127,8 @@ public partial class KingCrab : CharacterBody2D {
 
 	private async void Die() {
 		state = KingCrabState.Dead;
+		// Store MetSys Object
+		MetSysCompat.Call("store_obj", this);
 
 		// Spawn item drop
 		SpawnItem();
