@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://brybe25wbru73" path="res://Prefabs/Enemies/Crab/Crab.png" id="2_wf3jn"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_c5lrs"]
-size = Vector2(14, 10)
+size = Vector2(14, 14)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7lxjk"]
 size = Vector2(16, 7)
@@ -26,7 +26,7 @@ wait_time = 0.05
 autostart = true
 
 [node name="Hitbox" type="CollisionShape2D" parent="."]
-position = Vector2(0, 3)
+position = Vector2(0, 1)
 shape = SubResource("RectangleShape2D_c5lrs")
 
 [node name="LineOfSight" type="RayCast2D" parent="."]

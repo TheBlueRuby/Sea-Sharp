@@ -18,11 +18,20 @@ public partial class KingCrab : CharacterBody2D {
 	public int maxHealth = 10;
 	public int health;
 
+	public GpuParticles2D particles;
+	public Sprite2D sprite;
+	private ProgressBar healthBar;
+
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready() {
 		rng = new RandomNumberGenerator();
 		rng.Randomize();
+
 		health = maxHealth;
+
+		particles = GetNode<GpuParticles2D>("BossParticles");
+		sprite = GetNode<Sprite2D>("Sprite2D");
+		healthBar = GetNode<ProgressBar>("HealthBar");
 	}
 
 	public override void _PhysicsProcess(double delta) {
@@ -48,7 +57,11 @@ public partial class KingCrab : CharacterBody2D {
 
 		MoveAndSlide();
 
-		GetNode<ProgressBar>("HealthBar").Value = ((float)health / (float)maxHealth) * 100;
+		healthBar.Value = ((float)health / (float)maxHealth) * 100;
+		GD.Print(health);
+		if (health <= 0) {
+			Die();
+		}
 	}
 
 	public void MoveLeft(double delta) {
@@ -86,5 +99,24 @@ public partial class KingCrab : CharacterBody2D {
 
 	public void Hit() {
 		health--;
+	}
+
+	private async void Die() {
+
+		// Hide the texture so particles are visible
+		sprite.Visible = false;
+		healthBar.Visible = false;
+
+		// Spawn a set of particles
+		particles.Emitting = true;
+
+		// Disable collision
+		GetNode<Area2D>("HurtBox").ProcessMode = ProcessModeEnum.Disabled;
+		GetNode<CollisionPolygon2D>("MovementHitbox").Disabled = true;
+
+		// Waits until particles are done emitting
+		await ToSignal(GetTree().CreateTimer(3), "timeout");
+
+		QueueFree();
 	}
 }
