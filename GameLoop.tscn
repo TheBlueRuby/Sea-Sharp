@@ -30,8 +30,10 @@ grow_horizontal = 0
 scale = Vector2(0.25, 0.25)
 
 [node name="HealthBar" type="ProgressBar" parent="UI"]
-offset_right = 96.0
-offset_bottom = 8.0
+offset_left = 1.0
+offset_top = 1.0
+offset_right = 97.0
+offset_bottom = 9.0
 theme = ExtResource("5_62ggy")
 step = 1.0
 value = 50.0
