@@ -14,10 +14,15 @@ public partial class KingCrab : CharacterBody2D {
 
 	private float gravity = ProjectSettings.GetSetting("physics/2d/default_gravity").AsSingle();
 
+	[Export]
+	public int maxHealth = 10;
+	public int health;
+
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready() {
 		rng = new RandomNumberGenerator();
 		rng.Randomize();
+		health = maxHealth;
 	}
 
 	public override void _PhysicsProcess(double delta) {
@@ -42,6 +47,8 @@ public partial class KingCrab : CharacterBody2D {
 		}
 
 		MoveAndSlide();
+
+		GetNode<ProgressBar>("HealthBar").Value = ((float)health / (float)maxHealth) * 100;
 	}
 
 	public void MoveLeft(double delta) {
@@ -75,5 +82,9 @@ public partial class KingCrab : CharacterBody2D {
 		if (body is Player player) {
 			player.Hit(33);
 		}
+	}
+
+	public void Hit() {
+		health--;
 	}
 }
