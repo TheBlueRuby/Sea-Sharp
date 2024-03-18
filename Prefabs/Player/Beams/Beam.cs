@@ -4,7 +4,7 @@ using System;
 public partial class Beam : CharacterBody2D {
 	private float speed = 300.0f;
 	private int facing;
-	private bool canPhase;
+	private bool canPhase = false;
 
 	public Sprite2D texture;
 

@@ -30,7 +30,7 @@ public partial class Player : CharacterBody2D {
 	private BeamTypes[] changeOrder = new BeamTypes[] { BeamTypes.None, BeamTypes.BubbleBeam, BeamTypes.HeatBeam, BeamTypes.IceBeam };
 
 	public int maxHealth = 100;
-	public int health;
+	public int health = 100;
 	private const float invSeconds = 1f;
 	private float invTimer;
 
@@ -82,7 +82,7 @@ public partial class Player : CharacterBody2D {
 		CheckSave();
 
 		// Update health bar
-		GD.Print(((float)health / (float)maxHealth) * 100);
+		// GD.Print(((float)health / (float)maxHealth) * 100);
 		GetTree().Root.GetNode<ProgressBar>("GameLoop/UI/HealthBar").Value = ((float)health / (float)maxHealth) * 100;
 
 		// Count down I-Frames
