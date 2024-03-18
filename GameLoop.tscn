@@ -36,7 +36,7 @@ offset_right = 97.0
 offset_bottom = 9.0
 theme = ExtResource("5_62ggy")
 step = 1.0
-value = 50.0
+value = 90.0
 show_percentage = false
 
 [node name="WaterEffectLayer" type="CanvasLayer" parent="."]

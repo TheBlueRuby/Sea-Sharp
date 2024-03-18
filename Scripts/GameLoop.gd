@@ -4,8 +4,6 @@ class_name Game
 const SaveManager = preload("res://addons/MetroidvaniaSystem/Template/Scripts/SaveManager.gd")
 const SAVE_PATH = "user://SeaSharpSave.sav"
 
-var generated_rooms: Array[Vector3i]
-
 func _ready():
 	var spawn_room = "SpawnRoom.tscn"
 	get_script().set_meta(&"singleton", self)
@@ -17,7 +15,13 @@ func _ready():
 		var save_manager := SaveManager.new()
 		save_manager.load_from_text(SAVE_PATH)
 		
-		generated_rooms.assign(save_manager.get_value("generated_rooms"))
+		var playerPos = save_manager.get_value("player_pos")
+		if (playerPos == null):
+			playerPos = Vector2(160, 90)
+		player.LoadPos(playerPos)
+
+		player.LoadHealth(save_manager.get_value("health"), save_manager.get_value("max_health"))
+
 		player.SetInventory(save_manager.get_value("inventory"))
 		spawn_room = save_manager.get_value("current_room")
 		
@@ -35,7 +39,9 @@ func _ready():
 # Save game using MetSys SaveManager.
 func save_game():
 	var save_manager := SaveManager.new()
-	save_manager.set_value("generated_rooms", generated_rooms)
+	save_manager.set_value("player_pos", player.global_position)
+	save_manager.set_value("player_health", player.health)
+	save_manager.set_value("max_health", player.maxHealth)
 	save_manager.set_value("current_room", MetSys.get_current_room_name())
 	save_manager.set_value("inventory", player.GetInventory())
 	save_manager.save_as_text(SAVE_PATH)

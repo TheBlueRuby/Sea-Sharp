@@ -55,8 +55,6 @@ public partial class Player : CharacterBody2D {
 		bubbleBeam = GD.Load<PackedScene>("res://Prefabs/Player/Beams/BubbleBeam.tscn");
 		heatBeam = GD.Load<PackedScene>("res://Prefabs/Player/Beams/HeatBeam.tscn");
 		iceBeam = GD.Load<PackedScene>("res://Prefabs/Player/Beams/IceBeam.tscn");
-
-		health = maxHealth;
 	}
 
 	/// <summary>
@@ -84,6 +82,7 @@ public partial class Player : CharacterBody2D {
 		CheckSave();
 
 		// Update health bar
+		GD.Print(((float)health / (float)maxHealth) * 100);
 		GetTree().Root.GetNode<ProgressBar>("GameLoop/UI/HealthBar").Value = ((float)health / (float)maxHealth) * 100;
 
 		// Count down I-Frames
@@ -340,5 +339,14 @@ public partial class Player : CharacterBody2D {
 			health -= damage;
 			invTimer = invSeconds;
 		}
+	}
+
+	public void LoadPos(Vector2 position) {
+		GlobalPosition = position;
+	}
+
+	public void LoadHealth(int newHealth = 100, int newMaxHealth = 100) {
+		health = newHealth;
+		maxHealth = newMaxHealth;
 	}
 }

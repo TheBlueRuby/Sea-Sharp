@@ -20,4 +20,4 @@ position = Vector2(632, 136)
 scale = Vector2(-1, 1)
 
 [node name="Crab" parent="." instance=ExtResource("4_n58tj")]
-position = Vector2(328, 152)
+position = Vector2(344, 152)
