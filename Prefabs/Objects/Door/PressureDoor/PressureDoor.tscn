@@ -11,7 +11,7 @@ points = PackedVector2Array(0, -22, 2, -20, 4, -15, 5, -11, 6, -7, 6, 7, 5, 12, 
 size = Vector2(36, 48)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ioedj"]
-size = Vector2(16, 48)
+size = Vector2(34, 48)
 
 [node name="Door" type="Node2D"]
 script = ExtResource("1_mlnj1")
@@ -42,6 +42,7 @@ shape = SubResource("RectangleShape2D_2njy4")
 collision_mask = 48
 
 [node name="Hitbox" type="CollisionShape2D" parent="BeamDetector"]
+position = Vector2(9, 0)
 shape = SubResource("RectangleShape2D_ioedj")
 
 [connection signal="body_entered" from="PlayerDetector" to="." method="OnPlayerActivate"]

@@ -200,11 +200,15 @@ public partial class Player : CharacterBody2D {
 
 			case BeamPickup beam:
 				inventory.ModifyBeams(beam.Type, true);
+				if(inventory.ActiveBeam == BeamTypes.None) {
+					inventory.SetActiveBeam(beam.Type);
+				}
 				GD.Print(inventory.BeamsOwned.PrintArray());
 				break;
 
 			case ItemPickup item:
 				inventory.ModifyItems(item.Type, true);
+				inventory.SetActiveItem(item.Type, true);
 				GD.Print(inventory.ItemsOwned.PrintArray());
 				break;
 

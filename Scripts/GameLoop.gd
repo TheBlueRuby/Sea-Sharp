@@ -27,6 +27,7 @@ func _ready():
 		
 	else:
 		# If no data exists, set empty one.
+		player.LoadHealth(100, 100)
 		MetSys.set_save_data()
 	
 	room_loaded.connect(init_room, CONNECT_DEFERRED)
