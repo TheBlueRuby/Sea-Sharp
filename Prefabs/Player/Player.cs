@@ -200,7 +200,7 @@ public partial class Player : CharacterBody2D {
 
 			case BeamPickup beam:
 				inventory.ModifyBeams(beam.Type, true);
-				if(inventory.ActiveBeam == BeamTypes.None) {
+				if (inventory.ActiveBeam == BeamTypes.None) {
 					inventory.SetActiveBeam(beam.Type);
 				}
 				GD.Print(inventory.BeamsOwned.PrintArray());
@@ -209,18 +209,18 @@ public partial class Player : CharacterBody2D {
 			case ItemPickup item:
 				inventory.ModifyItems(item.Type, true);
 				inventory.SetActiveItem(item.Type, true);
-				GD.Print(inventory.ItemsOwned.PrintArray());
+				GD.Print(inventory.PrintOwnedItems());
 				break;
 
 			default:
 				break;
 		}
 
-		// Save the game
-		GetTree().Root.GetNode("GameLoop").Call("save_game");
-
 		// Spawn particles and delete the pickup object
 		collectible.Collect();
+
+		// Save the game
+		GetTree().Root.GetNode("GameLoop").Call("save_game");
 
 	}
 
@@ -255,7 +255,7 @@ public partial class Player : CharacterBody2D {
 	/// </summary>
 	/// <returns>A formatted string representing the inventory data.</returns>
 	public string GetInventory() {
-		return $"{inventory.ItemsOwned.PrintArray()}-{inventory.BeamsOwned.PrintArray()}-{inventory.ActiveBeam}-{inventory.ActiveItems.PrintArray()}";
+		return inventory.GetInventory();
 	}
 
 
@@ -264,11 +264,7 @@ public partial class Player : CharacterBody2D {
 	/// </summary>
 	/// <param name="saveData">A formatted string representing the inventory data.</param>
 	public void SetInventory(string saveData) {
-		string[] saveFields = saveData.Split("-");
-		inventory.ItemsOwned = BitArray.FromString(saveFields[0]);
-		inventory.BeamsOwned = BitArray.FromString(saveFields[1]);
-		inventory.ActiveBeam = (BeamTypes)Enum.Parse(typeof(BeamTypes), saveFields[2]);
-		inventory.ActiveItems = BitArray.FromString(saveFields[3]);
+		inventory.SetInventory(saveData);
 	}
 
 	/// <summary>
@@ -335,6 +331,7 @@ public partial class Player : CharacterBody2D {
 	public void CheckSave() {
 		if (Input.IsActionJustPressed("save")) {
 			GetTree().Root.GetNode("MetSysCompat").Call("save_game");
+			GD.Print(inventory.PrintOwnedItems());
 		}
 	}
 

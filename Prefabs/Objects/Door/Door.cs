@@ -55,6 +55,7 @@ public partial class Door : Node2D {
 		if (beamType == "Pressure" && GetTree().Root.GetNode<Player>("GameLoop/Player").inventory.HasItem(Inventory.ItemTypes.PressureSuit)) {
 			OpenDoor();
 		}
+		// GD.Print(beamType + " " + body.SceneFilePath + " " + GetTree().Root.GetNode<Player>("GameLoop/Player").inventory.HasItem(Inventory.ItemTypes.PressureSuit));
 	}
 
 	public void OpenDoor() {

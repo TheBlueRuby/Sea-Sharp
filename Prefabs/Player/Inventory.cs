@@ -124,4 +124,37 @@ public class Inventory {
 	public static BeamTypes StringToBeamType(string beam) {
 		return (BeamTypes)Enum.Parse(typeof(BeamTypes), beam);
 	}
+
+	public string PrintOwnedItems() {
+		string output = "";
+		output += "Test: " + ItemsOwned.CheckBitPow((int)ItemTypes.Test) + "\n";
+		output += "AnglerCap: " + ItemsOwned.CheckBitPow((int)ItemTypes.AnglerCap) + "\n";
+		output += "Flippers: " + ItemsOwned.CheckBitPow((int)ItemTypes.Flippers) + "\n";
+		output += "Propeller: " + ItemsOwned.CheckBitPow((int)ItemTypes.Propeller) + "\n";
+		output += "PressureSuit: " + ItemsOwned.CheckBitPow((int)ItemTypes.PressureSuit) + "\n";
+
+
+		return output;
+	}
+
+	/// <summary>
+	/// Gets the inventory data as a formatted string.
+	/// </summary>
+	/// <returns>A formatted string representing the inventory data.</returns>
+	public string GetInventory() {
+		return $"{ItemsOwned.PrintArray()}-{BeamsOwned.PrintArray()}-{ActiveBeam}-{ActiveItems.PrintArray()}";
+	}
+
+
+	/// <summary>
+	/// Sets the inventory data based on the provided formatted string.
+	/// </summary>
+	/// <param name="saveData">A formatted string representing the inventory data.</param>
+	public void SetInventory(string saveData) {
+		string[] saveFields = saveData.Split("-");
+		ItemsOwned = BitArray.FromString(saveFields[0]);
+		BeamsOwned = BitArray.FromString(saveFields[1]);
+		ActiveBeam = (BeamTypes)Enum.Parse(typeof(BeamTypes), saveFields[2]);
+		ActiveItems = BitArray.FromString(saveFields[3]);
+	}
 }
