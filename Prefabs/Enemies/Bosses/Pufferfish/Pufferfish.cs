@@ -18,8 +18,8 @@ public partial class Pufferfish : CharacterBody2D {
 	public int health;
 
 	public GpuParticles2D particles;
-	public CollisionShape2D inflated;
-	public CollisionShape2D deflated;
+	public CollisionShape2D inflatedCollision;
+	public CollisionShape2D deflatedCollision;
 	private ProgressBar healthBar;
 
 	private Node MetSys;
@@ -27,13 +27,17 @@ public partial class Pufferfish : CharacterBody2D {
 
 	private Node2D player;
 
+	private const float maxCooldown = 2f;
+	private float cooldown;
+
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready() {
 		health = maxHealth;
+		cooldown = maxCooldown;
 
 		particles = GetNode<GpuParticles2D>("BossParticles");
-		inflated = GetNode<CollisionShape2D>("Inflated");
-		deflated = GetNode<CollisionShape2D>("Deflated");
+		inflatedCollision = GetNode<CollisionShape2D>("Inflated");
+		deflatedCollision = GetNode<CollisionShape2D>("Deflated");
 		healthBar = GetNode<ProgressBar>("HealthBar");
 		player = GetTree().Root.GetNode<Node2D>("GameLoop/Player");
 
@@ -52,11 +56,20 @@ public partial class Pufferfish : CharacterBody2D {
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta) {
-		Vector2 velocity = Velocity;
+	public override void _PhysicsProcess(double delta) {
+		GD.Print(state + " in " + cooldown);
+
+		if (state == PufferfishState.Dead) {
+			return;
+		}
+
+		if (cooldown > 0) {
+			cooldown -= (float)delta;
+			MoveAndSlide();
+			return;
+		}
+
 		switch (state) {
-			case PufferfishState.Dead:
-				return;
 			case PufferfishState.Idle:
 				ScanForPlayer();
 				break;
@@ -70,29 +83,61 @@ public partial class Pufferfish : CharacterBody2D {
 				Deflate();
 				break;
 		}
-		Velocity = velocity;
+		MoveAndSlide();
+
+		cooldown = maxCooldown;
 	}
 
 	private void ScanForPlayer() {
-		throw new NotImplementedException();
+		if (PlayerInRange()) {
+			state = PufferfishState.Inflating;
+		}
+		return;
 	}
 
 
 	private void Charge() {
-		throw new NotImplementedException();
+		Vector2 velocity = Velocity;
+		if (player.GlobalPosition.X < GlobalPosition.X) {
+			velocity.X = -100;
+		} else if (player.GlobalPosition.X > GlobalPosition.X) {
+			velocity.X = 100;
+		}
+		Velocity = velocity;
 		state = PufferfishState.Deflating;
 	}
 
 
 	private void Inflate() {
-		throw new NotImplementedException();
+		inflatedCollision.SetDeferred("disabled", false);
+		deflatedCollision.SetDeferred("disabled", true);
+
+		inflatedCollision.GetNode<Sprite2D>("Sprite2D").Visible = true;
+		deflatedCollision.GetNode<Sprite2D>("Sprite2D").Visible = false;
+
+		isInflated = true;
+
 		state = PufferfishState.Charging;
 	}
 
 
 	private void Deflate() {
-		throw new NotImplementedException();
+		inflatedCollision.SetDeferred("disabled", true);
+		deflatedCollision.SetDeferred("disabled", false);
+
+		inflatedCollision.GetNode<Sprite2D>("Sprite2D").Visible = false;
+		deflatedCollision.GetNode<Sprite2D>("Sprite2D").Visible = true;
+
+		isInflated = false;
+
 		state = PufferfishState.Idle;
+	}
+
+	private bool PlayerInRange() {
+		if (Math.Abs(player.GlobalPosition.Y - GlobalPosition.Y) < 32) {
+			return true;
+		}
+		return false;
 	}
 
 }

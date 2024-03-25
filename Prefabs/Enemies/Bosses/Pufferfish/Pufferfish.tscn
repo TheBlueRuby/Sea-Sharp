@@ -16,13 +16,17 @@ radius = 10.0
 radius = 23.0
 
 [node name="Pufferfish" type="CharacterBody2D"]
+collision_layer = 36
+collision_mask = 3
+motion_mode = 1
 script = ExtResource("1_dm1fk")
 
 [node name="Inflated" type="CollisionShape2D" parent="."]
-visible = false
 shape = SubResource("CircleShape2D_ya8jd")
+disabled = true
 
 [node name="Sprite2D" type="Sprite2D" parent="Inflated"]
+visible = false
 position = Vector2(-2, 0)
 texture = ExtResource("1_ocsyy")
 
