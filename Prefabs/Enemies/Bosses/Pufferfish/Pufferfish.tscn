@@ -1,0 +1,30 @@
+[gd_scene load_steps=6 format=3 uid="uid://cie8uf8t7jhcy"]
+
+[ext_resource type="Script" path="res://Prefabs/Enemies/Bosses/Pufferfish/Pufferfish.cs" id="1_dm1fk"]
+[ext_resource type="Texture2D" uid="uid://cvgwp14o0ja8k" path="res://Prefabs/Enemies/Bosses/Pufferfish/Pufferfish-Inflated.png" id="1_ocsyy"]
+[ext_resource type="Texture2D" uid="uid://emxbj61k48m4" path="res://Prefabs/Enemies/Bosses/Pufferfish/Pufferfish-Deflated.png" id="2_w21n2"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ya8jd"]
+radius = 23.0868
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_4ta3k"]
+radius = 10.0
+
+[node name="Pufferfish" type="CharacterBody2D"]
+script = ExtResource("1_dm1fk")
+
+[node name="Inflated" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_ya8jd")
+
+[node name="Sprite2D" type="Sprite2D" parent="Inflated"]
+position = Vector2(-2, 0)
+texture = ExtResource("1_ocsyy")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_4ta3k")
+
+[node name="Sprite2D" type="Sprite2D" parent="CollisionShape2D"]
+rotation = -1.5708
+texture = ExtResource("2_w21n2")
