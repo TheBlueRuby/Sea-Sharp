@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://cl1eh4ea5kcm7"]
+[gd_scene load_steps=5 format=3 uid="uid://cl1eh4ea5kcm7"]
 
 [ext_resource type="TileSet" uid="uid://cysxa0vowrp15" path="res://Prefabs/Tilesets/tiles.tres" id="1_meiy2"]
 [ext_resource type="PackedScene" uid="uid://bsg0351mx3b4u" path="res://addons/MetroidvaniaSystem/Nodes/RoomInstance.tscn" id="1_wjbnp"]
 [ext_resource type="PackedScene" uid="uid://clhftppyfrx07" path="res://Prefabs/Objects/Door/BubbleDoor/BubbleDoor.tscn" id="3_4j0m7"]
+[ext_resource type="PackedScene" uid="uid://cie8uf8t7jhcy" path="res://Prefabs/Enemies/Bosses/Pufferfish/Pufferfish.tscn" id="4_pomhw"]
 
 [node name="Map" type="TileMap"]
 tile_set = ExtResource("1_meiy2")
@@ -18,3 +19,6 @@ scale = Vector2(-1, 1)
 [node name="Door2" parent="." instance=ExtResource("3_4j0m7")]
 position = Vector2(632, 136)
 scale = Vector2(-1, 1)
+
+[node name="Pufferfish" parent="." instance=ExtResource("4_pomhw")]
+position = Vector2(320, 308)

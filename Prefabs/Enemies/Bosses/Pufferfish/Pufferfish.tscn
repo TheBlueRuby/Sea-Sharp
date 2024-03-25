@@ -1,30 +1,59 @@
-[gd_scene load_steps=6 format=3 uid="uid://cie8uf8t7jhcy"]
+[gd_scene load_steps=9 format=3 uid="uid://cie8uf8t7jhcy"]
 
 [ext_resource type="Script" path="res://Prefabs/Enemies/Bosses/Pufferfish/Pufferfish.cs" id="1_dm1fk"]
 [ext_resource type="Texture2D" uid="uid://cvgwp14o0ja8k" path="res://Prefabs/Enemies/Bosses/Pufferfish/Pufferfish-Inflated.png" id="1_ocsyy"]
 [ext_resource type="Texture2D" uid="uid://emxbj61k48m4" path="res://Prefabs/Enemies/Bosses/Pufferfish/Pufferfish-Deflated.png" id="2_w21n2"]
+[ext_resource type="Theme" uid="uid://clx1yk0216mqj" path="res://UiTheme.tres" id="4_sspji"]
+[ext_resource type="PackedScene" uid="uid://ds5d2dvf6r4r2" path="res://Prefabs/Enemies/Bosses/ParticleEffects/BossParticles.tscn" id="5_qdgn6"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ya8jd"]
-radius = 23.0868
+radius = 23.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_4ta3k"]
 radius = 10.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_mubid"]
+radius = 23.0
 
 [node name="Pufferfish" type="CharacterBody2D"]
 script = ExtResource("1_dm1fk")
 
 [node name="Inflated" type="CollisionShape2D" parent="."]
+visible = false
 shape = SubResource("CircleShape2D_ya8jd")
 
 [node name="Sprite2D" type="Sprite2D" parent="Inflated"]
 position = Vector2(-2, 0)
 texture = ExtResource("1_ocsyy")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
+[node name="Deflated" type="CollisionShape2D" parent="."]
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_4ta3k")
 
-[node name="Sprite2D" type="Sprite2D" parent="CollisionShape2D"]
+[node name="Sprite2D" type="Sprite2D" parent="Deflated"]
 rotation = -1.5708
 texture = ExtResource("2_w21n2")
+
+[node name="HurtBox" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
+shape = SubResource("CircleShape2D_mubid")
+
+[node name="HealthBar" type="ProgressBar" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -14.0
+offset_top = -2.0
+offset_right = 6.0
+offset_bottom = 3.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("4_sspji")
+step = 1.0
+value = 90.0
+show_percentage = false
+
+[node name="BossParticles" parent="." instance=ExtResource("5_qdgn6")]
