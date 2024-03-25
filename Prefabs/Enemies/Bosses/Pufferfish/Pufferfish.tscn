@@ -61,3 +61,5 @@ value = 90.0
 show_percentage = false
 
 [node name="BossParticles" parent="." instance=ExtResource("5_qdgn6")]
+
+[connection signal="body_entered" from="HurtBox" to="." method="OnHitPlayer"]

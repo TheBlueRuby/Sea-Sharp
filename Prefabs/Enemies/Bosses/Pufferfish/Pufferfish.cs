@@ -32,7 +32,11 @@ public partial class Pufferfish : CharacterBody2D {
 	private const float maxCooldown = 2f;
 	private float cooldown;
 
-	// Called when the node enters the scene tree for the first time.
+	private const int Damage = 33;
+
+	/// <summary>
+	/// Initialization function
+	/// </summary>
 	public override void _Ready() {
 		health = maxHealth;
 		cooldown = maxCooldown;
@@ -59,13 +63,16 @@ public partial class Pufferfish : CharacterBody2D {
 		}
 	}
 
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
+	/// <summary>
+	/// Called every physics update.
+	/// </summary>
+	/// <param name="delta">Time elapsed since previous frame in seconds</param>
 	public override void _PhysicsProcess(double delta) {
 		if (state == PufferfishState.Dead) {
 			return;
 		}
 
-		GD.Print(state + " in " + cooldown);
+		// GD.Print(state + " in " + cooldown);
 
 		healthBar.Value = ((float)health / (float)maxHealth) * 100;
 		// GD.Print(health);
@@ -107,6 +114,9 @@ public partial class Pufferfish : CharacterBody2D {
 		cooldown = maxCooldown;
 	}
 
+	/// <summary>
+	/// Scans for the player and changes the state to "Inflating" if the player is in range.
+	/// </summary>
 	private void ScanForPlayer() {
 		if (PlayerInRange()) {
 			state = PufferfishState.Inflating;
@@ -115,6 +125,9 @@ public partial class Pufferfish : CharacterBody2D {
 	}
 
 
+	/// <summary>
+	/// Charge the pufferfish towards the player's position then changes its state.
+	/// </summary>
 	private void Charge() {
 		Vector2 velocity = Velocity;
 		if (player.GlobalPosition.X < GlobalPosition.X) {
@@ -126,7 +139,10 @@ public partial class Pufferfish : CharacterBody2D {
 		state = PufferfishState.Deflating;
 	}
 
-
+	/// <summary>
+	/// Inflates the pufferfish and updates the sprite and collision
+	/// Sets the state to Charging.
+	/// </summary>
 	private void Inflate() {
 		inflatedCollision.SetDeferred("disabled", false);
 		deflatedCollision.SetDeferred("disabled", true);
@@ -139,7 +155,10 @@ public partial class Pufferfish : CharacterBody2D {
 		state = PufferfishState.Charging;
 	}
 
-
+	/// <summary>
+	/// Deflates the pufferfish and updates the sprite and collision
+	/// Sets the state to Idle.
+	/// </summary>
 	private void Deflate() {
 		inflatedCollision.SetDeferred("disabled", true);
 		deflatedCollision.SetDeferred("disabled", false);
@@ -152,6 +171,10 @@ public partial class Pufferfish : CharacterBody2D {
 		state = PufferfishState.Idle;
 	}
 
+	/// <summary>
+	/// Checks if the player is within a certain range.
+	/// </summary>
+	/// <returns>Whether the player is within attack range</returns>
 	private bool PlayerInRange() {
 		if (Math.Abs(player.GlobalPosition.Y - GlobalPosition.Y) < 32) {
 			return true;
@@ -159,10 +182,17 @@ public partial class Pufferfish : CharacterBody2D {
 		return false;
 	}
 
+	/// <summary>
+	/// When a player beam hits, decrement health.
+	/// </summary>
 	private void Hit() {
 		health--;
 	}
 
+	/// <summary>
+	/// Kills the boss by hiding it and disabling collision, then spawns a drop.
+	/// Also stores it in MetSys so it won't respawn if the room is re-entered
+	/// </summary>
 	private async void Die() {
 		state = PufferfishState.Dead;
 
@@ -192,10 +222,22 @@ public partial class Pufferfish : CharacterBody2D {
 		QueueFree();
 	}
 
+	/// <summary>
+	/// Spawns a new item, sets its position, and adds it as a sibling node.
+	/// </summary>
 	private void SpawnItem() {
 		Node2D droppedItem = (Node2D)drop.Instantiate();
 		droppedItem.GlobalPosition = GlobalPosition;
 		CallDeferred("add_sibling", droppedItem);
 	}
 
+	/// <summary>
+	/// Handles the event of hitting the player.
+	/// </summary>
+	/// <param name="body">The node that was hit.</param>
+	private void OnHitPlayer(Node2D body) {
+		if (body is Player player) {
+			player.Hit(Damage);
+		}
+	}
 }
