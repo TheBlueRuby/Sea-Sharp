@@ -27,6 +27,8 @@ public partial class Pufferfish : CharacterBody2D {
 
 	private Node2D player;
 
+	private PackedScene drop;
+
 	private const float maxCooldown = 2f;
 	private float cooldown;
 
@@ -39,7 +41,9 @@ public partial class Pufferfish : CharacterBody2D {
 		inflatedCollision = GetNode<CollisionShape2D>("Inflated");
 		deflatedCollision = GetNode<CollisionShape2D>("Deflated");
 		healthBar = GetNode<ProgressBar>("HealthBar");
+
 		player = GetTree().Root.GetNode<Node2D>("GameLoop/Player");
+		drop = GD.Load<PackedScene>("res://Prefabs/Pickups/Misc/Propeller.tscn");
 
 		// Initialise the MetSys pointer
 		MetSys = GetTree().Root.GetNode<Node>("MetSys");
@@ -57,10 +61,16 @@ public partial class Pufferfish : CharacterBody2D {
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _PhysicsProcess(double delta) {
-		GD.Print(state + " in " + cooldown);
-
 		if (state == PufferfishState.Dead) {
 			return;
+		}
+
+		GD.Print(state + " in " + cooldown);
+
+		healthBar.Value = ((float)health / (float)maxHealth) * 100;
+		// GD.Print(health);
+		if (health <= 0) {
+			Die();
 		}
 
 		if (cooldown > 0) {
@@ -84,6 +94,15 @@ public partial class Pufferfish : CharacterBody2D {
 				break;
 		}
 		MoveAndSlide();
+
+		if (Velocity.X < 0) {
+			inflatedCollision.GetNode<Sprite2D>("Sprite2D").FlipH = true;
+			deflatedCollision.GetNode<Sprite2D>("Sprite2D").FlipH = true;
+		} else if (Velocity.X > 0) {
+			inflatedCollision.GetNode<Sprite2D>("Sprite2D").FlipH = false;
+			deflatedCollision.GetNode<Sprite2D>("Sprite2D").FlipH = false;
+		}
+
 
 		cooldown = maxCooldown;
 	}
@@ -138,6 +157,45 @@ public partial class Pufferfish : CharacterBody2D {
 			return true;
 		}
 		return false;
+	}
+
+	private void Hit() {
+		health--;
+	}
+
+	private async void Die() {
+		state = PufferfishState.Dead;
+
+		// Spawn item drop
+		SpawnItem();
+
+		// Hide the texture so particles are visible
+		inflatedCollision.GetNode<Sprite2D>("Sprite2D").Visible = false;
+		deflatedCollision.GetNode<Sprite2D>("Sprite2D").Visible = false;
+
+		healthBar.Visible = false;
+
+		// Spawn a set of particles
+		particles.Emitting = true;
+
+		// Disable collision
+		GetNode<Area2D>("HurtBox").ProcessMode = ProcessModeEnum.Disabled;
+		inflatedCollision.SetDeferred("disabled", true);
+		deflatedCollision.SetDeferred("disabled", true);
+
+		// Waits until particles are done emitting
+		await ToSignal(GetTree().CreateTimer(3), "timeout");
+
+		// Store MetSys Object
+		MetSysCompat.Call("store_obj", this);
+
+		QueueFree();
+	}
+
+	private void SpawnItem() {
+		Node2D droppedItem = (Node2D)drop.Instantiate();
+		droppedItem.GlobalPosition = GlobalPosition;
+		CallDeferred("add_sibling", droppedItem);
 	}
 
 }
