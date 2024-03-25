@@ -104,7 +104,7 @@ public partial class Player : CharacterBody2D {
 		}
 
 		// Handle Jump.
-		if (Input.IsActionPressed("move_jump") && IsOnFloor()) {
+		if (Input.IsActionPressed("move_jump") && (IsOnFloor() || inventory.HasItem(ItemTypes.Propeller))) {
 			velocity.Y = jump_vel;
 		}
 
