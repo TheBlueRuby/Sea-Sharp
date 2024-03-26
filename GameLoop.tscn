@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://rwe54bhahinv"]
+[gd_scene load_steps=7 format=3 uid="uid://rwe54bhahinv"]
 
 [ext_resource type="Script" path="res://Scripts/GameLoop.gd" id="1_cpuk4"]
 [ext_resource type="Script" path="res://Prefabs/Camera/CameraController.cs" id="2_ie2vd"]
 [ext_resource type="PackedScene" uid="uid://bmkgbrswd37va" path="res://Prefabs/Player/Player.tscn" id="2_npi3e"]
 [ext_resource type="PackedScene" uid="uid://dch8dyylb7526" path="res://addons/MetroidvaniaSystem/Template/Nodes/Minimap.tscn" id="4_r2tun"]
+[ext_resource type="Theme" uid="uid://clx1yk0216mqj" path="res://UiTheme.tres" id="5_62ggy"]
 [ext_resource type="PackedScene" uid="uid://bt5anxh2x67j2" path="res://Prefabs/Camera/Water Overlay/WaterEffect.tscn" id="5_u2rt4"]
 
 [node name="GameLoop" type="Node2D"]
@@ -27,6 +28,16 @@ offset_left = -24.0
 offset_right = 72.0
 grow_horizontal = 0
 scale = Vector2(0.25, 0.25)
+
+[node name="HealthBar" type="ProgressBar" parent="UI"]
+offset_left = 1.0
+offset_top = 1.0
+offset_right = 97.0
+offset_bottom = 9.0
+theme = ExtResource("5_62ggy")
+step = 1.0
+value = 90.0
+show_percentage = false
 
 [node name="WaterEffectLayer" type="CanvasLayer" parent="."]
 

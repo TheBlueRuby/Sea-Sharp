@@ -1,0 +1,46 @@
+[gd_scene load_steps=6 format=3 uid="uid://56shna7g8wj6"]
+
+[ext_resource type="Script" path="res://Prefabs/Enemies/Bosses/KingCrab/KingCrab.cs" id="1_0o2hs"]
+[ext_resource type="Texture2D" uid="uid://ddwr6wkgqwfbw" path="res://Prefabs/Enemies/Bosses/KingCrab/KingCrab.png" id="1_ja2do"]
+[ext_resource type="Theme" uid="uid://clx1yk0216mqj" path="res://UiTheme.tres" id="3_fdjmj"]
+[ext_resource type="PackedScene" uid="uid://ds5d2dvf6r4r2" path="res://Prefabs/Enemies/Bosses/ParticleEffects/BossParticles.tscn" id="4_7txwo"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6gll7"]
+size = Vector2(54, 10)
+
+[node name="KingCrab" type="CharacterBody2D"]
+collision_layer = 4
+collision_mask = 17
+script = ExtResource("1_0o2hs")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_ja2do")
+
+[node name="HurtBox" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 2
+
+[node name="HurtBoxCollision" type="CollisionShape2D" parent="HurtBox"]
+position = Vector2(0, 21)
+shape = SubResource("RectangleShape2D_6gll7")
+
+[node name="MovementHitbox" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(-31, 32, -31, -18, -21, -18, -7, -1, 7, -1, 21, -18, 31, -18, 31, 32, 27, 16, -27, 16)
+
+[node name="HealthBar" type="ProgressBar" parent="."]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -16.0
+offset_top = 9.0
+offset_right = 16.0
+offset_bottom = 17.0
+grow_horizontal = 2
+theme = ExtResource("3_fdjmj")
+step = 1.0
+value = 90.0
+show_percentage = false
+
+[node name="BossParticles" parent="." instance=ExtResource("4_7txwo")]
+
+[connection signal="body_entered" from="HurtBox" to="." method="OnHitPlayer"]

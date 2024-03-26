@@ -29,8 +29,16 @@ public partial class Player : CharacterBody2D {
 	private PackedScene iceBeam;
 	private BeamTypes[] changeOrder = new BeamTypes[] { BeamTypes.None, BeamTypes.BubbleBeam, BeamTypes.HeatBeam, BeamTypes.IceBeam };
 
+	public int maxHealth = 100;
+	public int health = 100;
+	private const float invSeconds = 1f;
+	private float invTimer;
+
 	private bool usingFlipper;
 
+	/// <summary>
+	/// Initialization function
+	/// </summary>
 	public override void _Ready() {
 		// Load the hitbox and texture.
 		hitbox = GetNode<CollisionShape2D>("Hitbox");
@@ -75,6 +83,15 @@ public partial class Player : CharacterBody2D {
 		CheckFire();
 
 		CheckSave();
+
+		// Update health bar
+		// GD.Print(((float)health / (float)maxHealth) * 100);
+		GetTree().Root.GetNode<ProgressBar>("GameLoop/UI/HealthBar").Value = ((float)health / (float)maxHealth) * 100;
+
+		// Count down I-Frames
+		if (invTimer > 0f) {
+			invTimer -= (float)delta;
+		}
 	}
 
 	/// <summary>
@@ -90,7 +107,7 @@ public partial class Player : CharacterBody2D {
 		}
 
 		// Handle Jump.
-		if (Input.IsActionPressed("move_jump") && IsOnFloor()) {
+		if (Input.IsActionPressed("move_jump") && (IsOnFloor() || inventory.HasItem(ItemTypes.Propeller))) {
 			velocity.Y = jump_vel;
 		}
 
@@ -103,15 +120,26 @@ public partial class Player : CharacterBody2D {
 		}
 
 		// Set the facing sprites.
-		if (velocity.X == 0) {
-			SetSprite("front", false);
-		} else {
-			SetSprite(velocity.X > 0 ? "right" : "left", false);
+		// if (velocity.X == 0) {
+		// 	SetSprite("front", false);
+		// } else {
+		// 	SetSprite(velocity.X > 0 ? "right" : "left", false);
+		// }
+		if (velocity.X < 0) {
+			SetSprite("left", false);
+		} else if (velocity.X > 0) {
+			SetSprite("right", false);
 		}
 
 		return velocity;
 	}
 
+	/// <summary>
+	/// Altered movement for when the flipper is equipped
+	/// </summary>
+	/// <param name="delta">Time since last frame in seconds</param>
+	/// <param name="velocity">Current velocity</param>
+	/// <returns>New velocity</returns>
 	private Vector2 FlipperMovement(double delta, Vector2 velocity) {
 		// Add gravity.
 		if (!IsOnFloor()) {
@@ -186,23 +214,27 @@ public partial class Player : CharacterBody2D {
 
 			case BeamPickup beam:
 				inventory.ModifyBeams(beam.Type, true);
+				if (inventory.ActiveBeam == BeamTypes.None) {
+					inventory.SetActiveBeam(beam.Type);
+				}
 				GD.Print(inventory.BeamsOwned.PrintArray());
 				break;
 
 			case ItemPickup item:
 				inventory.ModifyItems(item.Type, true);
-				GD.Print(inventory.ItemsOwned.PrintArray());
+				inventory.SetActiveItem(item.Type, true);
+				GD.Print(inventory.PrintOwnedItems());
 				break;
 
 			default:
 				break;
 		}
 
-		// Save the game
-		GetTree().Root.GetNode("GameLoop").Call("save_game");
-
 		// Spawn particles and delete the pickup object
 		collectible.Collect();
+
+		// Save the game
+		GetTree().Root.GetNode("GameLoop").Call("save_game");
 
 	}
 
@@ -237,7 +269,7 @@ public partial class Player : CharacterBody2D {
 	/// </summary>
 	/// <returns>A formatted string representing the inventory data.</returns>
 	public string GetInventory() {
-		return $"{inventory.ItemsOwned.PrintArray()}-{inventory.BeamsOwned.PrintArray()}-{inventory.ActiveBeam}-{inventory.ActiveItems.PrintArray()}";
+		return inventory.GetInventory();
 	}
 
 
@@ -246,11 +278,7 @@ public partial class Player : CharacterBody2D {
 	/// </summary>
 	/// <param name="saveData">A formatted string representing the inventory data.</param>
 	public void SetInventory(string saveData) {
-		string[] saveFields = saveData.Split("-");
-		inventory.ItemsOwned = BitArray.FromString(saveFields[0]);
-		inventory.BeamsOwned = BitArray.FromString(saveFields[1]);
-		inventory.ActiveBeam = (BeamTypes)Enum.Parse(typeof(BeamTypes), saveFields[2]);
-		inventory.ActiveItems = BitArray.FromString(saveFields[3]);
+		inventory.SetInventory(saveData);
 	}
 
 	/// <summary>
@@ -277,7 +305,11 @@ public partial class Player : CharacterBody2D {
 
 				// Spawn beam
 				if (beamInstance != null) {
-					beamInstance.Start((int)hitbox.Scale.X, GlobalPosition, inventory.HasBeam(BeamTypes.PressureBeam));
+					int beamDir = (int)hitbox.Scale.X;
+					if (Input.IsActionPressed("move_jump")) {
+						beamDir = 0;
+					}
+					beamInstance.Start(beamDir, GlobalPosition, inventory.HasBeam(BeamTypes.PressureBeam));
 					GetTree().Root.GetNode("GameLoop/Map").AddChild(beamInstance);
 				}
 
@@ -317,6 +349,35 @@ public partial class Player : CharacterBody2D {
 	public void CheckSave() {
 		if (Input.IsActionJustPressed("save")) {
 			GetTree().Root.GetNode("MetSysCompat").Call("save_game");
+			GD.Print(inventory.PrintOwnedItems());
 		}
+	}
+	/// <summary>
+	/// Reduces the health of the player by the specified damage amount and starts an invincibility timer
+	/// </summary>
+	/// <param name="damage">The amount of damage to be applied to the player's health.</param>
+	public void Hit(int damage) {
+		if (invTimer <= 0) {
+			health -= damage;
+			invTimer = invSeconds;
+		}
+	}
+
+	/// <summary>
+	/// Sets the global position to the specified position.
+	/// </summary>
+	/// <param name="position">The new position of the player</param>
+	public void LoadPos(Vector2 position) {
+		GlobalPosition = position;
+	}
+
+	/// <summary>
+	/// Loads the health and max health of the player.
+	/// </summary>
+	/// <param name="newHealth">The new health value. Defaults to 100.</param>
+	/// <param name="newMaxHealth">The new max health value. Defaults to 100.</param>
+	public void LoadHealth(int newHealth = 100, int newMaxHealth = 100) {
+		health = newHealth;
+		maxHealth = newMaxHealth;
 	}
 }

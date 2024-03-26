@@ -1,0 +1,44 @@
+[gd_scene load_steps=5 format=3 uid="uid://c5mh224lrg337"]
+
+[ext_resource type="Script" path="res://Prefabs/Enemies/Crab/Crab.cs" id="1_muwej"]
+[ext_resource type="Texture2D" uid="uid://brybe25wbru73" path="res://Prefabs/Enemies/Crab/Crab.png" id="2_wf3jn"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_c5lrs"]
+size = Vector2(14, 14)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7lxjk"]
+size = Vector2(16, 7)
+
+[node name="Crab" type="CharacterBody2D"]
+collision_layer = 4
+collision_mask = 55
+platform_on_leave = 2
+platform_floor_layers = 4294967293
+script = ExtResource("1_muwej")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+texture = ExtResource("2_wf3jn")
+
+[node name="NavAgent" type="NavigationAgent2D" parent="."]
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.05
+autostart = true
+
+[node name="Hitbox" type="CollisionShape2D" parent="."]
+position = Vector2(0, 1)
+shape = SubResource("RectangleShape2D_c5lrs")
+
+[node name="LineOfSight" type="RayCast2D" parent="."]
+collision_mask = 35
+
+[node name="Hurtbox" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 2
+
+[node name="HurtboxColl" type="CollisionShape2D" parent="Hurtbox"]
+position = Vector2(0, 0.5)
+shape = SubResource("RectangleShape2D_7lxjk")
+
+[connection signal="timeout" from="Timer" to="." method="_OnTimerTimeout"]
+[connection signal="body_entered" from="Hurtbox" to="." method="OnHitPlayer"]

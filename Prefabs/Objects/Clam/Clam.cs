@@ -8,7 +8,10 @@ public partial class Clam : Node2D {
 
 	private Texture2D closedTexture;
 	private Texture2D openTexture;
-	// Called when the node enters the scene tree for the first time.
+	
+	/// <summary>
+	/// Initialization function
+	/// </summary>
 	public override void _Ready() {
 		clamPearl ??= GD.Load<PackedScene>("res://Prefabs/Pickups/PickupBase.tscn");
 		texture = GetNode<Sprite2D>("Sprite2D");
@@ -16,7 +19,10 @@ public partial class Clam : Node2D {
 		openTexture = GD.Load<Texture2D>("res://Prefabs/Objects/Clam/clam_open.png");
 	}
 
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
+	/// <summary>
+	/// Called every frame update.
+	/// </summary>
+	/// <param name="delta">Time elapsed since previous frame in seconds</param>
 	public override void _Process(double delta) {
 	}
 

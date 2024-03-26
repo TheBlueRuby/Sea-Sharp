@@ -10,7 +10,10 @@ public partial class WaterEffect : Node2D {
 	private const int maxDist = 64;
 	private const float speed = 0.2f;
 
-	// Called when the node enters the scene tree for the first time.
+	
+	/// <summary>
+	/// Initialization function
+	/// </summary>
 	public override void _Ready() {
 		// Populate variables with objects
 		layer1 = GetNode<Sprite2D>("Layer1");

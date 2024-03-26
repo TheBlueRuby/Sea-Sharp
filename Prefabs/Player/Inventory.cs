@@ -49,7 +49,7 @@ public class Inventory {
 	/// <param name="active">The active state to set.</param>
 	public void SetActiveItem(ItemTypes item, bool active) {
 		if (HasItem(item)) {
-			ActiveItems.SetBitVal((int)item, active);
+			ActiveItems.SetBitVal((uint)item, active);
 		}
 	}
 
@@ -88,9 +88,9 @@ public class Inventory {
 	/// <param name="add">A boolean value indicating whether to add or remove the beam type.</param>
 	public void ModifyBeams(BeamTypes beam, bool add) {
 		if (add) {
-			BeamsOwned.SetBit((int)beam);
+			BeamsOwned.SetBit((uint)beam);
 		} else {
-			BeamsOwned.ClearBit((int)beam);
+			BeamsOwned.ClearBit((uint)beam);
 		}
 	}
 
@@ -101,9 +101,9 @@ public class Inventory {
 	/// <param name="add">A boolean value indicating whether to add or remove the item.</param>
 	public void ModifyItems(ItemTypes item, bool add) {
 		if (add) {
-			ItemsOwned.SetBit((int)item);
+			ItemsOwned.SetBit((uint)item);
 		} else {
-			ItemsOwned.ClearBit((int)item);
+			ItemsOwned.ClearBit((uint)item);
 		}
 	}
 
@@ -123,5 +123,42 @@ public class Inventory {
 	/// <returns>The corresponding BeamTypes enum value.</returns>
 	public static BeamTypes StringToBeamType(string beam) {
 		return (BeamTypes)Enum.Parse(typeof(BeamTypes), beam);
+	}
+
+	/// <summary>
+	/// Generates a string output listing the status of various items owned by the player.
+	/// </summary>
+	/// <returns>Status of player items</returns>
+	public string PrintOwnedItems() {
+		string output = "";
+		output += "Test: " + ItemsOwned.CheckBitPow((int)ItemTypes.Test) + "\n";
+		output += "AnglerCap: " + ItemsOwned.CheckBitPow((int)ItemTypes.AnglerCap) + "\n";
+		output += "Flippers: " + ItemsOwned.CheckBitPow((int)ItemTypes.Flippers) + "\n";
+		output += "Propeller: " + ItemsOwned.CheckBitPow((int)ItemTypes.Propeller) + "\n";
+		output += "PressureSuit: " + ItemsOwned.CheckBitPow((int)ItemTypes.PressureSuit) + "\n";
+
+
+		return output;
+	}
+
+	/// <summary>
+	/// Gets the inventory data as a formatted string.
+	/// </summary>
+	/// <returns>A formatted string representing the inventory data.</returns>
+	public string GetInventory() {
+		return $"{ItemsOwned.PrintArray()}-{BeamsOwned.PrintArray()}-{ActiveBeam}-{ActiveItems.PrintArray()}";
+	}
+
+
+	/// <summary>
+	/// Sets the inventory data based on the provided formatted string.
+	/// </summary>
+	/// <param name="saveData">A formatted string representing the inventory data.</param>
+	public void SetInventory(string saveData) {
+		string[] saveFields = saveData.Split("-");
+		ItemsOwned = BitArray.FromString(saveFields[0]);
+		BeamsOwned = BitArray.FromString(saveFields[1]);
+		ActiveBeam = (BeamTypes)Enum.Parse(typeof(BeamTypes), saveFields[2]);
+		ActiveItems = BitArray.FromString(saveFields[3]);
 	}
 }

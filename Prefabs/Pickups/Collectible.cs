@@ -9,6 +9,9 @@ public partial class Collectible : Node2D {
 	private Node MetSys;
 	private Node MetSysCompat;
 
+	/// <summary>
+	/// Initialization function
+	/// </summary>
 	public override void _Ready() {
 		// Load the particle effect
 		particles = GetNode<GpuParticles2D>("PickupParticles");
@@ -19,7 +22,7 @@ public partial class Collectible : Node2D {
 		MetSysCompat = GetTree().Root.GetNode<Node>("MetSysCompat");
 
 		// Set object owner for MetSys
-		Owner = GetParent().GetParent();
+		Owner = GetTree().Root.GetNode("GameLoop/Map");
 
 		// Register as a MetSys object.
 		// If the object has already been registered, delete.
@@ -29,6 +32,10 @@ public partial class Collectible : Node2D {
 
 	}
 
+	/// <summary>
+	/// Collects the object when the player touches it.
+	/// Also spawns particles and logs collection in MetSys 
+	/// </summary>
 	public async void Collect() {
 		// Store MetSys Object
 		MetSysCompat.Call("store_obj", this);
