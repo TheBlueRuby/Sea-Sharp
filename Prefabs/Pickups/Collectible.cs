@@ -37,14 +37,15 @@ public partial class Collectible : Node2D {
 	/// Also spawns particles and logs collection in MetSys 
 	/// </summary>
 	public async void Collect() {
-		// Store MetSys Object
-		MetSysCompat.Call("store_obj", this);
-
 		// Hide the texture so particles are visible
 		sprite.Visible = false;
 
 		// Spawn a set of particles
 		particles.Emitting = true;
+
+		// Store MetSys Object
+		await ToSignal(GetTree().CreateTimer(0.1), "timeout");
+		MetSysCompat.Call("store_obj", this);
 
 		// Waits until particles are done emitting
 		await ToSignal(GetTree().CreateTimer(3), "timeout");
