@@ -10,7 +10,6 @@
 radius = 23.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_4ta3k"]
-radius = 10.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_mubid"]
 radius = 23.0
