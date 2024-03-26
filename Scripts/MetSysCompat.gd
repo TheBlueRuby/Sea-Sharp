@@ -9,3 +9,6 @@ func register_obj_marker(object: Object) -> bool:
 
 func save_game() -> void:
 	Game.get_singleton().save_game()
+
+func load_room(room: String) -> void:
+	Game.get_singleton().load_room(Game.get_uid_room(room))
