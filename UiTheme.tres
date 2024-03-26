@@ -1,6 +1,38 @@
-[gd_resource type="Theme" load_steps=4 format=3 uid="uid://clx1yk0216mqj"]
+[gd_resource type="Theme" load_steps=8 format=3 uid="uid://clx1yk0216mqj"]
 
 [ext_resource type="FontFile" uid="uid://b3is7uhy7re4u" path="res://Fonts/VCR_OSD_MONO.ttf" id="1_sri8v"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_f4r1w"]
+bg_color = Color(0.360784, 0.262745, 0.133333, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0, 0.666667, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_l1lim"]
+bg_color = Color(0.6, 0.435294, 0.223529, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.360784, 0.262745, 0.133333, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ypoox"]
+bg_color = Color(0.360784, 0.262745, 0.133333, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.6, 0.435294, 0.223529, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lwmji"]
+bg_color = Color(0, 0.666667, 1, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0, 0.411765, 1, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ub8xi"]
 bg_color = Color(0.360784, 0.262745, 0.133333, 1)
@@ -8,7 +40,7 @@ border_width_left = 1
 border_width_top = 1
 border_width_right = 1
 border_width_bottom = 1
-border_color = Color(0.6, 0.4362, 0.222, 1)
+border_color = Color(0.6, 0.435294, 0.223529, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hkp6m"]
 bg_color = Color(0, 0.666667, 1, 1)
@@ -22,6 +54,10 @@ border_color = Color(0, 0.411765, 1, 1)
 Button/colors/font_outline_color = Color(0, 0, 0, 1)
 Button/constants/outline_size = 4
 Button/fonts/font = ExtResource("1_sri8v")
+Button/styles/focus = SubResource("StyleBoxFlat_f4r1w")
+Button/styles/hover = SubResource("StyleBoxFlat_l1lim")
+Button/styles/normal = SubResource("StyleBoxFlat_ypoox")
+Button/styles/pressed = SubResource("StyleBoxFlat_lwmji")
 Label/fonts/font = ExtResource("1_sri8v")
 ProgressBar/colors/font_color = Color(1, 1, 1, 1)
 ProgressBar/colors/font_outline_color = Color(0, 0, 0, 1)
