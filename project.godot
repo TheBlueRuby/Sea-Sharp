@@ -15,7 +15,7 @@ metroidvania_system/settings_file="res://MetSysSettings.tres"
 [application]
 
 config/name="Sea-Sharp"
-run/main_scene="res://GameLoop.tscn"
+run/main_scene="res://Menus/MainMenu.tscn"
 config/features=PackedStringArray("4.2", "C#", "GL Compatibility")
 config/icon="res://icon.svg"
 

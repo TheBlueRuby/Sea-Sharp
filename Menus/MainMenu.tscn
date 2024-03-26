@@ -1,0 +1,99 @@
+[gd_scene load_steps=6 format=3 uid="uid://dxocdt8asy5e3"]
+
+[ext_resource type="Script" path="res://Menus/MainMenu.cs" id="1_q5nuh"]
+[ext_resource type="Texture2D" uid="uid://bqhpuwer3qhf0" path="res://Prefabs/Camera/Water Overlay/water.png" id="1_q8r7f"]
+[ext_resource type="FontFile" uid="uid://b3is7uhy7re4u" path="res://Fonts/VCR_OSD_MONO.ttf" id="2_t4r4a"]
+[ext_resource type="Theme" uid="uid://clx1yk0216mqj" path="res://UiTheme.tres" id="2_whgb6"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_w1jiv"]
+font = ExtResource("2_t4r4a")
+font_size = 36
+outline_size = 8
+outline_color = Color(0, 0, 0, 1)
+
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_q5nuh")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 0
+offset_right = 320.0
+offset_bottom = 176.0
+texture = ExtResource("1_q8r7f")
+stretch_mode = 1
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -94.5
+offset_top = -71.5
+offset_right = 94.5
+offset_bottom = -39.5
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_whgb6")
+text = "Sea Sharp"
+label_settings = SubResource("LabelSettings_w1jiv")
+horizontal_alignment = 1
+
+[node name="PlayButton" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -64.0
+offset_top = -15.5
+offset_right = 64.0
+offset_bottom = 15.5
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_whgb6")
+text = "Play"
+
+[node name="ResetButton" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -64.0
+offset_top = 40.5
+offset_right = -8.0
+offset_bottom = 71.5
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_whgb6")
+text = "Reset"
+
+[node name="QuitButton" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 8.0
+offset_top = 40.5
+offset_right = 64.0
+offset_bottom = 71.5
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_whgb6")
+text = "Quit
+"
+
+[connection signal="pressed" from="PlayButton" to="." method="OnPlayButtonPress"]
+[connection signal="pressed" from="ResetButton" to="." method="OnResetButtonPress"]
+[connection signal="pressed" from="QuitButton" to="." method="OnQuitButtonPress"]
