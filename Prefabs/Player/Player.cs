@@ -120,10 +120,15 @@ public partial class Player : CharacterBody2D {
 		}
 
 		// Set the facing sprites.
-		if (velocity.X == 0) {
-			SetSprite("front", false);
-		} else {
-			SetSprite(velocity.X > 0 ? "right" : "left", false);
+		// if (velocity.X == 0) {
+		// 	SetSprite("front", false);
+		// } else {
+		// 	SetSprite(velocity.X > 0 ? "right" : "left", false);
+		// }
+		if (velocity.X < 0) {
+			SetSprite("left", false);
+		} else if (velocity.X > 0) {
+			SetSprite("right", false);
 		}
 
 		return velocity;
@@ -300,7 +305,11 @@ public partial class Player : CharacterBody2D {
 
 				// Spawn beam
 				if (beamInstance != null) {
-					beamInstance.Start((int)hitbox.Scale.X, GlobalPosition, inventory.HasBeam(BeamTypes.PressureBeam));
+					int beamDir = (int)hitbox.Scale.X;
+					if (Input.IsActionPressed("move_jump")) {
+						beamDir = 0;
+					}
+					beamInstance.Start(beamDir, GlobalPosition, inventory.HasBeam(BeamTypes.PressureBeam));
 					GetTree().Root.GetNode("GameLoop/Map").AddChild(beamInstance);
 				}
 

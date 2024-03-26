@@ -18,21 +18,29 @@ public partial class Beam : CharacterBody2D {
 		facing = _facing;
 		GlobalPosition = _position;
 		canPhase = _canPhase;
-		Velocity = new Vector2(facing * speed, 0);
+		if (facing != 0) {
+			Velocity = new Vector2(facing * speed, 0);
+		} else {
+			Velocity = Vector2.Up * speed;
+		}
 	}
 
-	
+
 	/// <summary>
 	/// Initialization function
 	/// </summary>
 	public override void _Ready() {
 		texture ??= GetNode<Sprite2D>("Sprite2D");
 
-		if (facing == 1) {
-			texture.FlipH = false;
-		} else if (facing == -1) {
-			texture.FlipH = true;
+		switch (facing) {
+			case -1:
+				texture.FlipH = true;
+				break;
+			case 0:
+				texture.Rotate((float)Math.PI/2); // 90 degrees in radians
+				break;
 		}
+		
 
 		if (canPhase) {
 			CollisionMask = 36; // only enemies and doors, no tiles
