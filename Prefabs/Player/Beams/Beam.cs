@@ -8,6 +8,12 @@ public partial class Beam : CharacterBody2D {
 
 	public Sprite2D texture;
 
+	/// <summary>
+	/// Class init function
+	/// </summary>
+	/// <param name="_facing">Direction of the beam</param>
+	/// <param name="_position">Starting position</param>
+	/// <param name="_canPhase">If the beam can phase through walls</param>
 	public void Start(int _facing, Vector2 _position, bool _canPhase = false) {
 		facing = _facing;
 		GlobalPosition = _position;
@@ -15,7 +21,10 @@ public partial class Beam : CharacterBody2D {
 		Velocity = new Vector2(facing * speed, 0);
 	}
 
-	// Called when the node enters the scene tree for the first time.
+	
+	/// <summary>
+	/// Initialization function
+	/// </summary>
 	public override void _Ready() {
 		texture ??= GetNode<Sprite2D>("Sprite2D");
 

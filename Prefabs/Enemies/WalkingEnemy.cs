@@ -28,6 +28,9 @@ public partial class WalkingEnemy : CharacterBody2D {
 		Init();
 	}
 
+	/// <summary>
+	/// Initialization function
+	/// </summary>
 	public void Init(int speed = 100, int jumpVel = 450, int maxSeeDist = 256, int damage = 5) {
 		navAgent = GetNode<NavigationAgent2D>("NavAgent");
 		playerScanner = GetNode<RayCast2D>("LineOfSight");
@@ -42,6 +45,10 @@ public partial class WalkingEnemy : CharacterBody2D {
 		DAMAGE = damage;
 	}
 
+	/// <summary>
+	/// Called every physics update.
+	/// </summary>
+	/// <param name="delta">Time elapsed since previous frame in seconds</param>
 	public override void _PhysicsProcess(double delta) {
 		Vector2 dir = ToLocal(navAgent.GetNextPathPosition()).Normalized();
 		Vector2 velocity = Velocity;
@@ -58,10 +65,16 @@ public partial class WalkingEnemy : CharacterBody2D {
 		MoveAndSlide();
 	}
 
+	/// <summary>
+	/// Method to make the path by setting the navAgent's TargetPosition to the player's GlobalPosition.
+	/// </summary>
 	private void MakePath() {
 		navAgent.TargetPosition = player.GlobalPosition;
 	}
 
+	/// <summary>
+	/// Scan for player and make a new path every few seconds
+	/// </summary>
 	private void _OnTimerTimeout() {
 		ScanForPlayer();
 		if (canSeePlayer) {
@@ -69,6 +82,9 @@ public partial class WalkingEnemy : CharacterBody2D {
 		}
 	}
 
+	/// <summary>
+	/// If there is a line of sight to the player and within visual range, update canSeePlayer
+	/// </summary>  
 	private void ScanForPlayer() {
 		canSeePlayer = false;
 		playerScanner.TargetPosition = playerScanner.ToLocal(player.GlobalPosition);
@@ -83,10 +99,17 @@ public partial class WalkingEnemy : CharacterBody2D {
 		}
 	}
 
+	/// <summary>
+	/// When hit by a player beam, delete
+	/// </summary>
 	private void Hit() {
 		QueueFree();
 	}
 
+	/// <summary>
+	/// Handles the event of hitting the player.
+	/// </summary>
+	/// <param name="body">The node that was hit.</param>
 	private void OnHitPlayer(Node2D body) {
 		if (body is Player player) {
 			player.Hit(DAMAGE);

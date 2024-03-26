@@ -36,6 +36,9 @@ public partial class Player : CharacterBody2D {
 
 	private bool usingFlipper;
 
+	/// <summary>
+	/// Initialization function
+	/// </summary>
 	public override void _Ready() {
 		// Load the hitbox and texture.
 		hitbox = GetNode<CollisionShape2D>("Hitbox");
@@ -126,6 +129,12 @@ public partial class Player : CharacterBody2D {
 		return velocity;
 	}
 
+	/// <summary>
+	/// Altered movement for when the flipper is equipped
+	/// </summary>
+	/// <param name="delta">Time since last frame in seconds</param>
+	/// <param name="velocity">Current velocity</param>
+	/// <returns>New velocity</returns>
 	private Vector2 FlipperMovement(double delta, Vector2 velocity) {
 		// Add gravity.
 		if (!IsOnFloor()) {
@@ -334,7 +343,10 @@ public partial class Player : CharacterBody2D {
 			GD.Print(inventory.PrintOwnedItems());
 		}
 	}
-
+	/// <summary>
+	/// Reduces the health of the player by the specified damage amount and starts an invincibility timer
+	/// </summary>
+	/// <param name="damage">The amount of damage to be applied to the player's health.</param>
 	public void Hit(int damage) {
 		if (invTimer <= 0) {
 			health -= damage;
@@ -342,10 +354,19 @@ public partial class Player : CharacterBody2D {
 		}
 	}
 
+	/// <summary>
+	/// Sets the global position to the specified position.
+	/// </summary>
+	/// <param name="position">The new position of the player</param>
 	public void LoadPos(Vector2 position) {
 		GlobalPosition = position;
 	}
 
+	/// <summary>
+	/// Loads the health and max health of the player.
+	/// </summary>
+	/// <param name="newHealth">The new health value. Defaults to 100.</param>
+	/// <param name="newMaxHealth">The new max health value. Defaults to 100.</param>
 	public void LoadHealth(int newHealth = 100, int newMaxHealth = 100) {
 		health = newHealth;
 		maxHealth = newMaxHealth;

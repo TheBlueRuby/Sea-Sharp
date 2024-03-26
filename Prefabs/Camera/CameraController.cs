@@ -19,7 +19,10 @@ public partial class CameraController : Camera2D {
 	private Vector2 minZoom = Vector2.One;
 	private Vector2 maxZoom = Vector2.One * 2;
 
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
+	/// <summary>
+	/// Called every frame update.
+	/// </summary>
+	/// <param name="delta">Time elapsed since previous frame in seconds</param>
 	public override void _Process(double delta) {
 		float d = (float)delta;
 		Vector2 tPos = target.Position;

@@ -4,6 +4,9 @@ using System.Diagnostics;
 public class BitArray {
 	private uint array;
 
+	/// <summary>
+	/// Initializes the class
+	/// </summary>
 	public BitArray() {
 		array = 0;
 	}
@@ -56,6 +59,10 @@ public class BitArray {
 		array &= ~array | bit;
 	}
 
+	/// <summary>
+	/// Returns a string representation of the BitArray
+	/// </summary>
+	/// <returns>The BitArray as a string</returns>
 	public string PrintArray() {
 		string output = "";
 		for (int i = 1; i <= 32; i++) {
@@ -64,11 +71,16 @@ public class BitArray {
 		return output;
 	}
 
+	/// <summary>
+	/// Creates a BitArray from a string representation.
+	/// </summary>
+	/// <param name="stringRep">The string representation of the BitArray.</param>
+	/// <returns>The BitArray created from the string representation.</returns>
 	public static BitArray FromString(string stringRep) {
 		BitArray output = new BitArray();
 		for (uint i = 0; i < 32; i++) {
 			if (stringRep[(int)i] == '1') {
-				output.SetBit(2^i);
+				output.SetBit(2 ^ i);
 			}
 		}
 		return output;

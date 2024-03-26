@@ -15,7 +15,9 @@ public partial class JellyGiant : CharacterBody2D {
 
 	private float floatingProgress;
 
-	// Called when the node enters the scene tree for the first time.
+	/// <summary>
+	/// Initialization function
+	/// </summary>
 	public override void _Ready() {
 		health = maxHealth;
 
@@ -37,14 +39,17 @@ public partial class JellyGiant : CharacterBody2D {
 		}
 	}
 
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta) {
+	/// <summary>
+	/// Called every physics update.
+	/// </summary>
+	/// <param name="delta">Time elapsed since previous frame in seconds</param>
+	public override void _PhysicsProcess(double delta) {
 		floatingProgress += (float)delta;
 		Vector2 velocity = Velocity;
 		
 		// Float up and down
 		velocity.Y = (float)Math.Sin(floatingProgress) * 5;
-		GD.Print(Velocity.Y + " - " + floatingProgress);
+		// GD.Print(Velocity.Y + " - " + floatingProgress);
 
 		Velocity = velocity;
 		MoveAndSlide();
@@ -56,17 +61,27 @@ public partial class JellyGiant : CharacterBody2D {
 		}
 	}
 
-
+	/// <summary>
+	/// Handles the event of hitting the player.
+	/// </summary>
+	/// <param name="body">The node that was hit.</param>
 	private void OnHitPlayer(Node2D body) {
 		if (body is Player player) {
 			player.Hit(10);
 		}
 	}
 	
+	/// <summary>
+	/// When a player beam hits, decrement health.
+	/// </summary>
 	public void Hit() {
 		health--;
 	}
 
+	/// <summary>
+	/// Kills the boss by hiding it and disabling collision.
+	/// Also stores it in MetSys so it won't respawn if the room is re-entered
+	/// </summary>
 	private async void Die() {
 
 		// Hide the texture so particles are visible

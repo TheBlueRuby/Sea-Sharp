@@ -125,6 +125,10 @@ public class Inventory {
 		return (BeamTypes)Enum.Parse(typeof(BeamTypes), beam);
 	}
 
+	/// <summary>
+	/// Generates a string output listing the status of various items owned by the player.
+	/// </summary>
+	/// <returns>Status of player items</returns>
 	public string PrintOwnedItems() {
 		string output = "";
 		output += "Test: " + ItemsOwned.CheckBitPow((int)ItemTypes.Test) + "\n";

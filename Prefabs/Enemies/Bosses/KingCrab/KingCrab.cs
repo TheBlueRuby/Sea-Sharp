@@ -28,7 +28,10 @@ public partial class KingCrab : CharacterBody2D {
 	private Node MetSys;
 	private Node MetSysCompat;
 
-	// Called when the node enters the scene tree for the first time.
+	
+	/// <summary>
+	/// Initialization function
+	/// </summary>
 	public override void _Ready() {
 		rng = new RandomNumberGenerator();
 		rng.Randomize();
@@ -55,6 +58,10 @@ public partial class KingCrab : CharacterBody2D {
 		}
 	}
 
+	/// <summary>
+	/// Called every physics update.
+	/// </summary>
+	/// <param name="delta">Time elapsed since previous frame in seconds</param>
 	public override void _PhysicsProcess(double delta) {
 		if (state == KingCrabState.Dead) {
 			return;
@@ -114,17 +121,27 @@ public partial class KingCrab : CharacterBody2D {
 		Velocity = velocity;
 	}
 
-
+	/// <summary>
+	/// Handles the event of hitting the player.
+	/// </summary>
+	/// <param name="body">The node that was hit.</param>
 	private void OnHitPlayer(Node2D body) {
 		if (body is Player player) {
 			player.Hit(33);
 		}
 	}
 
+	/// <summary>
+	/// When a player beam hits, decrement health.
+	/// </summary>
 	public void Hit() {
 		health--;
 	}
 
+	/// <summary>
+	/// Kills the boss by hiding it and disabling collision, then spawns a drop.
+	/// Also stores it in MetSys so it won't respawn if the room is re-entered
+	/// </summary>
 	private async void Die() {
 		state = KingCrabState.Dead;
 		// Store MetSys Object
@@ -150,6 +167,9 @@ public partial class KingCrab : CharacterBody2D {
 		QueueFree();
 	}
 
+	/// <summary>
+	/// Spawns a new item, sets its position, and adds it as a sibling node.
+	/// </summary>
 	private void SpawnItem() {
 		Node2D droppedItem = (Node2D)drop.Instantiate();
 		droppedItem.GlobalPosition = GlobalPosition;
