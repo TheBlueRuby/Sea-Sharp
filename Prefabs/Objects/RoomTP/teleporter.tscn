@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://cmhslx5bfwkhr"]
+
+[ext_resource type="Script" path="res://Prefabs/Objects/RoomTP/teleporter.cs" id="1_qrsxe"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_n4ol4"]
+size = Vector2(16, 16)
+
+[node name="RoomTP" type="Area2D"]
+collision_mask = 2
+script = ExtResource("1_qrsxe")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_n4ol4")
+
+[connection signal="body_entered" from="." to="." method="OnPlayerEnter"]

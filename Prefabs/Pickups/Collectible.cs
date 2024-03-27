@@ -44,7 +44,7 @@ public partial class Collectible : Node2D {
 		particles.Emitting = true;
 
 		// Store MetSys Object
-		await ToSignal(GetTree().CreateTimer(0.1), "timeout");
+		await ToSignal(GetTree().CreateTimer(0.5), "timeout");
 		MetSysCompat.Call("store_obj", this);
 
 		// Waits until particles are done emitting

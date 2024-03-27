@@ -34,7 +34,7 @@ func _ready():
 	if (spawn_room == ""):
 		print("spawnroom empty")
 		spawn_room = "SpawnRoom.tscn"
-	load_room(get_uid_room(spawn_room))
+	load_room(Game.get_uid_room(spawn_room))
 	add_module("RoomTransitions.gd")
 
 # Save game using MetSys SaveManager.
@@ -54,7 +54,7 @@ static func get_singleton() -> Game:
 	return (Game as Script).get_meta(&"singleton") as Game
 
 # If room is saved with UID then grab the room's name for loading
-func get_uid_room(uid: String) -> String:
+static func get_uid_room(uid: String) -> String:
 	if not uid.begins_with(":"):
 		return uid
 
