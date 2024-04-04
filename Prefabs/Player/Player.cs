@@ -35,6 +35,7 @@ public partial class Player : CharacterBody2D {
 	private float invTimer;
 
 	private bool usingFlipper;
+	private bool firstRun = false;
 
 	/// <summary>
 	/// Initialization function
@@ -65,6 +66,20 @@ public partial class Player : CharacterBody2D {
 	/// </summary>
 	/// <param name="delta">The elapsed time between now and the last frame</param>
 	public override void _PhysicsProcess(double delta) {
+		// put here because it isnt set by the time ready is called
+		if (firstRun) {
+			GD.Print("First Run!");
+			firstRun = false;
+			PackedScene dialogPopup = GD.Load<PackedScene>("res://Menus/DialogPopup.tscn");
+
+			DialogPopup dialogPopupInstance = dialogPopup.Instantiate<DialogPopup>();
+			dialogPopupInstance.stringType = "speech";
+			dialogPopupInstance.stringId = "introText";
+			GetTree().Root.GetNode("GameLoop/HUD").AddChild(dialogPopupInstance);
+
+			GetTree().Root.GetNode<PauseHandler>("GameLoop/PauseHandler").SetPaused(true);
+		}
+
 		Vector2 velocity = Velocity;
 
 		usingFlipper = Input.IsActionPressed("move_flipper") && inventory.HasItem(ItemTypes.Flippers);

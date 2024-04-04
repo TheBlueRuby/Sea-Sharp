@@ -1,0 +1,71 @@
+[gd_scene load_steps=6 format=3 uid="uid://bxllbfewaoi44"]
+
+[ext_resource type="Script" path="res://Menus/DialogPopup.cs" id="1_u7gvp"]
+[ext_resource type="Theme" uid="uid://clx1yk0216mqj" path="res://UiTheme.tres" id="2_48ja3"]
+[ext_resource type="Texture2D" uid="uid://bsxj6s2xumdcx" path="res://icon.svg" id="3_oa7i6"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fo8ih"]
+bg_color = Color(0.360784, 0.262745, 0.133333, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.6, 0.435294, 0.223529, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_cm6y0"]
+line_spacing = 0.0
+font_size = 12
+
+[node name="DialogPopup" type="Control"]
+process_mode = 2
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_u7gvp")
+
+[node name="Background" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -150.0
+offset_top = -58.0
+offset_right = 150.0
+offset_bottom = -10.0
+grow_horizontal = 2
+grow_vertical = 0
+theme = ExtResource("2_48ja3")
+theme_override_styles/panel = SubResource("StyleBoxFlat_fo8ih")
+
+[node name="Text" type="Label" parent="Background"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -253.0
+offset_top = 1.0
+offset_right = -1.0
+offset_bottom = 47.0
+grow_horizontal = 0
+theme = ExtResource("2_48ja3")
+text = "Popup text here!"
+label_settings = SubResource("LabelSettings_cm6y0")
+autowrap_mode = 3
+
+[node name="Icon" type="TextureRect" parent="Background"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 8.0
+offset_top = -16.0
+offset_right = 40.0
+offset_bottom = 16.0
+grow_vertical = 2
+texture = ExtResource("3_oa7i6")
+expand_mode = 2

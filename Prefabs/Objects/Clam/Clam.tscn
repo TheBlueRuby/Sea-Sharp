@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://b1quy2rkabkdt" path="res://Prefabs/Pickups/PickupBase.tscn" id="2_8y03c"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_67d5v"]
-size = Vector2(112, 112)
+size = Vector2(144, 144)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_m0kvu"]
 size = Vector2(16, 16)
