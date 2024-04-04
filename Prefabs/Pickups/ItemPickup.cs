@@ -9,10 +9,16 @@ public partial class ItemPickup : Collectible {
 
 	private bool IsCollected = false;
 
+	public override void _Ready() {
+		PickupType = Type.ToString();
+		base._Ready();
+	}
+
+
 	/// <summary>
 	/// Altered version of Collect() to remove a race condition with 1-time pickups
 	/// </summary>
-	public new void Collect() {
+	public override void Collect() {
 		if (IsCollected) {
 			return;
 		}

@@ -8,7 +8,7 @@ public partial class PickupText : Control {
 	[Export]
 	public string itemType = "AnglerCap";
 
-	public CompressedTexture2D itemIcon;
+	private CompressedTexture2D itemIcon;
 
 	private const string itemList = "res://Prefabs/Pickups/ItemDescriptions.json";
 
@@ -28,6 +28,7 @@ public partial class PickupText : Control {
 	public override void _Process(double delta) {
 		if (bindDone) {
 			if (Input.IsActionJustPressed("ui_accept")) {
+				GetTree().Root.GetNode<PauseHandler>("GameLoop/PauseHandler").SetPaused(false);
 				QueueFree();
 			}
 
@@ -78,7 +79,7 @@ public partial class PickupText : Control {
 			return "This item is used automatically.";
 		}
 
-		return $"Press ${bind} to use!";
+		return $"Press {bind} to use!";
 	}
 
 	private async Task<bool> TextBuild(string text, bool done) {

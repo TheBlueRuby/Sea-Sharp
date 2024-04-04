@@ -16,7 +16,11 @@ public partial class PauseHandler : Node {
 	}
 
 	public void TogglePaused() {
-		paused = !paused;
+		SetPaused(!paused);
+	}
+
+	public void SetPaused(bool newPaused) {
+		paused = newPaused;
 		GetTree().Paused = paused;
 	}
 

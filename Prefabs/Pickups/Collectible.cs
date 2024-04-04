@@ -9,6 +9,10 @@ public partial class Collectible : Node2D {
 	private Node MetSys;
 	private Node MetSysCompat;
 
+	private PackedScene pickupText;
+
+	public string PickupType = "Test";
+
 	/// <summary>
 	/// Initialization function
 	/// </summary>
@@ -29,6 +33,7 @@ public partial class Collectible : Node2D {
 		if ((bool)MetSysCompat.Call("register_obj_marker", this)) {
 			QueueFree();
 		}
+		pickupText = GD.Load<PackedScene>("res://Menus/PickupText.tscn");
 
 	}
 
@@ -36,7 +41,7 @@ public partial class Collectible : Node2D {
 	/// Collects the object when the player touches it.
 	/// Also spawns particles and logs collection in MetSys 
 	/// </summary>
-	public async void Collect() {
+	public virtual async void Collect() {
 		// Hide the texture so particles are visible
 		sprite.Visible = false;
 
@@ -46,6 +51,11 @@ public partial class Collectible : Node2D {
 		// Store MetSys Object
 		await ToSignal(GetTree().CreateTimer(0.5), "timeout");
 		MetSysCompat.Call("store_obj", this);
+
+		PickupText pickupTextInstance = pickupText.Instantiate<PickupText>();
+		pickupTextInstance.itemType = PickupType.ToString();
+		GetTree().Root.GetNode("GameLoop/HUD").AddChild(pickupTextInstance);
+		GetTree().Root.GetNode<PauseHandler>("GameLoop/PauseHandler").SetPaused(true);
 
 		// Waits until particles are done emitting
 		await ToSignal(GetTree().CreateTimer(3), "timeout");

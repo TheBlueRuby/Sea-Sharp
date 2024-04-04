@@ -1,6 +1,13 @@
 {
 	"items": [
 		{
+			"id": "Test",
+			"icon": "res://icon.svg",
+			"name": "Test",
+			"desc": "Test item",
+			"bind": "None,"
+		},
+		{
 			"id": "AnglerCap",
 			"icon": "res://Prefabs/Pickups/Misc/AnglerCap.png",
 			"name": "Angler Cap",
@@ -11,7 +18,7 @@
 			"id": "Flippers",
 			"icon": "res://Prefabs/Pickups/Misc/Flippers.png",
 			"name": "Flippers",
-			"desc": "These flippers should let me swim a little higher. Maybe I can squeeze into small spaces with this",
+			"desc": "These flippers should let me swim a little higher. Maybe I can squeeze into small spaces with this.",
 			"bind": "Shift"
 		},
 		{
@@ -32,7 +39,7 @@
 			"id": "BubbleBeam",
 			"icon": "res://Prefabs/Pickups/Weapons/BubbleBeam.png",
 			"name": "Bubble Beam",
-			"desc": "This beam should be able to trigger blue doors and fend off enemies",
+			"desc": "This beam should be able to trigger blue doors and fend off enemies.",
 			"bind": "Z"
 		}
 	]
