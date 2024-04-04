@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=8 format=3 uid="uid://clx1yk0216mqj"]
+[gd_resource type="Theme" load_steps=9 format=3 uid="uid://clx1yk0216mqj"]
 
 [ext_resource type="FontFile" uid="uid://b3is7uhy7re4u" path="res://Fonts/VCR_OSD_MONO.ttf" id="1_sri8v"]
 
@@ -50,6 +50,14 @@ border_width_right = 1
 border_width_bottom = 1
 border_color = Color(0, 0.411765, 1, 1)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3657g"]
+bg_color = Color(0.360784, 0.262745, 0.133333, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.6, 0.435294, 0.223529, 1)
+
 [resource]
 Button/colors/font_outline_color = Color(0, 0, 0, 1)
 Button/constants/outline_size = 4
@@ -65,3 +73,4 @@ ProgressBar/constants/outline_size = 0
 ProgressBar/font_sizes/font_size = 16
 ProgressBar/styles/background = SubResource("StyleBoxFlat_ub8xi")
 ProgressBar/styles/fill = SubResource("StyleBoxFlat_hkp6m")
+TextBackground/styles/panel = SubResource("StyleBoxFlat_3657g")
