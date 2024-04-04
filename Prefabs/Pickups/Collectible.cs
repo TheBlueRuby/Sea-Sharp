@@ -33,7 +33,7 @@ public partial class Collectible : Node2D {
 		if ((bool)MetSysCompat.Call("register_obj_marker", this)) {
 			QueueFree();
 		}
-		pickupText = GD.Load<PackedScene>("res://Menus/PickupText.tscn");
+		pickupText = GD.Load<PackedScene>("res://Menus/DialogPopup.tscn");
 
 	}
 
@@ -52,7 +52,7 @@ public partial class Collectible : Node2D {
 		await ToSignal(GetTree().CreateTimer(0.5), "timeout");
 		MetSysCompat.Call("store_obj", this);
 
-		PickupText pickupTextInstance = pickupText.Instantiate<PickupText>();
+		DialogPopup pickupTextInstance = pickupText.Instantiate<DialogPopup>();
 		pickupTextInstance.itemType = PickupType.ToString();
 		GetTree().Root.GetNode("GameLoop/HUD").AddChild(pickupTextInstance);
 		GetTree().Root.GetNode<PauseHandler>("GameLoop/PauseHandler").SetPaused(true);

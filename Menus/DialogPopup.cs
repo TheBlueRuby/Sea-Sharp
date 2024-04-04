@@ -4,11 +4,11 @@ using System.Text.Json;
 using System.Text.Json.Nodes;
 using System.Threading.Tasks;
 
-public partial class PickupText : Control {
+public partial class DialogPopup : Control {
 	[Export]
 	public string itemType = "AnglerCap";
 
-	private CompressedTexture2D itemIcon;
+	private CompressedTexture2D icon;
 
 	private const string itemList = "res://Prefabs/Pickups/ItemDescriptions.json";
 
@@ -17,9 +17,9 @@ public partial class PickupText : Control {
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready() {
-		itemIcon = GD.Load<CompressedTexture2D>(GetItemIcon(itemList));
+		icon = GD.Load<CompressedTexture2D>(GetItemIcon(itemList));
 
-		GetNode<TextureRect>("Background/ItemIcon").Texture = itemIcon;
+		GetNode<TextureRect>("Background/ItemIcon").Texture = icon;
 
 		PrintDesc();
 	}

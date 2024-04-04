@@ -1,8 +1,8 @@
 [gd_scene load_steps=6 format=3 uid="uid://bxllbfewaoi44"]
 
-[ext_resource type="Script" path="res://Menus/PickupText.cs" id="1_1hnnd"]
-[ext_resource type="Theme" uid="uid://clx1yk0216mqj" path="res://UiTheme.tres" id="1_lpc0q"]
-[ext_resource type="Texture2D" uid="uid://bsxj6s2xumdcx" path="res://icon.svg" id="2_eqbe4"]
+[ext_resource type="Script" path="res://Menus/DialogPopup.cs" id="1_u7gvp"]
+[ext_resource type="Theme" uid="uid://clx1yk0216mqj" path="res://UiTheme.tres" id="2_48ja3"]
+[ext_resource type="Texture2D" uid="uid://bsxj6s2xumdcx" path="res://icon.svg" id="3_oa7i6"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fo8ih"]
 bg_color = Color(0.360784, 0.262745, 0.133333, 1)
@@ -16,7 +16,7 @@ border_color = Color(0.6, 0.435294, 0.223529, 1)
 line_spacing = 0.0
 font_size = 12
 
-[node name="PickupText" type="Control"]
+[node name="DialogPopup" type="Control"]
 process_mode = 2
 layout_mode = 3
 anchors_preset = 15
@@ -24,7 +24,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_1hnnd")
+script = ExtResource("1_u7gvp")
 
 [node name="Background" type="Panel" parent="."]
 layout_mode = 1
@@ -39,7 +39,7 @@ offset_right = 150.0
 offset_bottom = -10.0
 grow_horizontal = 2
 grow_vertical = 0
-theme = ExtResource("1_lpc0q")
+theme = ExtResource("2_48ja3")
 theme_override_styles/panel = SubResource("StyleBoxFlat_fo8ih")
 
 [node name="Text" type="Label" parent="Background"]
@@ -52,8 +52,8 @@ offset_top = 1.0
 offset_right = -1.0
 offset_bottom = 47.0
 grow_horizontal = 0
-theme = ExtResource("1_lpc0q")
-text = "Pickup text here!"
+theme = ExtResource("2_48ja3")
+text = "Popup text here!"
 label_settings = SubResource("LabelSettings_cm6y0")
 autowrap_mode = 3
 
@@ -67,5 +67,5 @@ offset_top = -16.0
 offset_right = 40.0
 offset_bottom = 16.0
 grow_vertical = 2
-texture = ExtResource("2_eqbe4")
+texture = ExtResource("3_oa7i6")
 expand_mode = 2
