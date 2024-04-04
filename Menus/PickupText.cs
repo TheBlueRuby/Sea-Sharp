@@ -91,7 +91,7 @@ public partial class PickupText : Control {
 					break;
 				}
 				GetNode<Label>("Background/Text").Text += text[i];
-				GD.Print(text[i]);
+				// GD.Print(text[i]);
 				await ToSignal(GetTree().CreateTimer(0.05F), "timeout");
 			}
 		}

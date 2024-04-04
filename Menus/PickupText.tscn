@@ -17,7 +17,7 @@ line_spacing = 0.0
 font_size = 12
 
 [node name="PickupText" type="Control"]
-process_mode = 3
+process_mode = 2
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
