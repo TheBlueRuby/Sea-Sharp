@@ -1,0 +1,34 @@
+{
+	"items": [
+		{
+			"id": "AnglerCap",
+			"name": "Angler Cap",
+			"desc": "This helmet resembles an anglerfish's lure. Maybe I could use it as a torch of some sort.",
+			"binding": "None"
+		},
+		{
+			"id": "Flippers",
+			"name": "Flippers",
+			"desc": "These flippers should let me swim a little higher. Maybe I can squeeze into small spaces with this",
+			"binding": "Shift"
+		},
+		{
+			"id": "Propeller",
+			"name": "Propeller",
+			"desc": "This propeller seems powerful. I shouldn't need to push off the ground to jump anymore.",
+			"binding": "Space"
+		},
+		{
+			"id": "PressureSuit",
+			"name": "Pressure Suit",
+			"desc": "This pressure suit should let me go past those yellow airlocks.",
+			"binding": "None"
+		},
+		{
+			"id": "BubbleBeam",
+			"name": "Bubble Beam",
+			"desc": "This beam fits perfectly onto my suit. These bubbles should be able to trigger blue doors and fend off enemies",
+			"binding": "Z"
+		}
+	]
+}
