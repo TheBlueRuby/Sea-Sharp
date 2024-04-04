@@ -82,11 +82,9 @@ public partial class Player : CharacterBody2D {
 		}
 		CheckFire();
 
-		CheckSave();
-
 		// Update health bar
 		// GD.Print(((float)health / (float)maxHealth) * 100);
-		GetTree().Root.GetNode<ProgressBar>("GameLoop/UI/HealthBar").Value = ((float)health / (float)maxHealth) * 100;
+		GetTree().Root.GetNode<ProgressBar>("GameLoop/HUD/HealthBar").Value = ((float)health / (float)maxHealth) * 100;
 
 		// Count down I-Frames
 		if (invTimer > 0f) {
@@ -343,15 +341,6 @@ public partial class Player : CharacterBody2D {
 		}
 	}
 
-	/// <summary>
-	/// Saves the game when the save key is pressed (default ESC)
-	/// </summary>
-	public void CheckSave() {
-		if (Input.IsActionJustPressed("save")) {
-			GetTree().Root.GetNode("MetSysCompat").Call("save_game");
-			GD.Print(inventory.PrintOwnedItems());
-		}
-	}
 	/// <summary>
 	/// Reduces the health of the player by the specified damage amount and starts an invincibility timer
 	/// </summary>
