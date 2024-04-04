@@ -52,7 +52,7 @@
 	"speech": [
 		{
 			"id": "introText",
-			"icon": "res://icon.svg",
+			"icon": "res://Prefabs/Player/face.png",
 			"pages": [
 				"Ughh... Where am I?",
 				"I should probably look for stuff to get me out of here.",
