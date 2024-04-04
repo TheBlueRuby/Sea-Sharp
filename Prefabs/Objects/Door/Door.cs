@@ -94,7 +94,7 @@ public partial class Door : Node2D {
 	public void CloseDoor() {
 		// GD.Print("Closing");
 		doorOpen = false;
-		doorCollision.ProcessMode = ProcessModeEnum.Always;
+		doorCollision.ProcessMode = ProcessModeEnum.Inherit;
 		doorSprite.SetDeferred("visible", true);
 	}
 

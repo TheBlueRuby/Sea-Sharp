@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://rwe54bhahinv"]
+[gd_scene load_steps=8 format=3 uid="uid://rwe54bhahinv"]
 
 [ext_resource type="Script" path="res://Scripts/GameLoop.gd" id="1_cpuk4"]
 [ext_resource type="Script" path="res://Prefabs/Camera/CameraController.cs" id="2_ie2vd"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://dch8dyylb7526" path="res://addons/MetroidvaniaSystem/Template/Nodes/Minimap.tscn" id="4_r2tun"]
 [ext_resource type="Theme" uid="uid://clx1yk0216mqj" path="res://UiTheme.tres" id="5_62ggy"]
 [ext_resource type="PackedScene" uid="uid://bt5anxh2x67j2" path="res://Prefabs/Camera/Water Overlay/WaterEffect.tscn" id="5_u2rt4"]
+[ext_resource type="Script" path="res://Scripts/PauseHandler.cs" id="7_q2dma"]
 
 [node name="GameLoop" type="Node2D"]
 script = ExtResource("1_cpuk4")
@@ -52,3 +53,7 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="WaterEffect" parent="WaterEffectLayer/WaterEffectContainer" instance=ExtResource("5_u2rt4")]
+
+[node name="PauseHandler" type="Node" parent="."]
+process_mode = 3
+script = ExtResource("7_q2dma")
