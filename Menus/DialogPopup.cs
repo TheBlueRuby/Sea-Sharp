@@ -1,85 +1,59 @@
 using Godot;
 using System;
+using System.Linq;
 using System.Text.Json;
 using System.Text.Json.Nodes;
 using System.Threading.Tasks;
 
 public partial class DialogPopup : Control {
 	[Export]
-	public string itemType = "AnglerCap";
+	public string stringType = "items";
+	[Export]
+	public string stringId = "AnglerCap";
 
 	private CompressedTexture2D icon;
 
-	private const string itemList = "res://Prefabs/Pickups/ItemDescriptions.json";
+	private DialogEntry dialogEntry;
 
-	private bool descDone = false;
-	private bool bindDone = false;
+	private bool currentlyPrinting = false;
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready() {
-		icon = GD.Load<CompressedTexture2D>(GetItemIcon(itemList));
+		dialogEntry = new("res://strings.json", stringType, stringId);
 
-		GetNode<TextureRect>("Background/ItemIcon").Texture = icon;
-
-		PrintDesc();
+		icon = GD.Load<CompressedTexture2D>(dialogEntry.iconPath);
+		GetNode<TextureRect>("Background/Icon").Texture = icon;
+		PrintPage(0);
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta) {
-		if (bindDone) {
+		// GD.Print(dialogEntry.pagesDone[0] +" "+ dialogEntry.pagesDone[1]);
+
+		if (!dialogEntry.pagesDone.Last()) {
+			for (int i = 0; i < dialogEntry.pages.Count; i++) {
+				if (dialogEntry.pagesDone[i] || currentlyPrinting) {
+					continue;
+				}
+
+				if (Input.IsActionJustPressed("ui_accept")) {
+					PrintPage(i);
+				}
+			}
+		} else {
 			if (Input.IsActionJustPressed("ui_accept")) {
 				GetTree().Root.GetNode<PauseHandler>("GameLoop/PauseHandler").SetPaused(false);
 				QueueFree();
 			}
 
-		} else if (descDone) {
-			if (Input.IsActionJustPressed("ui_accept")) {
-				PrintBind();
-			}
-		}
-	}
-
-	private async void PrintDesc() {
-		descDone = await TextBuild(GetItemDesc(itemList), descDone);
-	}
-	private async void PrintBind() {
-		bindDone = await TextBuild(GetItemBind(itemList), bindDone);
-	}
-
-	private JsonNode GetItemFromJson(string file) {
-		string fileContents = FileAccess.Open(file, FileAccess.ModeFlags.Read).GetAsText();
-		JsonNode fileAsJson = JsonNode.Parse(fileContents);
-		JsonNode itemsArray = fileAsJson!["items"];
-		JsonNode item = null;
-
-		for (int i = 0; i < itemsArray.AsArray().Count; i++) {
-			if (itemsArray[i]!["id"]!.GetValue<string>() == itemType) {
-				item = itemsArray[i];
-			}
-		}
-		if (item != null) {
-			return item;
-		} else {
-			return null;
 		}
 
 	}
 
-
-	private string GetItemIcon(string file) {
-		return GetItemFromJson(file)!["icon"]!.GetValue<string>();
-	}
-	private string GetItemDesc(string file) {
-		return GetItemFromJson(file)!["desc"]!.GetValue<string>();
-	}
-	private string GetItemBind(string file) {
-		string bind = GetItemFromJson(file)!["bind"]!.GetValue<string>();
-
-		if (bind == "None") {
-			return "This item is used automatically.";
-		}
-
-		return $"Press {bind} to use!";
+	public async void PrintPage(int pageNum) {
+		currentlyPrinting = true;
+		dialogEntry.pagesDone[pageNum] = await TextBuild(dialogEntry.pages[pageNum], dialogEntry.pagesDone[pageNum]);
+		currentlyPrinting = false;
 	}
 
 	private async Task<bool> TextBuild(string text, bool done) {
@@ -95,6 +69,7 @@ public partial class DialogPopup : Control {
 				await ToSignal(GetTree().CreateTimer(0.05F), "timeout");
 			}
 		}
+		await ToSignal(GetTree().CreateTimer(0.05F), "timeout");
 		return true;
 	}
 }

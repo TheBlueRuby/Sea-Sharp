@@ -53,7 +53,8 @@ public partial class Collectible : Node2D {
 		MetSysCompat.Call("store_obj", this);
 
 		DialogPopup pickupTextInstance = pickupText.Instantiate<DialogPopup>();
-		pickupTextInstance.itemType = PickupType.ToString();
+		pickupTextInstance.stringType = "items";
+		pickupTextInstance.stringId = PickupType.ToString();
 		GetTree().Root.GetNode("GameLoop/HUD").AddChild(pickupTextInstance);
 		GetTree().Root.GetNode<PauseHandler>("GameLoop/PauseHandler").SetPaused(true);
 

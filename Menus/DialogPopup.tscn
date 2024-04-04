@@ -57,7 +57,7 @@ text = "Popup text here!"
 label_settings = SubResource("LabelSettings_cm6y0")
 autowrap_mode = 3
 
-[node name="ItemIcon" type="TextureRect" parent="Background"]
+[node name="Icon" type="TextureRect" parent="Background"]
 layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5

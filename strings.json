@@ -1,0 +1,63 @@
+{
+	"items": [
+		{
+			"id": "Test",
+			"icon": "res://icon.svg",
+			"pages": [
+				"Test item",
+				"This item is used automatically"
+			]
+		},
+		{
+			"id": "AnglerCap",
+			"icon": "res://Prefabs/Pickups/Misc/AnglerCap.png",
+			"pages": [
+				"This helmet resembles an anglerfish's lure. Maybe I could use it as a torch of some sort.",
+				"This item is used automatically"
+			]
+		},
+		{
+			"id": "Flippers",
+			"icon": "res://Prefabs/Pickups/Misc/Flippers.png",
+			"pages": [
+				"These flippers should let me swim a little higher. Maybe I can squeeze into small spaces with this.",
+				"Press Shift to use!"
+			]
+		},
+		{
+			"id": "Propeller",
+			"icon": "res://Prefabs/Pickups/Misc/Propeller.png",
+			"pages": [
+				"This propeller seems powerful. I shouldn't need to push off the ground to jump anymore.",
+				"Press Space to use!"
+			]
+		},
+		{
+			"id": "PressureSuit",
+			"icon": "res://Prefabs/Pickups/Armor/PressureSuit.png",
+			"pages": [
+				"This pressure suit will let me open those yellow airlocks.",
+				"This item is used automatically"
+			]
+		},
+		{
+			"id": "BubbleBeam",
+			"icon": "res://Prefabs/Pickups/Weapons/BubbleBeam.png",
+			"pages": [
+				"This beam should be able to trigger blue doors and fend off enemies.",
+				"Press Z to use!"
+			]
+		}
+	],
+	"speech": [
+		{
+			"id": "introText",
+			"icon": "res://icon.svg",
+			"pages": [
+				"Ughh... Where am I?",
+				"I should probably look for stuff to get me out of here.",
+				"I'll explore using the Arrow Keys and Spacebar."
+			]
+		}
+	]
+}
