@@ -10,14 +10,10 @@ public partial class Player : CharacterBody2D {
 	private float gravity = ProjectSettings.GetSetting("physics/2d/default_gravity").AsSingle();
 
 	private CollisionShape2D hitbox;
-	private Sprite2D texture;
+	private AnimatedSprite2D texture;
 
-	private CompressedTexture2D spr_front;
-	private CompressedTexture2D spr_side;
 	private RectangleShape2D hb_front;
 	private RectangleShape2D hb_side;
-
-	private CompressedTexture2D spr_flpr;
 	private RectangleShape2D hb_flpr;
 
 	public Inventory inventory = new();
@@ -43,16 +39,14 @@ public partial class Player : CharacterBody2D {
 	public override void _Ready() {
 		// Load the hitbox and texture.
 		hitbox = GetNode<CollisionShape2D>("Hitbox");
-		texture = hitbox.GetNode<Sprite2D>("Texture");
+		texture = hitbox.GetNode<AnimatedSprite2D>("Texture");
+		texture.Play();
 
 		// Load the front and side sprites and hitboxes.
-		spr_front = GD.Load<CompressedTexture2D>("res://Prefabs/Player/front.png");
-		spr_side = GD.Load<CompressedTexture2D>("res://Prefabs/Player/side.png");
 		hb_front = GD.Load<RectangleShape2D>("res://Prefabs/Player/Collision/player_front.tres");
 		hb_side = GD.Load<RectangleShape2D>("res://Prefabs/Player/Collision/player_side.tres");
 
 		// Load the flipper sprites and hitboxes.
-		spr_flpr = GD.Load<CompressedTexture2D>("res://Prefabs/Player/side_flpr.png");
 		hb_flpr = GD.Load<RectangleShape2D>("res://Prefabs/Player/Collision/player_side_flpr.tres");
 
 		// Load beams
@@ -195,15 +189,15 @@ public partial class Player : CharacterBody2D {
 		}
 
 		if (flipper) {
-			texture.Texture = spr_flpr;
+			texture.Animation = "Flipper";
 			hitbox.Shape = hb_flpr;
 
 		} else {
 			if (side == "front") {
-				texture.Texture = spr_front;
+				texture.Animation = "Idle";
 				hitbox.Shape = hb_front;
 			} else {
-				texture.Texture = spr_side;
+				texture.Animation = "Walk";
 				hitbox.Shape = hb_side;
 			}
 		}

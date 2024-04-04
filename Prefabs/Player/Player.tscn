@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://Prefabs/Player/Player.cs" id="1_b3hpr"]
 [ext_resource type="Shape2D" uid="uid://2mtc73tbfvyw" path="res://Prefabs/Player/Collision/player_side.tres" id="2_xpa2t"]
-[ext_resource type="Texture2D" uid="uid://d10gaeg6ckyhp" path="res://Prefabs/Player/front.png" id="3_lrg18"]
+[ext_resource type="SpriteFrames" uid="uid://rfjg00so3uv5" path="res://Prefabs/Player/anims.tres" id="3_uebku"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jw4d6"]
 
@@ -16,10 +16,11 @@ script = ExtResource("1_b3hpr")
 [node name="Hitbox" type="CollisionShape2D" parent="."]
 shape = ExtResource("2_xpa2t")
 
-[node name="Texture" type="Sprite2D" parent="Hitbox"]
+[node name="Texture" type="AnimatedSprite2D" parent="Hitbox"]
 texture_filter = 1
 texture_repeat = 1
-texture = ExtResource("3_lrg18")
+sprite_frames = ExtResource("3_uebku")
+animation = &"Idle"
 
 [node name="PickupArea" type="Area2D" parent="."]
 collision_layer = 2
