@@ -1,5 +1,6 @@
-[gd_scene load_steps=4 format=3 uid="uid://bxllbfewaoi44"]
+[gd_scene load_steps=6 format=3 uid="uid://bxllbfewaoi44"]
 
+[ext_resource type="Script" path="res://Menus/PickupText.cs" id="1_1hnnd"]
 [ext_resource type="Theme" uid="uid://clx1yk0216mqj" path="res://UiTheme.tres" id="1_lpc0q"]
 [ext_resource type="Texture2D" uid="uid://bsxj6s2xumdcx" path="res://icon.svg" id="2_eqbe4"]
 
@@ -11,14 +12,19 @@ border_width_right = 1
 border_width_bottom = 1
 border_color = Color(0.6, 0.435294, 0.223529, 1)
 
+[sub_resource type="LabelSettings" id="LabelSettings_cm6y0"]
+line_spacing = 0.0
+font_size = 12
+
 [node name="PickupText" type="Control"]
-process_mode = 2
+process_mode = 3
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_1hnnd")
 
 [node name="Background" type="Panel" parent="."]
 layout_mode = 1
@@ -48,6 +54,8 @@ offset_bottom = 47.0
 grow_horizontal = 0
 theme = ExtResource("1_lpc0q")
 text = "Pickup text here!"
+label_settings = SubResource("LabelSettings_cm6y0")
+autowrap_mode = 3
 
 [node name="ItemIcon" type="TextureRect" parent="Background"]
 layout_mode = 1

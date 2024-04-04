@@ -21,13 +21,13 @@
 		{
 			"id": "PressureSuit",
 			"name": "Pressure Suit",
-			"desc": "This pressure suit should let me go past those yellow airlocks.",
+			"desc": "This pressure suit will let me open those yellow airlocks.",
 			"binding": "None"
 		},
 		{
 			"id": "BubbleBeam",
 			"name": "Bubble Beam",
-			"desc": "This beam fits perfectly onto my suit. These bubbles should be able to trigger blue doors and fend off enemies",
+			"desc": "This beam should be able to trigger blue doors and fend off enemies",
 			"binding": "Z"
 		}
 	]
