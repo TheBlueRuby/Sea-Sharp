@@ -10,14 +10,10 @@ public partial class Player : CharacterBody2D {
 	private float gravity = ProjectSettings.GetSetting("physics/2d/default_gravity").AsSingle();
 
 	private CollisionShape2D hitbox;
-	private Sprite2D texture;
+	private AnimatedSprite2D texture;
 
-	private CompressedTexture2D spr_front;
-	private CompressedTexture2D spr_side;
 	private RectangleShape2D hb_front;
 	private RectangleShape2D hb_side;
-
-	private CompressedTexture2D spr_flpr;
 	private RectangleShape2D hb_flpr;
 
 	public Inventory inventory = new();
@@ -43,16 +39,14 @@ public partial class Player : CharacterBody2D {
 	public override void _Ready() {
 		// Load the hitbox and texture.
 		hitbox = GetNode<CollisionShape2D>("Hitbox");
-		texture = hitbox.GetNode<Sprite2D>("Texture");
+		texture = hitbox.GetNode<AnimatedSprite2D>("Texture");
+		texture.Play();
 
 		// Load the front and side sprites and hitboxes.
-		spr_front = GD.Load<CompressedTexture2D>("res://Prefabs/Player/front.png");
-		spr_side = GD.Load<CompressedTexture2D>("res://Prefabs/Player/side.png");
 		hb_front = GD.Load<RectangleShape2D>("res://Prefabs/Player/Collision/player_front.tres");
 		hb_side = GD.Load<RectangleShape2D>("res://Prefabs/Player/Collision/player_side.tres");
 
 		// Load the flipper sprites and hitboxes.
-		spr_flpr = GD.Load<CompressedTexture2D>("res://Prefabs/Player/side_flpr.png");
 		hb_flpr = GD.Load<RectangleShape2D>("res://Prefabs/Player/Collision/player_side_flpr.tres");
 
 		// Load beams
@@ -91,6 +85,10 @@ public partial class Player : CharacterBody2D {
 		// Update player
 		Velocity = velocity;
 		MoveAndSlide();
+		GD.Print(Velocity.X);
+
+		// Set sprites
+		SetSprite(Velocity.X, usingFlipper);
 
 		if (beamCooldownTimer > 0) {
 			beamCooldownTimer -= (float)delta;
@@ -138,11 +136,11 @@ public partial class Player : CharacterBody2D {
 		// } else {
 		// 	SetSprite(velocity.X > 0 ? "right" : "left", false);
 		// }
-		if (velocity.X < 0) {
-			SetSprite("left", false);
-		} else if (velocity.X > 0) {
-			SetSprite("right", false);
-		}
+		// if (velocity.X < 0) {
+		// 	SetSprite("left", false);
+		// } else if (velocity.X > 0) {
+		// 	SetSprite("right", false);
+		// }
 
 		return velocity;
 	}
@@ -173,7 +171,7 @@ public partial class Player : CharacterBody2D {
 		}
 
 		// Set the facing sprites.
-		SetSprite(velocity.X > 0 ? "right" : "left", true);
+		// SetSprite(velocity.X > 0 ? "right" : "left", true);
 
 
 		return velocity;
@@ -183,31 +181,41 @@ public partial class Player : CharacterBody2D {
 	/// <summary>
 	/// Sets the sprite and hitboxes based on movement
 	/// </summary>
-	/// <param name="side">The direction the player is facing</param>
-	public void SetSprite(string side, bool flipper) {
+	/// <param name="xVelocity">The player's horizontal velocity</param>
+	/// <param name="flipper">Whether the player has the flipper equipped</param>
+	public void SetSprite(float xVelocity, bool flipper) {
 		Vector2 hbScale = hitbox.Scale;
 
-		if (side == "left") {
+		if (xVelocity < 0) {
 			// Flips the right facing sprite to face left.
 			hbScale.X = -1;
-		} else {
+		} else if (xVelocity > 0) {
 			hbScale.X = 1;
 		}
+		hitbox.Scale = hbScale;
 
 		if (flipper) {
-			texture.Texture = spr_flpr;
+			texture.Animation = "Flipper";
 			hitbox.Shape = hb_flpr;
+			return;
 
-		} else {
-			if (side == "front") {
-				texture.Texture = spr_front;
-				hitbox.Shape = hb_front;
-			} else {
-				texture.Texture = spr_side;
-				hitbox.Shape = hb_side;
-			}
 		}
-		hitbox.Scale = hbScale;
+		// if (side == "front") {
+		// 	texture.Animation = "Idle";
+		// 	hitbox.Shape = hb_front;
+		// 	return;
+		// }
+
+		// GD.Print(xVelocity);
+		if (Math.Abs(xVelocity) > 1) {
+			texture.Animation = "Walk";
+		} else if (texture.Animation != "Idle") { // Don't immediately go from idle to sideways, require player input first
+			texture.Animation = "Side";
+		}
+		hitbox.Shape = hb_side;
+
+		GD.Print(texture.Animation);
+
 	}
 
 	/// <summary>
