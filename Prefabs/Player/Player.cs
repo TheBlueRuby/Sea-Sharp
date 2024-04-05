@@ -85,6 +85,10 @@ public partial class Player : CharacterBody2D {
 		// Update player
 		Velocity = velocity;
 		MoveAndSlide();
+		GD.Print(Velocity.X);
+
+		// Set sprites
+		SetSprite(Velocity.X, usingFlipper);
 
 		if (beamCooldownTimer > 0) {
 			beamCooldownTimer -= (float)delta;
@@ -132,11 +136,11 @@ public partial class Player : CharacterBody2D {
 		// } else {
 		// 	SetSprite(velocity.X > 0 ? "right" : "left", false);
 		// }
-		if (velocity.X < 0) {
-			SetSprite("left", false);
-		} else if (velocity.X > 0) {
-			SetSprite("right", false);
-		}
+		// if (velocity.X < 0) {
+		// 	SetSprite("left", false);
+		// } else if (velocity.X > 0) {
+		// 	SetSprite("right", false);
+		// }
 
 		return velocity;
 	}
@@ -167,7 +171,7 @@ public partial class Player : CharacterBody2D {
 		}
 
 		// Set the facing sprites.
-		SetSprite(velocity.X > 0 ? "right" : "left", true);
+		// SetSprite(velocity.X > 0 ? "right" : "left", true);
 
 
 		return velocity;
@@ -177,31 +181,41 @@ public partial class Player : CharacterBody2D {
 	/// <summary>
 	/// Sets the sprite and hitboxes based on movement
 	/// </summary>
-	/// <param name="side">The direction the player is facing</param>
-	public void SetSprite(string side, bool flipper) {
+	/// <param name="xVelocity">The player's horizontal velocity</param>
+	/// <param name="flipper">Whether the player has the flipper equipped</param>
+	public void SetSprite(float xVelocity, bool flipper) {
 		Vector2 hbScale = hitbox.Scale;
 
-		if (side == "left") {
+		if (xVelocity < 0) {
 			// Flips the right facing sprite to face left.
 			hbScale.X = -1;
-		} else {
+		} else if (xVelocity > 0) {
 			hbScale.X = 1;
 		}
+		hitbox.Scale = hbScale;
 
 		if (flipper) {
 			texture.Animation = "Flipper";
 			hitbox.Shape = hb_flpr;
+			return;
 
-		} else {
-			if (side == "front") {
-				texture.Animation = "Idle";
-				hitbox.Shape = hb_front;
-			} else {
-				texture.Animation = "Walk";
-				hitbox.Shape = hb_side;
-			}
 		}
-		hitbox.Scale = hbScale;
+		// if (side == "front") {
+		// 	texture.Animation = "Idle";
+		// 	hitbox.Shape = hb_front;
+		// 	return;
+		// }
+
+		// GD.Print(xVelocity);
+		if (Math.Abs(xVelocity) > 1) {
+			texture.Animation = "Walk";
+		} else if (texture.Animation != "Idle") { // Don't immediately go from idle to sideways, require player input first
+			texture.Animation = "Side";
+		}
+		hitbox.Shape = hb_side;
+
+		GD.Print(texture.Animation);
+
 	}
 
 	/// <summary>
