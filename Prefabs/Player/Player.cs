@@ -37,6 +37,7 @@ public partial class Player : CharacterBody2D {
 	private Node MetSysCompat;
 
 	private bool shouldDarken = false;
+	private CanvasItemMaterial waterMaterial;
 
 	/// <summary>
 	/// Initialization function
@@ -62,6 +63,9 @@ public partial class Player : CharacterBody2D {
 		// MetSys
 		MetSys = GetTree().Root.GetNode("MetSys");
 		MetSysCompat = GetTree().Root.GetNode("MetSysCompat");
+		
+		// Water Overlay Material
+		waterMaterial = GD.Load<CanvasItemMaterial>("res://Prefabs/Camera/Water Overlay/watermaterial.tres");
 	}
 
 
@@ -107,6 +111,12 @@ public partial class Player : CharacterBody2D {
 
 		if (GetNode<Area2D>("AnglerArea").HasOverlappingBodies()) {
 			OnAnglerAreaEntered(GetNode<Area2D>("AnglerArea").GetOverlappingBodies()[0]);
+		}
+
+		if (shouldDarken) {
+			waterMaterial.BlendMode = CanvasItemMaterial.BlendModeEnum.Mul;
+		} else {
+			waterMaterial.BlendMode = CanvasItemMaterial.BlendModeEnum.Add;
 		}
 
 		// Update health bar
@@ -417,7 +427,7 @@ public partial class Player : CharacterBody2D {
 			if (atlasCoords.Y > 0) {
 				shouldDarken = !inventory.HasItem(ItemTypes.AnglerCap);
 			}
-			GD.Print(shouldDarken);
+			// GD.Print(shouldDarken);
 		}
 	}
 
