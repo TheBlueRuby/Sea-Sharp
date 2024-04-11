@@ -1,67 +1,69 @@
 using System;
 using Godot;
-using static Inventory;
+using static SeaSharp.Inventory;
 
-public partial class Collectible : Node2D {
-	private GpuParticles2D particles;
-	private Sprite2D sprite;
+namespace SeaSharp {
+	public partial class Collectible : Node2D {
+		private GpuParticles2D particles;
+		private Sprite2D sprite;
 
-	private Node MetSys;
-	private Node MetSysCompat;
+		private Node MetSys;
+		private Node MetSysCompat;
 
-	private PackedScene pickupText;
+		private PackedScene pickupText;
 
-	public string PickupType { get; set; } = "Test";
+		public string PickupType { get; set; } = "Test";
 
-	/// <summary>
-	/// Initialization function
-	/// </summary>
-	public override void _Ready() {
-		// Load the particle effect
-		particles = GetNode<GpuParticles2D>("PickupParticles");
-		sprite = GetNode<Sprite2D>("Sprite2D");
+		/// <summary>
+		/// Initialization function
+		/// </summary>
+		public override void _Ready() {
+			// Load the particle effect
+			particles = GetNode<GpuParticles2D>("PickupParticles");
+			sprite = GetNode<Sprite2D>("Sprite2D");
 
-		// Initialise the MetSys pointer
-		MetSys = GetTree().Root.GetNode<Node>("MetSys");
-		MetSysCompat = GetTree().Root.GetNode<Node>("MetSysCompat");
+			// Initialise the MetSys pointer
+			MetSys = GetTree().Root.GetNode<Node>("MetSys");
+			MetSysCompat = GetTree().Root.GetNode<Node>("MetSysCompat");
 
-		// Set object owner for MetSys
-		Owner = GetTree().Root.GetNode("GameLoop/Map");
+			// Set object owner for MetSys
+			Owner = GetTree().Root.GetNode("GameLoop/Map");
 
-		// Register as a MetSys object.
-		// If the object has already been registered, delete.
-		if ((bool)MetSysCompat.Call("register_obj_marker", this)) {
+			// Register as a MetSys object.
+			// If the object has already been registered, delete.
+			if ((bool)MetSysCompat.Call("register_obj_marker", this)) {
+				QueueFree();
+			}
+			pickupText = GD.Load<PackedScene>("res://Menus/DialogPopup.tscn");
+
+		}
+
+		/// <summary>
+		/// Collects the object when the player touches it.
+		/// Also spawns particles and logs collection in MetSys 
+		/// </summary>
+		public virtual async void Collect() {
+			// Hide the texture so particles are visible
+			sprite.Visible = false;
+
+			// Spawn a set of particles
+			particles.Emitting = true;
+
+			// Store MetSys Object
+			await ToSignal(GetTree().CreateTimer(0.5), "timeout");
+			MetSysCompat.Call("store_obj", this);
+
+			DialogPopup pickupTextInstance = pickupText.Instantiate<DialogPopup>();
+			pickupTextInstance.StringType = "items";
+			pickupTextInstance.StringId = PickupType.ToString();
+			GetTree().Root.GetNode("GameLoop/HUD").AddChild(pickupTextInstance);
+			GetTree().Root.GetNode<PauseHandler>("GameLoop/PauseHandler").SetPaused(true);
+
+			// Waits until particles are done emitting
+			await ToSignal(GetTree().CreateTimer(3), "timeout");
+
+			// Delete the object
 			QueueFree();
 		}
-		pickupText = GD.Load<PackedScene>("res://Menus/DialogPopup.tscn");
-
-	}
-
-	/// <summary>
-	/// Collects the object when the player touches it.
-	/// Also spawns particles and logs collection in MetSys 
-	/// </summary>
-	public virtual async void Collect() {
-		// Hide the texture so particles are visible
-		sprite.Visible = false;
-
-		// Spawn a set of particles
-		particles.Emitting = true;
-
-		// Store MetSys Object
-		await ToSignal(GetTree().CreateTimer(0.5), "timeout");
-		MetSysCompat.Call("store_obj", this);
-
-		DialogPopup pickupTextInstance = pickupText.Instantiate<DialogPopup>();
-		pickupTextInstance.stringType = "items";
-		pickupTextInstance.stringId = PickupType.ToString();
-		GetTree().Root.GetNode("GameLoop/HUD").AddChild(pickupTextInstance);
-		GetTree().Root.GetNode<PauseHandler>("GameLoop/PauseHandler").SetPaused(true);
-
-		// Waits until particles are done emitting
-		await ToSignal(GetTree().CreateTimer(3), "timeout");
-
-		// Delete the object
-		QueueFree();
 	}
 }
