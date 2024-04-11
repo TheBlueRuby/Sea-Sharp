@@ -1,4 +1,5 @@
 using System.Diagnostics;
+using System.Text;
 
 [DebuggerDisplay("{PrintArray(), nq}")]
 public class BitArray {
@@ -64,11 +65,11 @@ public class BitArray {
 	/// </summary>
 	/// <returns>The BitArray as a string</returns>
 	public string PrintArray() {
-		string output = "";
+		StringBuilder output = new();
 		for (int i = 1; i <= 32; i++) {
-			output += CheckBit(i) ? "1" : "0";
+			output.Append(CheckBit(i) ? "1" : "0");
 		}
-		return output;
+		return output.ToString();
 	}
 
 	/// <summary>

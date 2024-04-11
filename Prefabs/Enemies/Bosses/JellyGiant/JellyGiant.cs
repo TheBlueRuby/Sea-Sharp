@@ -1,13 +1,14 @@
 using Godot;
 using System;
+using System.Threading.Tasks;
 
 public partial class JellyGiant : CharacterBody2D {
 	[Export]
-	public int maxHealth = 10;
-	public int health;
+	public int maxHealth { get; set; } = 10;
+	public int health { get; set; }
 
-	public GpuParticles2D particles;
-	public Sprite2D sprite;
+	private GpuParticles2D particles;
+	private Sprite2D sprite;
 	private ProgressBar healthBar;
 
 	private Node MetSys;
@@ -46,16 +47,14 @@ public partial class JellyGiant : CharacterBody2D {
 	public override void _PhysicsProcess(double delta) {
 		floatingProgress += (float)delta;
 		Vector2 velocity = Velocity;
-		
+
 		// Float up and down
 		velocity.Y = (float)Math.Sin(floatingProgress) * 5;
-		// GD.Print(Velocity.Y + " - " + floatingProgress);
 
 		Velocity = velocity;
 		MoveAndSlide();
 
 		healthBar.Value = ((float)health / (float)maxHealth) * 100;
-		// GD.Print(health);
 		if (health <= 0) {
 			Die();
 		}
@@ -70,7 +69,7 @@ public partial class JellyGiant : CharacterBody2D {
 			player.Hit(10);
 		}
 	}
-	
+
 	/// <summary>
 	/// When a player beam hits, decrement health.
 	/// </summary>
@@ -82,7 +81,7 @@ public partial class JellyGiant : CharacterBody2D {
 	/// Kills the boss by hiding it and disabling collision.
 	/// Also stores it in MetSys so it won't respawn if the room is re-entered
 	/// </summary>
-	private async void Die() {
+	private void Die() {
 
 		// Hide the texture so particles are visible
 		sprite.Visible = false;
@@ -96,11 +95,16 @@ public partial class JellyGiant : CharacterBody2D {
 		GetNode<CollisionShape2D>("MovementHitbox").Disabled = true;
 
 		// Waits until particles are done emitting
-		await ToSignal(GetTree().CreateTimer(3), "timeout");
+		Wait(3);
 
 		// Store MetSys Object, ran later to avoid a crash
 		MetSysCompat.Call("store_obj", this);
 
 		QueueFree();
+	}
+	
+	private async void Wait(float time) {
+		await ToSignal(GetTree().CreateTimer(time), "timeout");
+
 	}
 }

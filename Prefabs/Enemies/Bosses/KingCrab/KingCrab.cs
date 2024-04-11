@@ -16,11 +16,11 @@ public partial class KingCrab : CharacterBody2D {
 	private float gravity = ProjectSettings.GetSetting("physics/2d/default_gravity").AsSingle();
 
 	[Export]
-	public int maxHealth = 10;
-	public int health;
+	public int maxHealth { get; set; } = 10;
+	public int health { get; set; }
 
-	public GpuParticles2D particles;
-	public Sprite2D sprite;
+	private GpuParticles2D particles;
+	private Sprite2D sprite;
 	private ProgressBar healthBar;
 
 	private PackedScene drop;
@@ -89,7 +89,6 @@ public partial class KingCrab : CharacterBody2D {
 		MoveAndSlide();
 
 		healthBar.Value = ((float)health / (float)maxHealth) * 100;
-		// GD.Print(health);
 		if (health <= 0) {
 			Die();
 		}

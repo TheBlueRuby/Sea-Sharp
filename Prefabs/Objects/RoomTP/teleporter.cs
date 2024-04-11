@@ -1,9 +1,9 @@
 using Godot;
 using System;
 
-public partial class teleporter : Area2D {
+public partial class Teleporter : Area2D {
 	[Export]
-	public string roomToGoTo;
+	public string roomToGoTo { get; set; }
 
 	private Node MetSysCompat;
 
@@ -11,7 +11,7 @@ public partial class teleporter : Area2D {
 	public override void _Ready() {
 		MetSysCompat = GetTree().Root.GetNode<Node>("MetSysCompat");
 	}
-	
+
 	/// <summary>
 	/// Teleports player to center of specified room
 	/// </summary>

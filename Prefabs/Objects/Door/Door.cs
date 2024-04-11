@@ -11,7 +11,7 @@ public partial class Door : Node2D {
 	private bool doorOpen;
 
 	[Export]
-	public string beamType;
+	public string beamType { get; set; }
 
 
 	/// <summary>
@@ -33,7 +33,7 @@ public partial class Door : Node2D {
 		if (!doorOpen) {
 			return;
 		}
-		if (doorTimer > 0f && playerInArea == false) {
+		if (doorTimer > 0f && playerInArea) {
 			doorTimer -= (float)delta;
 		} else if (!playerInArea) {
 			CloseDoor();
@@ -74,14 +74,12 @@ public partial class Door : Node2D {
 		if (beamType == "Pressure" && GetTree().Root.GetNode<Player>("GameLoop/Player").Inventory.HasItem(Inventory.ItemTypes.PressureSuit)) {
 			OpenDoor();
 		}
-		// GD.Print(beamType + " " + body.SceneFilePath + " " + GetTree().Root.GetNode<Player>("GameLoop/Player").inventory.HasItem(Inventory.ItemTypes.PressureSuit));
 	}
 
 	/// <summary>
 	/// Opens the door by disabling the door's collision and updating the sprite
 	/// </summary>
 	public void OpenDoor() {
-		// GD.Print("Opening");
 		doorOpen = true;
 		doorCollision.ProcessMode = ProcessModeEnum.Disabled;
 		doorSprite.SetDeferred("visible", false);
@@ -92,7 +90,6 @@ public partial class Door : Node2D {
 	/// Closes the door by enabling the door's collision and updating the sprite
 	/// </summary>
 	public void CloseDoor() {
-		// GD.Print("Closing");
 		doorOpen = false;
 		doorCollision.ProcessMode = ProcessModeEnum.Inherit;
 		doorSprite.SetDeferred("visible", true);

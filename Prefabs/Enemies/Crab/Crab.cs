@@ -10,9 +10,5 @@ public partial class Crab : WalkingEnemy {
 	public override void _Ready() {
 		Init(speed, jumpVel, maxSeeDist, damage);
 	}
-
-	public override void _PhysicsProcess(double delta) {
-		base._PhysicsProcess(delta);
-	}
 }
 

@@ -4,11 +4,11 @@ using System.Text.Json.Nodes;
 using Godot;
 
 public class DialogEntry {
-	public string stringType;
-	public string stringId;
-	public string iconPath;
-	public List<string> pages = new();
-	public List<bool> pagesDone = new();
+	public string stringType { get; set; }
+	public string stringId { get; set; }
+	public string iconPath { get; set; }
+	public List<string> pages { get; set; } = new();
+	public List<bool> pagesDone { get; set; } = new();
 
 	public DialogEntry(string filePath, string type, string id) {
 		stringType = type;

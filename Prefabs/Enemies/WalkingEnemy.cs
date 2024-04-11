@@ -3,19 +3,19 @@ using System;
 
 public partial class WalkingEnemy : CharacterBody2D {
 	[Export]
-	public int SPEED = 100;
+	public int SPEED { get; set; } = 100;
 
 	[Export]
-	public int JUMP_VEL = 450;
+	public int JUMP_VEL { get; set; } = 450;
 
 	[Export]
-	public int MAX_SEE_DIST = 256;
+	public int MAX_SEE_DIST { get; set; } = 256;
 
 	[Export]
-	public int DAMAGE;
+	public int DAMAGE { get; set; }
 
 	[Export]
-	public Node2D player;
+	public Node2D target { get; set; }
 
 	private NavigationAgent2D navAgent;
 	private RayCast2D playerScanner;
@@ -34,7 +34,7 @@ public partial class WalkingEnemy : CharacterBody2D {
 	public void Init(int speed = 100, int jumpVel = 450, int maxSeeDist = 256, int damage = 5) {
 		navAgent = GetNode<NavigationAgent2D>("NavAgent");
 		playerScanner = GetNode<RayCast2D>("LineOfSight");
-		player ??= GetTree().Root.GetNode<Node2D>("GameLoop/Player");
+		target ??= GetTree().Root.GetNode<Node2D>("GameLoop/Player");
 
 		gravity = (float)ProjectSettings.GetSetting("physics/2d/default_gravity");
 
@@ -69,7 +69,7 @@ public partial class WalkingEnemy : CharacterBody2D {
 	/// Method to make the path by setting the navAgent's TargetPosition to the player's GlobalPosition.
 	/// </summary>
 	private void MakePath() {
-		navAgent.TargetPosition = player.GlobalPosition;
+		navAgent.TargetPosition = target.GlobalPosition;
 	}
 
 	/// <summary>
@@ -87,15 +87,14 @@ public partial class WalkingEnemy : CharacterBody2D {
 	/// </summary>  
 	private void ScanForPlayer() {
 		canSeePlayer = false;
-		playerScanner.TargetPosition = playerScanner.ToLocal(player.GlobalPosition);
+		playerScanner.TargetPosition = playerScanner.ToLocal(target.GlobalPosition);
 
-		if (playerScanner.IsColliding()) {
-			if (playerScanner.GetCollider() == player) {
-				Vector2 playerDist = playerScanner.GetCollisionPoint() - playerScanner.GlobalPosition;
-				if (playerDist.Length() < MAX_SEE_DIST) {
-					canSeePlayer = true;
-				}
+		if (playerScanner.IsColliding() && playerScanner.GetCollider() == target) {
+			Vector2 playerDist = playerScanner.GetCollisionPoint() - playerScanner.GlobalPosition;
+			if (playerDist.Length() < MAX_SEE_DIST) {
+				canSeePlayer = true;
 			}
+
 		}
 	}
 

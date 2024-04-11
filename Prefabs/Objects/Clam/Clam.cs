@@ -18,14 +18,6 @@ public partial class Clam : Node2D {
 		closedTexture = GD.Load<Texture2D>("res://Prefabs/Objects/Clam/clam.png");
 		openTexture = GD.Load<Texture2D>("res://Prefabs/Objects/Clam/clam_open.png");
 	}
-
-	/// <summary>
-	/// Called every frame update.
-	/// </summary>
-	/// <param name="delta">Time elapsed since previous frame in seconds</param>
-	public override void _Process(double delta) {
-	}
-
 	private void OnPlayerEnter(Node2D body) {
 		texture.Texture = openTexture;
 		Collectible collectible = (Collectible)clamPearl.Instantiate();
