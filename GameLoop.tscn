@@ -54,6 +54,7 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="WaterEffect" parent="WaterEffectLayer/WaterEffectContainer" instance=ExtResource("5_u2rt4")]
+modulate = Color(1, 1, 1, 0.121569)
 
 [node name="PauseHandler" type="Node" parent="."]
 process_mode = 3

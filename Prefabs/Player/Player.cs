@@ -33,6 +33,12 @@ public partial class Player : CharacterBody2D {
 	private bool usingFlipper;
 	private bool firstRun = false;
 
+	private Node MetSys;
+	private Node MetSysCompat;
+
+	private bool shouldDarken = false;
+	private CanvasItemMaterial waterMaterial;
+
 	/// <summary>
 	/// Initialization function
 	/// </summary>
@@ -53,7 +59,15 @@ public partial class Player : CharacterBody2D {
 		bubbleBeam = GD.Load<PackedScene>("res://Prefabs/Player/Beams/BubbleBeam.tscn");
 		heatBeam = GD.Load<PackedScene>("res://Prefabs/Player/Beams/HeatBeam.tscn");
 		iceBeam = GD.Load<PackedScene>("res://Prefabs/Player/Beams/IceBeam.tscn");
+
+		// MetSys
+		MetSys = GetTree().Root.GetNode("MetSys");
+		MetSysCompat = GetTree().Root.GetNode("MetSysCompat");
+		
+		// Water Overlay Material
+		waterMaterial = GD.Load<CanvasItemMaterial>("res://Prefabs/Camera/Water Overlay/watermaterial.tres");
 	}
+
 
 	/// <summary>
 	/// Runs every physics update frame
@@ -85,7 +99,7 @@ public partial class Player : CharacterBody2D {
 		// Update player
 		Velocity = velocity;
 		MoveAndSlide();
-		GD.Print(Velocity.X);
+		// GD.Print(Velocity.X);
 
 		// Set sprites
 		SetSprite(Velocity.X, usingFlipper);
@@ -94,6 +108,16 @@ public partial class Player : CharacterBody2D {
 			beamCooldownTimer -= (float)delta;
 		}
 		CheckFire();
+
+		if (GetNode<Area2D>("AnglerArea").HasOverlappingBodies()) {
+			OnAnglerAreaEntered(GetNode<Area2D>("AnglerArea").GetOverlappingBodies()[0]);
+		}
+
+		if (shouldDarken) {
+			waterMaterial.BlendMode = CanvasItemMaterial.BlendModeEnum.Mul;
+		} else {
+			waterMaterial.BlendMode = CanvasItemMaterial.BlendModeEnum.Add;
+		}
 
 		// Update health bar
 		// GD.Print(((float)health / (float)maxHealth) * 100);
@@ -214,7 +238,7 @@ public partial class Player : CharacterBody2D {
 		}
 		hitbox.Shape = hb_side;
 
-		GD.Print(texture.Animation);
+		// GD.Print(texture.Animation);
 
 	}
 
@@ -392,4 +416,19 @@ public partial class Player : CharacterBody2D {
 		health = newHealth;
 		maxHealth = newMaxHealth;
 	}
+
+	private void OnAnglerAreaEntered(Node2D body) {
+		if (body is TileMap tileMap) {
+			Vector2 localCoords = tileMap.ToLocal(GlobalPosition);
+			Vector2I tileCoords = tileMap.LocalToMap(localCoords);
+			Vector2I atlasCoords = tileMap.GetCellAtlasCoords(0, tileCoords);
+
+			shouldDarken = false;
+			if (atlasCoords.Y > 0) {
+				shouldDarken = !inventory.HasItem(ItemTypes.AnglerCap);
+			}
+			// GD.Print(shouldDarken);
+		}
+	}
+
 }
