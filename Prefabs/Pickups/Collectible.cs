@@ -3,15 +3,15 @@ using Godot;
 using static Inventory;
 
 public partial class Collectible : Node2D {
-	public GpuParticles2D particles;
-	public Sprite2D sprite;
+	private GpuParticles2D particles;
+	private Sprite2D sprite;
 
 	private Node MetSys;
 	private Node MetSysCompat;
 
 	private PackedScene pickupText;
 
-	public string PickupType = "Test";
+	public string PickupType { get; set; } = "Test";
 
 	/// <summary>
 	/// Initialization function

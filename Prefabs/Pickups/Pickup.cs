@@ -5,5 +5,5 @@ using static Inventory;
 public partial class Pickup : Collectible {
 	// To compare against in player script
 	[Export]
-	public string Type = "test";
+	public string Type { get; set; } = "test";
 }

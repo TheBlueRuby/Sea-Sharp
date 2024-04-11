@@ -5,7 +5,7 @@ using static Inventory;
 public partial class BeamPickup : Collectible {
 	// To compare against in player script
 	[Export]
-	public BeamTypes Type = BeamTypes.None;
+	public BeamTypes Type { get; set; } = BeamTypes.None;
 
 	private bool IsCollected = false;
 

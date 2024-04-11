@@ -5,7 +5,7 @@ using static Inventory;
 public partial class ItemPickup : Collectible {
 	// To compare against in player script
 	[Export]
-	public ItemTypes Type = ItemTypes.Test;
+	public ItemTypes Type { get; set; } = ItemTypes.Test;
 
 	private bool IsCollected = false;
 
