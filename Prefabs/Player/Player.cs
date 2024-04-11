@@ -16,8 +16,6 @@ public partial class Player : CharacterBody2D {
 	private RectangleShape2D hb_side;
 	private RectangleShape2D hb_flpr;
 
-	public Inventory inventory = new();
-
 	private const float beamCooldown = 0.25f;
 	private float beamCooldownTimer = 0f;
 	private PackedScene bubbleBeam;
@@ -25,8 +23,6 @@ public partial class Player : CharacterBody2D {
 	private PackedScene iceBeam;
 	private BeamTypes[] changeOrder = new BeamTypes[] { BeamTypes.None, BeamTypes.BubbleBeam, BeamTypes.HeatBeam, BeamTypes.IceBeam };
 
-	public int maxHealth = 100;
-	public int health = 100;
 	private const float invSeconds = 1f;
 	private float invTimer;
 
@@ -38,6 +34,10 @@ public partial class Player : CharacterBody2D {
 
 	private bool shouldDarken = false;
 	private CanvasItemMaterial waterMaterial;
+
+	public int MaxHealth { get; set; } = 100;
+	public int Health { get; set; } = 100;
+	public Inventory Inventory { get; set; } = new();
 
 	/// <summary>
 	/// Initialization function
@@ -63,7 +63,7 @@ public partial class Player : CharacterBody2D {
 		// MetSys
 		MetSys = GetTree().Root.GetNode("MetSys");
 		MetSysCompat = GetTree().Root.GetNode("MetSysCompat");
-		
+
 		// Water Overlay Material
 		waterMaterial = GD.Load<CanvasItemMaterial>("res://Prefabs/Camera/Water Overlay/watermaterial.tres");
 	}
@@ -90,7 +90,7 @@ public partial class Player : CharacterBody2D {
 
 		Vector2 velocity = Velocity;
 
-		usingFlipper = Input.IsActionPressed("move_flipper") && inventory.HasItem(ItemTypes.Flippers);
+		usingFlipper = Input.IsActionPressed("move_flipper") && Inventory.HasItem(ItemTypes.Flippers);
 		if (usingFlipper) {
 			velocity = FlipperMovement(delta, velocity);
 		} else {
@@ -99,7 +99,6 @@ public partial class Player : CharacterBody2D {
 		// Update player
 		Velocity = velocity;
 		MoveAndSlide();
-		// GD.Print(Velocity.X);
 
 		// Set sprites
 		SetSprite(Velocity.X, usingFlipper);
@@ -120,8 +119,7 @@ public partial class Player : CharacterBody2D {
 		}
 
 		// Update health bar
-		// GD.Print(((float)health / (float)maxHealth) * 100);
-		GetTree().Root.GetNode<ProgressBar>("GameLoop/HUD/HealthBar").Value = ((float)health / (float)maxHealth) * 100;
+		GetTree().Root.GetNode<ProgressBar>("GameLoop/HUD/HealthBar").Value = ((float)Health / (float)MaxHealth) * 100;
 
 		// Count down I-Frames
 		if (invTimer > 0f) {
@@ -142,7 +140,7 @@ public partial class Player : CharacterBody2D {
 		}
 
 		// Handle Jump.
-		if (Input.IsActionPressed("move_jump") && (IsOnFloor() || inventory.HasItem(ItemTypes.Propeller))) {
+		if (Input.IsActionPressed("move_jump") && (IsOnFloor() || Inventory.HasItem(ItemTypes.Propeller))) {
 			velocity.Y = jump_vel;
 		}
 
@@ -153,18 +151,6 @@ public partial class Player : CharacterBody2D {
 		} else {
 			velocity.X = Mathf.MoveToward(Velocity.X, 0, speed);
 		}
-
-		// Set the facing sprites.
-		// if (velocity.X == 0) {
-		// 	SetSprite("front", false);
-		// } else {
-		// 	SetSprite(velocity.X > 0 ? "right" : "left", false);
-		// }
-		// if (velocity.X < 0) {
-		// 	SetSprite("left", false);
-		// } else if (velocity.X > 0) {
-		// 	SetSprite("right", false);
-		// }
 
 		return velocity;
 	}
@@ -194,10 +180,6 @@ public partial class Player : CharacterBody2D {
 			velocity.X = Mathf.MoveToward(Velocity.X, 0, 5f);
 		}
 
-		// Set the facing sprites.
-		// SetSprite(velocity.X > 0 ? "right" : "left", true);
-
-
 		return velocity;
 
 	}
@@ -224,21 +206,12 @@ public partial class Player : CharacterBody2D {
 			return;
 
 		}
-		// if (side == "front") {
-		// 	texture.Animation = "Idle";
-		// 	hitbox.Shape = hb_front;
-		// 	return;
-		// }
-
-		// GD.Print(xVelocity);
 		if (Math.Abs(xVelocity) > 1) {
 			texture.Animation = "Walk";
 		} else if (texture.Animation != "Idle") { // Don't immediately go from idle to sideways, require player input first
 			texture.Animation = "Side";
 		}
 		hitbox.Shape = hb_side;
-
-		// GD.Print(texture.Animation);
 
 	}
 
@@ -258,17 +231,17 @@ public partial class Player : CharacterBody2D {
 				break;
 
 			case BeamPickup beam:
-				inventory.ModifyBeams(beam.Type, true);
-				if (inventory.ActiveBeam == BeamTypes.None) {
-					inventory.SetActiveBeam(beam.Type);
+				Inventory.ModifyBeams(beam.Type, true);
+				if (Inventory.ActiveBeam == BeamTypes.None) {
+					Inventory.SetActiveBeam(beam.Type);
 				}
-				GD.Print(inventory.BeamsOwned.PrintArray());
+				GD.Print(Inventory.BeamsOwned.PrintArray());
 				break;
 
 			case ItemPickup item:
-				inventory.ModifyItems(item.Type, true);
-				inventory.SetActiveItem(item.Type, true);
-				GD.Print(inventory.PrintOwnedItems());
+				Inventory.ModifyItems(item.Type, true);
+				Inventory.SetActiveItem(item.Type, true);
+				GD.Print(Inventory.PrintOwnedItems());
 				break;
 
 			default:
@@ -314,7 +287,7 @@ public partial class Player : CharacterBody2D {
 	/// </summary>
 	/// <returns>A formatted string representing the inventory data.</returns>
 	public string GetInventory() {
-		return inventory.GetInventory();
+		return Inventory.GetInventory();
 	}
 
 
@@ -323,68 +296,68 @@ public partial class Player : CharacterBody2D {
 	/// </summary>
 	/// <param name="saveData">A formatted string representing the inventory data.</param>
 	public void SetInventory(string saveData) {
-		inventory.SetInventory(saveData);
+		Inventory.SetInventory(saveData);
 	}
 
 	/// <summary>
 	/// Checks if the player can fire the weapon. If they can, spawn a beam.
 	/// </summary>
 	public void CheckFire() {
-		// Attack
-		if (Input.IsActionPressed("wpn_attack")) {
-			// If not in cooldown
-			if (beamCooldownTimer <= 0) {
-				Beam beamInstance = null;
-				// Select beam to spawn
-				switch (inventory.ActiveBeam) {
-					case BeamTypes.BubbleBeam:
-						beamInstance = bubbleBeam.Instantiate<Beam>();
-						break;
-					case BeamTypes.HeatBeam:
-						beamInstance = heatBeam.Instantiate<Beam>();
-						break;
-					case BeamTypes.IceBeam:
-						beamInstance = iceBeam.Instantiate<Beam>();
-						break;
-				}
-
-				// Spawn beam
-				if (beamInstance != null) {
-					int beamDir = (int)hitbox.Scale.X;
-					if (Input.IsActionPressed("move_jump")) {
-						beamDir = 0;
-					}
-					beamInstance.Start(beamDir, GlobalPosition, inventory.HasBeam(BeamTypes.PressureBeam));
-					GetTree().Root.GetNode("GameLoop/Map").AddChild(beamInstance);
-				}
-
-				// Reset cooldown
-				beamCooldownTimer = beamCooldown;
+		// Shoot
+		if (Input.IsActionPressed("wpn_attack") && beamCooldownTimer <= 0) {
+			Beam beamInstance = null;
+			// Select beam to spawn
+			switch (Inventory.ActiveBeam) {
+				case BeamTypes.BubbleBeam:
+					beamInstance = bubbleBeam.Instantiate<Beam>();
+					break;
+				case BeamTypes.HeatBeam:
+					beamInstance = heatBeam.Instantiate<Beam>();
+					break;
+				case BeamTypes.IceBeam:
+					beamInstance = iceBeam.Instantiate<Beam>();
+					break;
 			}
+
+			// Spawn beam
+			if (beamInstance != null) {
+				int beamDir = (int)hitbox.Scale.X;
+				if (Input.IsActionPressed("move_jump")) {
+					beamDir = 0;
+				}
+				beamInstance.Start(beamDir, GlobalPosition, Inventory.HasBeam(BeamTypes.PressureBeam));
+				GetTree().Root.GetNode("GameLoop/Map").AddChild(beamInstance);
+			}
+
+			// Reset cooldown
+			beamCooldownTimer = beamCooldown;
 		}
 
 		// Change weapon
-		if (Input.IsActionJustPressed("wpn_change")) {
-			int index = Array.IndexOf(changeOrder, inventory.ActiveBeam);
-			bool newWeaponSelected = false;
-			int repeats = 0;
-			// Cycle through array until next available beam is selected
-			while (!newWeaponSelected) {
-				if (index >= changeOrder.Length) {
-					index = 0;
-				}
-				// GD.Print(index);
-				if (inventory.HasBeam(changeOrder[index])) {
-					inventory.ActiveBeam = changeOrder[index];
-					newWeaponSelected = true;
-				}
-				index++;
-				repeats++;
-				if (repeats >= changeOrder.Length) {
-					break;
-				}
-			}
 
+		if (Input.IsActionJustPressed("wpn_change")) {
+			ChangeWeapon();
+		}
+	}
+
+	private void ChangeWeapon() {
+		int index = Array.IndexOf(changeOrder, Inventory.ActiveBeam);
+		bool newWeaponSelected = false;
+		int repeats = 0;
+		// Cycle through array until next available beam is selected
+		while (!newWeaponSelected) {
+			if (index >= changeOrder.Length) {
+				index = 0;
+			}
+			if (Inventory.HasBeam(changeOrder[index])) {
+				Inventory.ActiveBeam = changeOrder[index];
+				newWeaponSelected = true;
+			}
+			index++;
+			repeats++;
+			if (repeats >= changeOrder.Length) {
+				break;
+			}
 		}
 	}
 
@@ -394,7 +367,7 @@ public partial class Player : CharacterBody2D {
 	/// <param name="damage">The amount of damage to be applied to the player's health.</param>
 	public void Hit(int damage) {
 		if (invTimer <= 0) {
-			health -= damage;
+			Health -= damage;
 			invTimer = invSeconds;
 		}
 	}
@@ -413,8 +386,8 @@ public partial class Player : CharacterBody2D {
 	/// <param name="newHealth">The new health value. Defaults to 100.</param>
 	/// <param name="newMaxHealth">The new max health value. Defaults to 100.</param>
 	public void LoadHealth(int newHealth = 100, int newMaxHealth = 100) {
-		health = newHealth;
-		maxHealth = newMaxHealth;
+		Health = newHealth;
+		MaxHealth = newMaxHealth;
 	}
 
 	private void OnAnglerAreaEntered(Node2D body) {
@@ -425,9 +398,8 @@ public partial class Player : CharacterBody2D {
 
 			shouldDarken = false;
 			if (atlasCoords.Y > 0) {
-				shouldDarken = !inventory.HasItem(ItemTypes.AnglerCap);
+				shouldDarken = !Inventory.HasItem(ItemTypes.AnglerCap);
 			}
-			// GD.Print(shouldDarken);
 		}
 	}
 

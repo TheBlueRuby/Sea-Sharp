@@ -46,7 +46,7 @@ public partial class Door : Node2D {
 	/// <param name="body">The player or beam node.</param>
 	private void OnPlayerActivate(Node2D body) {
 		// If this door is a pressure door and the player doesn't have a pressure suit, stay shut
-		if (beamType == "Pressure" && !GetTree().Root.GetNode<Player>("GameLoop/Player").inventory.HasItem(Inventory.ItemTypes.PressureSuit)) {
+		if (beamType == "Pressure" && !GetTree().Root.GetNode<Player>("GameLoop/Player").Inventory.HasItem(Inventory.ItemTypes.PressureSuit)) {
 			return;
 		}
 
@@ -71,7 +71,7 @@ public partial class Door : Node2D {
 		if (body.SceneFilePath.Contains(beamType) || beamType == "Prox") {
 			OpenDoor();
 		}
-		if (beamType == "Pressure" && GetTree().Root.GetNode<Player>("GameLoop/Player").inventory.HasItem(Inventory.ItemTypes.PressureSuit)) {
+		if (beamType == "Pressure" && GetTree().Root.GetNode<Player>("GameLoop/Player").Inventory.HasItem(Inventory.ItemTypes.PressureSuit)) {
 			OpenDoor();
 		}
 		// GD.Print(beamType + " " + body.SceneFilePath + " " + GetTree().Root.GetNode<Player>("GameLoop/Player").inventory.HasItem(Inventory.ItemTypes.PressureSuit));
