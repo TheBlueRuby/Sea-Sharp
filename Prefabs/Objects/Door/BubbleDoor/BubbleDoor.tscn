@@ -8,7 +8,7 @@
 points = PackedVector2Array(0, -22, 2, -20, 4, -15, 5, -11, 6, -7, 6, 7, 5, 12, 4, 15, 2, 20, 0, 22, -2, 22, -2, -22)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4hgcm"]
-size = Vector2(22, 48)
+size = Vector2(28, 48)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2njy4"]
 size = Vector2(14, 48)
@@ -22,7 +22,7 @@ texture = ExtResource("2_vf2x4")
 region_rect = Rect2(0, 0, 16, 32)
 
 [node name="Collision" type="StaticBody2D" parent="."]
-collision_mask = 2
+collision_mask = 0
 
 [node name="Sprite" type="Sprite2D" parent="Collision"]
 texture = ExtResource("3_y5n0s")
@@ -32,10 +32,10 @@ shape = SubResource("ConvexPolygonShape2D_ycnmw")
 
 [node name="BeamDetector" type="Area2D" parent="."]
 collision_layer = 32
-collision_mask = 18
+collision_mask = 16
 
 [node name="Hitbox" type="CollisionShape2D" parent="BeamDetector"]
-position = Vector2(3, 0)
+position = Vector2(6, 0)
 shape = SubResource("RectangleShape2D_4hgcm")
 
 [node name="PlayerDetector" type="Area2D" parent="."]

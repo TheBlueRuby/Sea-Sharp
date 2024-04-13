@@ -22,4 +22,4 @@ position = Vector2(8, 1368)
 position = Vector2(8, 664)
 
 [node name="Door" parent="." instance=ExtResource("4_xehnc")]
-position = Vector2(11, 1016)
+position = Vector2(8, 1016)
