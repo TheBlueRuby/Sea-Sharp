@@ -21,6 +21,11 @@ namespace SeaSharp {
 			closedTexture = GD.Load<Texture2D>(path + "clam.png");
 			openTexture = GD.Load<Texture2D>(path + "clam_open.png");
 		}
+
+		/// <summary>
+		/// Spawns the "pearl" when the player gets close
+		/// </summary>
+		/// <param name="body">The player</param>
 		private void OnPlayerEnter(Node2D body) {
 			if (body is not Player) {
 				return;
@@ -31,7 +36,10 @@ namespace SeaSharp {
 
 		}
 
-
+		/// <summary>
+		/// Closes the clam when the player gets out of range
+		/// </summary>
+		/// <param name="body">The player</param>
 		private void OnPlayerExit(Node2D body) {
 			if (body is not Player) {
 				return;

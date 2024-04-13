@@ -22,7 +22,7 @@ namespace SeaSharp {
 		private PackedScene bubbleBeam;
 		private PackedScene heatBeam;
 		private PackedScene iceBeam;
-		private BeamTypes[] changeOrder = new BeamTypes[] { BeamTypes.None, BeamTypes.BubbleBeam, BeamTypes.HeatBeam, BeamTypes.IceBeam };
+		private readonly BeamTypes[] changeOrder = new BeamTypes[] { BeamTypes.None, BeamTypes.BubbleBeam, BeamTypes.HeatBeam, BeamTypes.IceBeam };
 
 		private const float invSeconds = 1f;
 		private float invTimer;
@@ -81,14 +81,17 @@ namespace SeaSharp {
 				firstRun = false;
 				PackedScene dialogPopup = GD.Load<PackedScene>(Utils.Paths.Resources.Menus + "DialogPopup.tscn");
 
+				// Initialise intro text popup
 				DialogPopup dialogPopupInstance = dialogPopup.Instantiate<DialogPopup>();
 				dialogPopupInstance.StringType = "speech";
 				dialogPopupInstance.StringId = "introText";
 				GetTree().Root.GetNode(Utils.Paths.SceneTree.HUD).AddChild(dialogPopupInstance);
 
+				// Freeze game while text is showing
 				GetTree().Root.GetNode<PauseHandler>(Utils.Paths.SceneTree.PauseHandler).SetPaused(true);
 			}
 
+			/* -------------------------------- Movement -------------------------------- */
 			Vector2 velocity = Velocity;
 
 			usingFlipper = Input.IsActionPressed("move_flipper") && Inventory.HasItem(ItemTypes.Flippers);
@@ -104,11 +107,13 @@ namespace SeaSharp {
 			// Set sprites
 			SetSprite(Velocity.X, usingFlipper);
 
+			/* ------------------------------- Beam logic ------------------------------- */
 			if (beamCooldownTimer > 0) {
 				beamCooldownTimer -= (float)delta;
 			}
 			CheckFire();
 
+			/* ---------------------------- Angler darkening ---------------------------- */
 			if (GetNode<Area2D>("AnglerArea").HasOverlappingBodies()) {
 				OnAnglerAreaEntered(GetNode<Area2D>("AnglerArea").GetOverlappingBodies()[0]);
 			}
@@ -207,6 +212,7 @@ namespace SeaSharp {
 				return;
 
 			}
+			
 			if (Math.Abs(xVelocity) > 1) {
 				texture.Animation = "Walk";
 			} else if (texture.Animation != "Idle") { // Don't immediately go from idle to sideways, require player input first
@@ -341,6 +347,9 @@ namespace SeaSharp {
 			}
 		}
 
+		/// <summary>
+		/// A function to change the active weapon based on the inventory and an array of available weapons.
+		/// </summary>
 		private void ChangeWeapon() {
 			int index = Array.IndexOf(changeOrder, Inventory.ActiveBeam);
 			bool newWeaponSelected = false;
@@ -391,6 +400,10 @@ namespace SeaSharp {
 			MaxHealth = newMaxHealth;
 		}
 
+		/// <summary>
+		/// Darken the screen if the angler cap isn't equipped in the right areas
+		/// </summary>
+		/// <param name="body">Background tiles</param>
 		private void OnAnglerAreaEntered(Node2D body) {
 			if (body is TileMap tileMap) {
 				Vector2 localCoords = tileMap.ToLocal(GlobalPosition);

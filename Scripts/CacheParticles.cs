@@ -11,14 +11,14 @@ namespace SeaSharp {
 			pickupParticles = GD.Load<ParticleProcessMaterial>(Utils.Paths.Resources.PickupParticles);
 
 			// List should be updated every new particle added
-			ParticleProcessMaterial[] particleProcessMaterials = {
-			pickupParticles
-		};
+			ParticleProcessMaterial[] materials = {
+				pickupParticles
+			};
 
 			// Looping through array and loading the shaders into memory
-			foreach (ParticleProcessMaterial particleProcessMaterial in particleProcessMaterials) {
+			foreach (ParticleProcessMaterial material in materials) {
 				GpuParticles2D particlesInstance = new() {
-					ProcessMaterial = particleProcessMaterial,
+					ProcessMaterial = material,
 					OneShot = true,
 					Emitting = true
 				};

@@ -1,5 +1,12 @@
 namespace Utils {
+	/// <summary>
+	/// Class containing all hardcoded paths
+	/// </summary>
 	public static class Paths {
+		/// <summary>
+		/// Class containing paths in the scene tree.
+		/// Used for <c>GetNode()</c> and <c>GetNodeOrNull()</c> calls 
+		/// </summary>
 		public static class SceneTree {
 			public const string GameLoop = "GameLoop";
 			public const string HUD = GameLoop + "/HUD";
@@ -12,6 +19,10 @@ namespace Utils {
 			public const string MetSysCompat = "MetSysCompat";
 		}
 
+		/// <summary>
+		/// Class containing paths in the filesystem.
+		/// Used mainly in <c>GD.Load()</c>
+		/// </summary>
 		public static class Resources {
 			public const string Root = "res://";
 			public const string Prefabs = Root + "Prefabs/";

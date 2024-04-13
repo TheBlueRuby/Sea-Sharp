@@ -19,7 +19,7 @@ namespace SeaSharp {
 		public override void _Ready() {
 			dialogEntry = new(Utils.Paths.Resources.Strings, StringType, StringId);
 
-			icon = GD.Load<CompressedTexture2D>(dialogEntry.iconPath);
+			icon = GD.Load<CompressedTexture2D>(dialogEntry.IconPath);
 			GetNode<TextureRect>("Background/Icon").Texture = icon;
 			PrintPage(0);
 		}
@@ -27,9 +27,9 @@ namespace SeaSharp {
 		// Called every frame. 'delta' is the elapsed time since the previous frame.
 		public override void _Process(double delta) {
 
-			if (!dialogEntry.pagesDone.Last()) {
-				for (int i = 0; i < dialogEntry.pages.Count; i++) {
-					if (dialogEntry.pagesDone[i] || currentlyPrinting) {
+			if (!dialogEntry.PagesDone.Last()) {
+				for (int i = 0; i < dialogEntry.Pages.Count; i++) {
+					if (dialogEntry.PagesDone[i] || currentlyPrinting) {
 						continue;
 					}
 
@@ -47,12 +47,22 @@ namespace SeaSharp {
 
 		}
 
+		/// <summary>
+		/// Prints a dialog page based on the provided page number.
+		/// </summary>
+		/// <param name="pageNum">The number of the page to print</param>
 		public async void PrintPage(int pageNum) {
 			currentlyPrinting = true;
-			dialogEntry.pagesDone[pageNum] = await TextBuild(dialogEntry.pages[pageNum], dialogEntry.pagesDone[pageNum]);
+			dialogEntry.PagesDone[pageNum] = await TextBuild(dialogEntry.Pages[pageNum], dialogEntry.PagesDone[pageNum]);
 			currentlyPrinting = false;
 		}
 
+		/// <summary>
+		/// Creates a typewriter effect for the dialog boxes
+		/// </summary>
+		/// <param name="text">Text to print</param>
+		/// <param name="done">If the text has been printed</param>
+		/// <returns>Returns <c>true</c> when the text is finished</returns>
 		private async Task<bool> TextBuild(string text, bool done) {
 			if (!done) {
 				GetNode<Label>("Background/Text").Text = "";
