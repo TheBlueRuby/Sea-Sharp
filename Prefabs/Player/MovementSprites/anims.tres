@@ -1,8 +1,8 @@
 [gd_resource type="SpriteFrames" load_steps=17 format=3 uid="uid://rfjg00so3uv5"]
 
-[ext_resource type="Texture2D" uid="uid://bovqxemy5ds7d" path="res://Prefabs/Player/side_flpr.png" id="1_8ut0s"]
-[ext_resource type="Texture2D" uid="uid://c0j2oydurv1xr" path="res://Prefabs/Player/idle.png" id="2_r52cl"]
-[ext_resource type="Texture2D" uid="uid://bal1o4vaxj6o1" path="res://Prefabs/Player/walk-right.png" id="3_ibxdu"]
+[ext_resource type="Texture2D" uid="uid://bovqxemy5ds7d" path="res://Prefabs/Player/MovementSprites/side_flpr.png" id="1_8ut0s"]
+[ext_resource type="Texture2D" uid="uid://c0j2oydurv1xr" path="res://Prefabs/Player/MovementSprites/idle.png" id="2_r52cl"]
+[ext_resource type="Texture2D" uid="uid://bal1o4vaxj6o1" path="res://Prefabs/Player/MovementSprites/walk-right.png" id="3_ibxdu"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_vdva4"]
 atlas = ExtResource("1_8ut0s")

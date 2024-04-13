@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bovqxemy5ds7d"
-path="res://.godot/imported/side_flpr.png-06aafcf101f22133ca7652b2d3574e4f.ctex"
+uid="uid://c0j2oydurv1xr"
+path="res://.godot/imported/idle.png-fad5c6dc5ce596792965b659ffd5c05f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Prefabs/Player/side_flpr.png"
-dest_files=["res://.godot/imported/side_flpr.png-06aafcf101f22133ca7652b2d3574e4f.ctex"]
+source_file="res://Prefabs/Player/MovementSprites/idle.png"
+dest_files=["res://.godot/imported/idle.png-fad5c6dc5ce596792965b659ffd5c05f.ctex"]
 
 [params]
 

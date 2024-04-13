@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://Prefabs/Player/Player.cs" id="1_b3hpr"]
 [ext_resource type="Shape2D" uid="uid://2mtc73tbfvyw" path="res://Prefabs/Player/Collision/player_side.tres" id="2_xpa2t"]
-[ext_resource type="SpriteFrames" uid="uid://rfjg00so3uv5" path="res://Prefabs/Player/anims.tres" id="3_uebku"]
+[ext_resource type="SpriteFrames" uid="uid://rfjg00so3uv5" path="res://Prefabs/Player/MovementSprites/anims.tres" id="3_uebku"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jw4d6"]
 

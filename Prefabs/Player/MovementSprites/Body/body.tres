@@ -1,0 +1,39 @@
+[gd_resource type="SpriteFrames" load_steps=6 format=3 uid="uid://cyjitve5wdman"]
+
+[ext_resource type="Texture2D" uid="uid://byyrettuk8ih4" path="res://Prefabs/Player/MovementSprites/Body/walk.png" id="1_jb14g"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6di6f"]
+atlas = ExtResource("1_jb14g")
+region = Rect2(0, 0, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l8fox"]
+atlas = ExtResource("1_jb14g")
+region = Rect2(16, 0, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c7pqa"]
+atlas = ExtResource("1_jb14g")
+region = Rect2(32, 0, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_26soy"]
+atlas = ExtResource("1_jb14g")
+region = Rect2(48, 0, 16, 32)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6di6f")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l8fox")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c7pqa")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_26soy")
+}],
+"loop": true,
+"name": &"Walk",
+"speed": 5.0
+}]
