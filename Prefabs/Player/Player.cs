@@ -212,13 +212,15 @@ namespace SeaSharp {
 				return;
 
 			}
-			
+
 			if (Math.Abs(xVelocity) > 1) {
 				texture.Animation = "Walk";
 			} else if (texture.Animation != "Idle") { // Don't immediately go from idle to sideways, require player input first
 				texture.Animation = "Side";
 			}
 			hitbox.Shape = hb_side;
+
+			texture.CheckItems();
 
 		}
 

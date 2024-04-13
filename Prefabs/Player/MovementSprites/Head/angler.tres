@@ -1,8 +1,8 @@
-[gd_resource type="SpriteFrames" load_steps=17 format=3 uid="uid://cp223vfvlbes2"]
+[gd_resource type="SpriteFrames" load_steps=17 format=3 uid="uid://bf4vxrhcp6o5r"]
 
-[ext_resource type="Texture2D" uid="uid://dqoaipnp7ha1j" path="res://Prefabs/Player/MovementSprites/Head/default/walk.png" id="1_sk5ol"]
-[ext_resource type="Texture2D" uid="uid://dpa04kwa84vsi" path="res://Prefabs/Player/MovementSprites/Head/default/flipper.png" id="1_wnigy"]
-[ext_resource type="Texture2D" uid="uid://dxj1sqbxothxt" path="res://Prefabs/Player/MovementSprites/Head/default/idle.png" id="2_1t5b6"]
+[ext_resource type="Texture2D" uid="uid://w5s18mqvs1kf" path="res://Prefabs/Player/MovementSprites/Head/angler/walk.png" id="1_sk5ol"]
+[ext_resource type="Texture2D" uid="uid://ntvxc4627vsh" path="res://Prefabs/Player/MovementSprites/Head/angler/flipper.png" id="1_wnigy"]
+[ext_resource type="Texture2D" uid="uid://xwg3xklfx5ha" path="res://Prefabs/Player/MovementSprites/Head/angler/idle.png" id="2_1t5b6"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_rnvqx"]
 atlas = ExtResource("1_wnigy")

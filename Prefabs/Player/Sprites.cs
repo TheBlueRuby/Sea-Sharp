@@ -18,7 +18,7 @@ namespace SeaSharp {
 		private AnimatedSprite2D body;
 		private AnimatedSprite2D legs;
 
-		private string animation;
+		private string animation = "Idle";
 
 		public string Animation {
 			get => animation;
@@ -34,7 +34,7 @@ namespace SeaSharp {
 				}
 			}
 		}
-		
+
 		public override void _Ready() {
 			player = GetTree().Root.GetNode<Player>(Utils.Paths.SceneTree.Player);
 
@@ -48,7 +48,7 @@ namespace SeaSharp {
 
 			headAngler = GD.Load<SpriteFrames>(spriteDirectory + "Head/angler.tres");
 			bodyPressure = GD.Load<SpriteFrames>(spriteDirectory + "Body/pressure.tres");
-			legsFlippers = GD.Load<SpriteFrames>(spriteDirectory + "Legs/flippers.tres");
+			legsFlippers = GD.Load<SpriteFrames>(spriteDirectory + "Legs/flipper.tres");
 		}
 
 		public void Play() {
@@ -56,7 +56,7 @@ namespace SeaSharp {
 			body.Play();
 			legs.Play();
 		}
-		
+
 		public void Stop() {
 			head.Stop();
 			body.Stop();
@@ -64,21 +64,35 @@ namespace SeaSharp {
 		}
 
 		public void CheckItems() {
-			head.SpriteFrames = headDefault;
-			body.SpriteFrames = bodyDefault;
-			legs.SpriteFrames = legsDefault;
+			var headNewAnim = headDefault;
+			var bodyNewAnim = bodyDefault;
+			var legsNewAnim = legsDefault;
 
-			if(player.Inventory.HasItem(Inventory.ItemTypes.AnglerCap)) {
-				head.SpriteFrames = headAngler;
+			if (player.Inventory.HasItem(Inventory.ItemTypes.AnglerCap)) {
+				headNewAnim = headAngler;
 			}
 
 			if (player.Inventory.HasItem(Inventory.ItemTypes.PressureSuit)) {
-				body.SpriteFrames = bodyPressure;
+				bodyNewAnim = bodyPressure;
 			}
 
-			if(player.Inventory.HasItem(Inventory.ItemTypes.Flippers)) {
-				legs.SpriteFrames = legsFlippers;
+			if (player.Inventory.HasItem(Inventory.ItemTypes.Flippers)) {
+				legsNewAnim = legsFlippers;
 			}
+
+			if (head.SpriteFrames != headNewAnim) {
+				head.SpriteFrames = headNewAnim;
+			}
+
+			if (body.SpriteFrames != bodyNewAnim) {
+				body.SpriteFrames = bodyNewAnim;
+			}
+
+			if (legs.SpriteFrames != legsNewAnim) {
+				legs.SpriteFrames = legsNewAnim;
+			}
+
+			Play();
 		}
 
 	}

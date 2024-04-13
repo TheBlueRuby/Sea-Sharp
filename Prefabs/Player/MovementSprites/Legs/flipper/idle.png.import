@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dpa04kwa84vsi"
-path="res://.godot/imported/flipper.png-6a45b009a37f97ba4284f26e4def8de8.ctex"
+uid="uid://qiepcwlvejor"
+path="res://.godot/imported/idle.png-3c90e6e617546803a4bd7635aa5842fb.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Prefabs/Player/MovementSprites/Head/default/flipper.png"
-dest_files=["res://.godot/imported/flipper.png-6a45b009a37f97ba4284f26e4def8de8.ctex"]
+source_file="res://Prefabs/Player/MovementSprites/Legs/flipper/idle.png"
+dest_files=["res://.godot/imported/idle.png-3c90e6e617546803a4bd7635aa5842fb.ctex"]
 
 [params]
 
