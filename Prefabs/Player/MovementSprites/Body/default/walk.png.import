@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bal1o4vaxj6o1"
-path="res://.godot/imported/walk-right.png-e39d783bf0955fbac0545fb777b28406.ctex"
+uid="uid://byyrettuk8ih4"
+path="res://.godot/imported/walk.png-a0b4f5e73a755eb8a0be0cf2f8e86981.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Prefabs/Player/walk-right.png"
-dest_files=["res://.godot/imported/walk-right.png-e39d783bf0955fbac0545fb777b28406.ctex"]
+source_file="res://Prefabs/Player/MovementSprites/Body/default/walk.png"
+dest_files=["res://.godot/imported/walk.png-a0b4f5e73a755eb8a0be0cf2f8e86981.ctex"]
 
 [params]
 

@@ -11,7 +11,7 @@ namespace SeaSharp {
 		private float gravity = ProjectSettings.GetSetting("physics/2d/default_gravity").AsSingle();
 
 		private CollisionShape2D hitbox;
-		private AnimatedSprite2D texture;
+		private Sprites texture;
 
 		private RectangleShape2D hb_front;
 		private RectangleShape2D hb_side;
@@ -46,7 +46,7 @@ namespace SeaSharp {
 		public override void _Ready() {
 			// Load the hitbox and texture.
 			hitbox = GetNode<CollisionShape2D>("Hitbox");
-			texture = hitbox.GetNode<AnimatedSprite2D>("Texture");
+			texture = hitbox.GetNode<Sprites>("Texture");
 			texture.Play();
 
 			// Load the front and side sprites and hitboxes.
@@ -212,13 +212,15 @@ namespace SeaSharp {
 				return;
 
 			}
-			
+
 			if (Math.Abs(xVelocity) > 1) {
 				texture.Animation = "Walk";
 			} else if (texture.Animation != "Idle") { // Don't immediately go from idle to sideways, require player input first
 				texture.Animation = "Side";
 			}
 			hitbox.Shape = hb_side;
+
+			texture.CheckItems();
 
 		}
 
