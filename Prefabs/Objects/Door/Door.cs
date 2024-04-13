@@ -34,7 +34,7 @@ namespace SeaSharp {
 			if (!doorOpen) {
 				return;
 			}
-			if (doorTimer > 0f && playerInArea) {
+			if (doorTimer > 0f && !playerInArea) {
 				doorTimer -= (float)delta;
 			} else if (!playerInArea) {
 				CloseDoor();
@@ -44,7 +44,7 @@ namespace SeaSharp {
 		/// <summary>
 		/// Handles the event when the player activates the door.
 		/// </summary>
-		/// <param name="body">The player or beam node.</param>
+		/// <param name="body">The player node</param>
 		private void OnPlayerActivate(Node2D body) {
 			if (body is not Player) {
 				return;
