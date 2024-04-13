@@ -1,9 +1,9 @@
 [gd_scene load_steps=5 format=3 uid="uid://d312bjpemj2yb"]
 
 [ext_resource type="Script" path="res://Prefabs/Player/Sprites.cs" id="1_1hb4h"]
-[ext_resource type="SpriteFrames" uid="uid://cp223vfvlbes2" path="res://Prefabs/Player/MovementSprites/Head/head.tres" id="1_6x4wn"]
-[ext_resource type="SpriteFrames" uid="uid://cyjitve5wdman" path="res://Prefabs/Player/MovementSprites/Body/body.tres" id="2_wynle"]
-[ext_resource type="SpriteFrames" uid="uid://dkk5a6pxaqnby" path="res://Prefabs/Player/MovementSprites/Legs/legs.tres" id="3_rtj6p"]
+[ext_resource type="SpriteFrames" uid="uid://cp223vfvlbes2" path="res://Prefabs/Player/MovementSprites/Head/default.tres" id="1_6x4wn"]
+[ext_resource type="SpriteFrames" uid="uid://cyjitve5wdman" path="res://Prefabs/Player/MovementSprites/Body/default.tres" id="2_wynle"]
+[ext_resource type="SpriteFrames" uid="uid://dkk5a6pxaqnby" path="res://Prefabs/Player/MovementSprites/Legs/default.tres" id="3_rtj6p"]
 
 [node name="PlayerSprites" type="Node2D"]
 script = ExtResource("1_1hb4h")

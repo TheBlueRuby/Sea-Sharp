@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://byyrettuk8ih4"
-path="res://.godot/imported/walk.png-d4094bf33fe9187f57416ef44a735258.ctex"
+uid="uid://dsw4k2o2ctetb"
+path="res://.godot/imported/flipper.png-e24b7ee4cf53e5621776d1cd58d48542.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Prefabs/Player/MovementSprites/Body/walk.png"
-dest_files=["res://.godot/imported/walk.png-d4094bf33fe9187f57416ef44a735258.ctex"]
+source_file="res://Prefabs/Player/MovementSprites/Body/default/flipper.png"
+dest_files=["res://.godot/imported/flipper.png-e24b7ee4cf53e5621776d1cd58d48542.ctex"]
 
 [params]
 

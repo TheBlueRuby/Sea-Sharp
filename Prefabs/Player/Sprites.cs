@@ -3,6 +3,17 @@ using System;
 
 namespace SeaSharp {
 	public partial class Sprites : Node2D {
+		private Player player;
+
+		private const string spriteDirectory = "res://Prefabs/Player/MovementSprites/";
+		private SpriteFrames headDefault;
+		private SpriteFrames bodyDefault;
+		private SpriteFrames legsDefault;
+
+		private SpriteFrames headAngler;
+		private SpriteFrames bodyPressure;
+		private SpriteFrames legsFlippers;
+
 		private AnimatedSprite2D head;
 		private AnimatedSprite2D body;
 		private AnimatedSprite2D legs;
@@ -25,9 +36,19 @@ namespace SeaSharp {
 		}
 		
 		public override void _Ready() {
+			player = GetTree().Root.GetNode<Player>(Utils.Paths.SceneTree.Player);
+
 			head = GetNode<AnimatedSprite2D>("Head");
 			body = GetNode<AnimatedSprite2D>("Body");
 			legs = GetNode<AnimatedSprite2D>("Legs");
+
+			headDefault = GD.Load<SpriteFrames>(spriteDirectory + "Head/default.tres");
+			bodyDefault = GD.Load<SpriteFrames>(spriteDirectory + "Body/default.tres");
+			legsDefault = GD.Load<SpriteFrames>(spriteDirectory + "Legs/default.tres");
+
+			headAngler = GD.Load<SpriteFrames>(spriteDirectory + "Head/angler.tres");
+			bodyPressure = GD.Load<SpriteFrames>(spriteDirectory + "Body/pressure.tres");
+			legsFlippers = GD.Load<SpriteFrames>(spriteDirectory + "Legs/flippers.tres");
 		}
 
 		public void Play() {
@@ -42,7 +63,23 @@ namespace SeaSharp {
 			legs.Stop();
 		}
 
+		public void CheckItems() {
+			head.SpriteFrames = headDefault;
+			body.SpriteFrames = bodyDefault;
+			legs.SpriteFrames = legsDefault;
 
+			if(player.Inventory.HasItem(Inventory.ItemTypes.AnglerCap)) {
+				head.SpriteFrames = headAngler;
+			}
+
+			if (player.Inventory.HasItem(Inventory.ItemTypes.PressureSuit)) {
+				body.SpriteFrames = bodyPressure;
+			}
+
+			if(player.Inventory.HasItem(Inventory.ItemTypes.Flippers)) {
+				legs.SpriteFrames = legsFlippers;
+			}
+		}
 
 	}
 }
