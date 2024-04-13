@@ -13,7 +13,7 @@ layer_0/tile_data = PackedInt32Array(655419, 327680, 1, 655418, 655360, 0, 65541
 [node name="RoomInstance" parent="." instance=ExtResource("1_v2k4g")]
 
 [node name="Door" parent="." instance=ExtResource("3_ho8xl")]
-position = Vector2(10, 136)
+position = Vector2(9, 136)
 
 [node name="Door2" parent="." instance=ExtResource("3_ho8xl")]
 position = Vector2(952, 104)

@@ -17,4 +17,4 @@ position = Vector2(312, 136)
 scale = Vector2(-1, 1)
 
 [node name="Door" parent="." instance=ExtResource("4_2ylpo")]
-position = Vector2(10, 56)
+position = Vector2(8, 56)
