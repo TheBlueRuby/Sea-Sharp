@@ -1,4 +1,5 @@
 using System;
+using Godot;
 using Utils;
 namespace SeaSharp {
 	/// <summary>
@@ -147,7 +148,7 @@ namespace SeaSharp {
 		/// </summary>
 		/// <returns>A formatted string representing the inventory data.</returns>
 		public string GetInventory() {
-			return $"{ItemsOwned.PrintArray()}-{BeamsOwned.PrintArray()}-{ActiveBeam}-{ActiveItems.PrintArray()}";
+			return $"{ItemsOwned.Array}-{BeamsOwned.Array}-{ActiveItems.Array}-{ActiveBeam}";
 		}
 
 
@@ -157,10 +158,10 @@ namespace SeaSharp {
 		/// <param name="saveData">A formatted string representing the inventory data.</param>
 		public void SetInventory(string saveData) {
 			string[] saveFields = saveData.Split("-");
-			ItemsOwned = BitArray.FromString(saveFields[0]);
-			BeamsOwned = BitArray.FromString(saveFields[1]);
-			ActiveBeam = (BeamTypes)Enum.Parse(typeof(BeamTypes), saveFields[2]);
-			ActiveItems = BitArray.FromString(saveFields[3]);
+			ItemsOwned  = new((uint)saveFields[0].ToInt());
+			BeamsOwned  = new((uint)saveFields[1].ToInt());
+			ActiveItems = new((uint)saveFields[2].ToInt());
+			ActiveBeam  = (BeamTypes)Enum.Parse(typeof(BeamTypes), saveFields[3]);
 		}
 	}
 }

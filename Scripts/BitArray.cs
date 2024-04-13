@@ -4,13 +4,21 @@ using System.Text;
 namespace Utils {
 	[DebuggerDisplay("{PrintArray(), nq}")]
 	public class BitArray {
-		private uint array;
+		public uint Array { get; set; }
 
 		/// <summary>
 		/// Initializes the class
 		/// </summary>
 		public BitArray() {
-			array = 0;
+			Array = 0;
+		}
+
+		/// <summary>
+		/// Initializes the class from a value
+		/// </summary>
+		/// <param name="array">a <c>uint</c> that contains array data</param>
+		public BitArray(uint array) {
+			Array = array;
 		}
 
 		/// <summary>
@@ -19,7 +27,7 @@ namespace Utils {
 		/// <param name="bit">The bit to check.</param>
 		/// <returns>True if the bit is set, otherwise false.</returns>
 		public bool CheckBit(int pos) {
-			return (array & (1 << pos)) != 0;
+			return (Array & (1 << pos)) != 0;
 		}
 
 		/// <summary>
@@ -29,7 +37,7 @@ namespace Utils {
 		/// <param name="bit">The bit to check as a power of 2.</param>
 		/// <returns>True if the bit is set, otherwise false.</returns>
 		public bool CheckBitPow(int pos) {
-			return (array & pos) != 0;
+			return (Array & pos) != 0;
 		}
 
 		/// <summary>
@@ -50,7 +58,7 @@ namespace Utils {
 		/// </summary>
 		/// <param name="bit">The bit to set.</param>
 		public void SetBit(uint bit) {
-			array |= bit;
+			Array |= bit;
 		}
 
 		/// <summary>
@@ -58,7 +66,7 @@ namespace Utils {
 		/// </summary>
 		/// <param name="bit">The index of the bit to clear.</param>
 		public void ClearBit(uint bit) {
-			array &= ~array | bit;
+			Array &= ~Array | bit;
 		}
 
 		/// <summary>
@@ -71,21 +79,6 @@ namespace Utils {
 				output.Append(CheckBit(i) ? "1" : "0");
 			}
 			return output.ToString();
-		}
-
-		/// <summary>
-		/// Creates a BitArray from a string representation.
-		/// </summary>
-		/// <param name="stringRep">The string representation of the BitArray.</param>
-		/// <returns>The BitArray created from the string representation.</returns>
-		public static BitArray FromString(string stringRep) {
-			BitArray output = new BitArray();
-			for (uint i = 0; i < 32; i++) {
-				if (stringRep[(int)i] == '1') {
-					output.SetBit(2 ^ i);
-				}
-			}
-			return output;
 		}
 
 	}
