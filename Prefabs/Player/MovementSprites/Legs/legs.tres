@@ -1,7 +1,8 @@
-[gd_resource type="SpriteFrames" load_steps=11 format=3 uid="uid://dkk5a6pxaqnby"]
+[gd_resource type="SpriteFrames" load_steps=17 format=3 uid="uid://dkk5a6pxaqnby"]
 
 [ext_resource type="Texture2D" uid="uid://cmcfk8pjj1i68" path="res://Prefabs/Player/MovementSprites/Legs/flipper.png" id="1_c8c32"]
 [ext_resource type="Texture2D" uid="uid://bbc5pv1evh17k" path="res://Prefabs/Player/MovementSprites/Legs/walk.png" id="1_e0ell"]
+[ext_resource type="Texture2D" uid="uid://deh1vaad6y0lc" path="res://Prefabs/Player/MovementSprites/Legs/idle.png" id="2_w011x"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ltwcx"]
 atlas = ExtResource("1_c8c32")
@@ -17,6 +18,26 @@ region = Rect2(32, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_rh6ls"]
 atlas = ExtResource("1_c8c32")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xendr"]
+atlas = ExtResource("2_w011x")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5moyf"]
+atlas = ExtResource("2_w011x")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nbx42"]
+atlas = ExtResource("2_w011x")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i2gba"]
+atlas = ExtResource("2_w011x")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l48iu"]
+atlas = ExtResource("1_e0ell")
 region = Rect2(48, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ywfld"]
@@ -56,6 +77,31 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_xendr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5moyf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nbx42")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i2gba")
+}],
+"loop": true,
+"name": &"Idle",
+"speed": 1.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l48iu")
+}],
+"loop": true,
+"name": &"Side",
+"speed": 1.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_ywfld")
 }, {
 "duration": 1.0,
@@ -69,5 +115,5 @@ animations = [{
 }],
 "loop": true,
 "name": &"Walk",
-"speed": 5.0
+"speed": 8.0
 }]

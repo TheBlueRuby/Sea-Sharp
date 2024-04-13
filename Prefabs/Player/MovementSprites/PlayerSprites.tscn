@@ -11,13 +11,13 @@ script = ExtResource("1_1hb4h")
 [node name="Head" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -8)
 sprite_frames = ExtResource("1_6x4wn")
-animation = &"Walk"
+animation = &"Idle"
 
 [node name="Body" type="AnimatedSprite2D" parent="."]
 sprite_frames = ExtResource("2_wynle")
-animation = &"Walk"
+animation = &"Idle"
 
 [node name="Legs" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, 8)
 sprite_frames = ExtResource("3_rtj6p")
-animation = &"Walk"
+animation = &"Idle"
