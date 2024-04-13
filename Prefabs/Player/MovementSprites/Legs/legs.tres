@@ -1,6 +1,23 @@
-[gd_resource type="SpriteFrames" load_steps=6 format=3 uid="uid://dkk5a6pxaqnby"]
+[gd_resource type="SpriteFrames" load_steps=11 format=3 uid="uid://dkk5a6pxaqnby"]
 
+[ext_resource type="Texture2D" uid="uid://cmcfk8pjj1i68" path="res://Prefabs/Player/MovementSprites/Legs/flipper.png" id="1_c8c32"]
 [ext_resource type="Texture2D" uid="uid://bbc5pv1evh17k" path="res://Prefabs/Player/MovementSprites/Legs/walk.png" id="1_e0ell"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ltwcx"]
+atlas = ExtResource("1_c8c32")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_07aj6"]
+atlas = ExtResource("1_c8c32")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dgi15"]
+atlas = ExtResource("1_c8c32")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rh6ls"]
+atlas = ExtResource("1_c8c32")
+region = Rect2(48, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ywfld"]
 atlas = ExtResource("1_e0ell")
@@ -20,6 +37,23 @@ region = Rect2(48, 0, 16, 16)
 
 [resource]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ltwcx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_07aj6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dgi15")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rh6ls")
+}],
+"loop": true,
+"name": &"Flipper",
+"speed": 8.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_ywfld")
