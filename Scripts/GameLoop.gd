@@ -45,8 +45,8 @@ func _ready():
 func save_game():
 	var save_manager := SaveManager.new()
 	save_manager.set_value("player_pos", player.global_position)
-	save_manager.set_value("health", player.health)
-	save_manager.set_value("max_health", player.maxHealth)
+	save_manager.set_value("health", player.Health)
+	save_manager.set_value("max_health", player.MaxHealth)
 	save_manager.set_value("current_room", MetSys.get_current_room_name())
 	save_manager.set_value("inventory", player.GetInventory())
 	save_manager.save_as_text(SAVE_PATH)
