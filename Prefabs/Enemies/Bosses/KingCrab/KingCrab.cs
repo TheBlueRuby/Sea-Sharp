@@ -43,14 +43,14 @@ namespace SeaSharp {
 			sprite = GetNode<Sprite2D>("Sprite2D");
 			healthBar = GetNode<ProgressBar>("HealthBar");
 
-			drop = GD.Load<PackedScene>("res://Prefabs/Pickups/Misc/AnglerCap.tscn");
+			drop = GD.Load<PackedScene>(Utils.Paths.Resources.Pickups + "Misc/AnglerCap.tscn");
 
 			// Initialise the MetSys pointer
-			MetSys = GetTree().Root.GetNode<Node>("MetSys");
-			MetSysCompat = GetTree().Root.GetNode<Node>("MetSysCompat");
+			MetSys = GetTree().Root.GetNode<Node>(Utils.Paths.SceneTree.MetSys);
+			MetSysCompat = GetTree().Root.GetNode<Node>(Utils.Paths.SceneTree.MetSysCompat);
 
 			// Set object owner for MetSys
-			Owner = GetTree().Root.GetNode("GameLoop/Map");
+			Owner = GetTree().Root.GetNode(Utils.Paths.SceneTree.Map);
 
 			// Register as a MetSys object.
 			// If the object has already been registered, delete.

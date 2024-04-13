@@ -14,12 +14,17 @@ namespace SeaSharp {
 		/// Initialization function
 		/// </summary>
 		public override void _Ready() {
-			clamPearl ??= GD.Load<PackedScene>("res://Prefabs/Pickups/PickupBase.tscn");
+			clamPearl ??= GD.Load<PackedScene>(Utils.Paths.Resources.DefaultPickup);
 			texture = GetNode<Sprite2D>("Sprite2D");
-			closedTexture = GD.Load<Texture2D>("res://Prefabs/Objects/Clam/clam.png");
-			openTexture = GD.Load<Texture2D>("res://Prefabs/Objects/Clam/clam_open.png");
+
+			string path = ((Resource)GetScript()).ResourcePath.GetBaseDir() + "/";
+			closedTexture = GD.Load<Texture2D>(path + "clam.png");
+			openTexture = GD.Load<Texture2D>(path + "clam_open.png");
 		}
 		private void OnPlayerEnter(Node2D body) {
+			if (body is not Player) {
+				return;
+			}
 			texture.Texture = openTexture;
 			Collectible collectible = (Collectible)clamPearl.Instantiate();
 			CallDeferred("add_child", collectible);
@@ -28,6 +33,9 @@ namespace SeaSharp {
 
 
 		private void OnPlayerExit(Node2D body) {
+			if (body is not Player) {
+				return;
+			}
 			texture.Texture = closedTexture;
 
 			Node pickup = GetNodeOrNull("Pickup");

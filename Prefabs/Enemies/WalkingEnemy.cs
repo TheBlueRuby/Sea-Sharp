@@ -35,7 +35,7 @@ namespace SeaSharp {
 		public void Init(int speed = 100, int jumpVel = 450, int maxSeeDist = 256, int damage = 5) {
 			navAgent = GetNode<NavigationAgent2D>("NavAgent");
 			playerScanner = GetNode<RayCast2D>("LineOfSight");
-			target ??= GetTree().Root.GetNode<Node2D>("GameLoop/Player");
+			target ??= GetTree().Root.GetNode<Node2D>(Utils.Paths.SceneTree.Player);
 
 			gravity = (float)ProjectSettings.GetSetting("physics/2d/default_gravity");
 

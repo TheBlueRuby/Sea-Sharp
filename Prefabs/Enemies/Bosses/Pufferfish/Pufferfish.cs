@@ -26,7 +26,7 @@ namespace SeaSharp {
 		private Node MetSys;
 		private Node MetSysCompat;
 
-		private Node2D player;
+		private Node2D target;
 
 		private PackedScene drop;
 
@@ -47,15 +47,15 @@ namespace SeaSharp {
 			deflatedCollision = GetNode<CollisionShape2D>("Deflated");
 			healthBar = GetNode<ProgressBar>("HealthBar");
 
-			player = GetTree().Root.GetNode<Node2D>("GameLoop/Player");
-			drop = GD.Load<PackedScene>("res://Prefabs/Pickups/Misc/Propeller.tscn");
+			target = GetTree().Root.GetNode<Node2D>(Utils.Paths.SceneTree.Player);
+			drop = GD.Load<PackedScene>(Utils.Paths.Resources.Pickups + "Misc/Propeller.tscn");
 
 			// Initialise the MetSys pointer
-			MetSys = GetTree().Root.GetNode<Node>("MetSys");
-			MetSysCompat = GetTree().Root.GetNode<Node>("MetSysCompat");
+			MetSys = GetTree().Root.GetNode<Node>(Utils.Paths.SceneTree.MetSys);
+			MetSysCompat = GetTree().Root.GetNode<Node>(Utils.Paths.SceneTree.MetSysCompat);
 
 			// Set object owner for MetSys
-			Owner = GetTree().Root.GetNode("GameLoop/Map");
+			Owner = GetTree().Root.GetNode(Utils.Paths.SceneTree.Map);
 
 			// Register as a MetSys object.
 			// If the object has already been registered, delete.
@@ -127,9 +127,9 @@ namespace SeaSharp {
 		/// </summary>
 		private void Charge() {
 			Vector2 velocity = Velocity;
-			if (player.GlobalPosition.X < GlobalPosition.X) {
+			if (target.GlobalPosition.X < GlobalPosition.X) {
 				velocity.X = -100;
-			} else if (player.GlobalPosition.X > GlobalPosition.X) {
+			} else if (target.GlobalPosition.X > GlobalPosition.X) {
 				velocity.X = 100;
 			}
 			Velocity = velocity;
@@ -173,7 +173,7 @@ namespace SeaSharp {
 		/// </summary>
 		/// <returns>Whether the player is within attack range</returns>
 		private bool PlayerInRange() {
-			if (Math.Abs(player.GlobalPosition.Y - GlobalPosition.Y) < 32) {
+			if (Math.Abs(target.GlobalPosition.Y - GlobalPosition.Y) < 32) {
 				return true;
 			}
 			return false;

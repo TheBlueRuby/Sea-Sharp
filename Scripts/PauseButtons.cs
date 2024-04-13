@@ -6,7 +6,7 @@ namespace SeaSharp {
 		private Node2D GameLoop;
 
 		public override void _Ready() {
-			GameLoop = GetTree().Root.GetNode<Node2D>("GameLoop");
+			GameLoop = GetTree().Root.GetNode<Node2D>(Utils.Paths.SceneTree.GameLoop);
 		}
 
 		private void Resume() {
@@ -20,7 +20,7 @@ namespace SeaSharp {
 
 		private void Quit() {
 			GameLoop.GetNode<PauseHandler>("PauseHandler").TogglePaused();
-			GetTree().ChangeSceneToFile("res://Menus/MainMenu.tscn");
+			GetTree().ChangeSceneToFile(Utils.Paths.Resources.Menus + "MainMenu.tscn");
 		}
 
 

@@ -22,7 +22,7 @@ namespace SeaSharp {
 			doorCollision = GetNode<StaticBody2D>("Collision");
 			doorSprite = GetNode<Sprite2D>("Collision/Sprite");
 
-			doorSprite.Texture = GD.Load<CompressedTexture2D>($"res://Prefabs/Objects/Door/{beamType}Door/{beamType}Door.png");
+			doorSprite.Texture = GD.Load<CompressedTexture2D>(Utils.Paths.Resources.Prefabs + $"Objects/Door/{beamType}Door/{beamType}Door.png");
 		}
 
 
@@ -46,8 +46,11 @@ namespace SeaSharp {
 		/// </summary>
 		/// <param name="body">The player or beam node.</param>
 		private void OnPlayerActivate(Node2D body) {
+			if (body is not Player) {
+				return;
+			}
 			// If this door is a pressure door and the player doesn't have a pressure suit, stay shut
-			if (beamType == "Pressure" && !GetTree().Root.GetNode<Player>("GameLoop/Player").Inventory.HasItem(Inventory.ItemTypes.PressureSuit)) {
+			if (beamType == "Pressure" && !GetTree().Root.GetNode<Player>(Utils.Paths.SceneTree.Player).Inventory.HasItem(Inventory.ItemTypes.PressureSuit)) {
 				return;
 			}
 
@@ -60,6 +63,9 @@ namespace SeaSharp {
 		/// </summary>
 		/// <param name="body">The player node</param>
 		private void OnPlayerDeactivate(Node2D body) {
+			if (body is not Player) {
+				return;
+			}
 			playerInArea = false;
 		}
 
@@ -72,7 +78,7 @@ namespace SeaSharp {
 			if (body.SceneFilePath.Contains(beamType) || beamType == "Prox") {
 				OpenDoor();
 			}
-			if (beamType == "Pressure" && GetTree().Root.GetNode<Player>("GameLoop/Player").Inventory.HasItem(Inventory.ItemTypes.PressureSuit)) {
+			if (beamType == "Pressure" && GetTree().Root.GetNode<Player>(Utils.Paths.SceneTree.Player).Inventory.HasItem(Inventory.ItemTypes.PressureSuit)) {
 				OpenDoor();
 			}
 		}

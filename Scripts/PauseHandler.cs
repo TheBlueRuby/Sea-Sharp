@@ -27,7 +27,7 @@ namespace SeaSharp {
 		}
 
 		public void SetUiVisible(bool visible) {
-			GetTree().Root.GetNode<CanvasLayer>("GameLoop/PauseMenu").Visible = visible;
+			GetTree().Root.GetNode<CanvasLayer>(Utils.Paths.SceneTree.PauseMenu).Visible = visible;
 			uiVisible = visible;
 		}
 	}

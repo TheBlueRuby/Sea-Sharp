@@ -10,7 +10,7 @@ namespace SeaSharp {
 
 		// Called when the node enters the scene tree for the first time.
 		public override void _Ready() {
-			MetSysCompat = GetTree().Root.GetNode<Node>("MetSysCompat");
+			MetSysCompat = GetTree().Root.GetNode<Node>(Utils.Paths.SceneTree.MetSysCompat);
 		}
 
 		/// <summary>

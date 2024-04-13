@@ -17,7 +17,7 @@ namespace SeaSharp {
 
 		// Called when the node enters the scene tree for the first time.
 		public override void _Ready() {
-			dialogEntry = new("res://strings.json", StringType, StringId);
+			dialogEntry = new(Utils.Paths.Resources.Strings, StringType, StringId);
 
 			icon = GD.Load<CompressedTexture2D>(dialogEntry.iconPath);
 			GetNode<TextureRect>("Background/Icon").Texture = icon;
@@ -39,7 +39,7 @@ namespace SeaSharp {
 				}
 			} else {
 				if (Input.IsActionJustPressed("ui_accept")) {
-					GetTree().Root.GetNode<PauseHandler>("GameLoop/PauseHandler").SetPaused(false);
+					GetTree().Root.GetNode<PauseHandler>(Utils.Paths.SceneTree.PauseHandler).SetPaused(false);
 					QueueFree();
 				}
 

@@ -5,7 +5,7 @@ using System.IO;
 namespace SeaSharp {
 	public partial class MainMenu : Control {
 		private void OnPlayButtonPress() {
-			GetTree().ChangeSceneToFile("res://GameLoop.tscn");
+			GetTree().ChangeSceneToFile(Utils.Paths.Resources.GameLoop);
 		}
 
 
@@ -14,8 +14,8 @@ namespace SeaSharp {
 		}
 
 		private void OnResetButtonPress() {
-			if (Godot.FileAccess.FileExists("user://SeaSharpSave.sav")) {
-				DirAccess.Open("user://").Remove("SeaSharpSave.sav");
+			if (Godot.FileAccess.FileExists(Utils.Paths.Resources.Save)) {
+				DirAccess.Open(Utils.Paths.Resources.SaveDir).Remove(Utils.Paths.Resources.SaveFile);
 			}
 		}
 	}

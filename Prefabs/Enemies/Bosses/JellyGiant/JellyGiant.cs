@@ -28,11 +28,11 @@ namespace SeaSharp {
 			healthBar = GetNode<ProgressBar>("HealthBar");
 
 			// Initialise the MetSys pointer
-			MetSys = GetTree().Root.GetNode<Node>("MetSys");
-			MetSysCompat = GetTree().Root.GetNode<Node>("MetSysCompat");
+			MetSys = GetTree().Root.GetNode<Node>(Utils.Paths.SceneTree.MetSys);
+			MetSysCompat = GetTree().Root.GetNode<Node>(Utils.Paths.SceneTree.MetSysCompat);
 
 			// Set object owner for MetSys
-			Owner = GetTree().Root.GetNode("GameLoop/Map");
+			Owner = GetTree().Root.GetNode(Utils.Paths.SceneTree.Map);
 
 			// Register as a MetSys object.
 			// If the object has already been registered, delete.

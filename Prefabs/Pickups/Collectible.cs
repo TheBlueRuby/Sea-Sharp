@@ -23,18 +23,18 @@ namespace SeaSharp {
 			sprite = GetNode<Sprite2D>("Sprite2D");
 
 			// Initialise the MetSys pointer
-			MetSys = GetTree().Root.GetNode<Node>("MetSys");
-			MetSysCompat = GetTree().Root.GetNode<Node>("MetSysCompat");
+			MetSys = GetTree().Root.GetNode<Node>(Utils.Paths.SceneTree.MetSys);
+			MetSysCompat = GetTree().Root.GetNode<Node>(Utils.Paths.SceneTree.MetSysCompat);
 
 			// Set object owner for MetSys
-			Owner = GetTree().Root.GetNode("GameLoop/Map");
+			Owner = GetTree().Root.GetNode(Utils.Paths.SceneTree.Map);
 
 			// Register as a MetSys object.
 			// If the object has already been registered, delete.
 			if ((bool)MetSysCompat.Call("register_obj_marker", this)) {
 				QueueFree();
 			}
-			pickupText = GD.Load<PackedScene>("res://Menus/DialogPopup.tscn");
+			pickupText = GD.Load<PackedScene>(Utils.Paths.Resources.Menus + "DialogPopup.tscn");
 
 		}
 
@@ -56,8 +56,8 @@ namespace SeaSharp {
 			DialogPopup pickupTextInstance = pickupText.Instantiate<DialogPopup>();
 			pickupTextInstance.StringType = "items";
 			pickupTextInstance.StringId = PickupType.ToString();
-			GetTree().Root.GetNode("GameLoop/HUD").AddChild(pickupTextInstance);
-			GetTree().Root.GetNode<PauseHandler>("GameLoop/PauseHandler").SetPaused(true);
+			GetTree().Root.GetNode(Utils.Paths.SceneTree.HUD).AddChild(pickupTextInstance);
+			GetTree().Root.GetNode<PauseHandler>(Utils.Paths.SceneTree.PauseHandler).SetPaused(true);
 
 			// Waits until particles are done emitting
 			await ToSignal(GetTree().CreateTimer(3), "timeout");

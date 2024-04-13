@@ -50,23 +50,23 @@ namespace SeaSharp {
 			texture.Play();
 
 			// Load the front and side sprites and hitboxes.
-			hb_front = GD.Load<RectangleShape2D>("res://Prefabs/Player/Collision/player_front.tres");
-			hb_side = GD.Load<RectangleShape2D>("res://Prefabs/Player/Collision/player_side.tres");
+			hb_front = GD.Load<RectangleShape2D>(Utils.Paths.Resources.PlayerPath + "Collision/player_front.tres");
+			hb_side = GD.Load<RectangleShape2D>(Utils.Paths.Resources.PlayerPath + "Collision/player_side.tres");
 
 			// Load the flipper sprites and hitboxes.
-			hb_flpr = GD.Load<RectangleShape2D>("res://Prefabs/Player/Collision/player_side_flpr.tres");
+			hb_flpr = GD.Load<RectangleShape2D>(Utils.Paths.Resources.PlayerPath + "Collision/player_side_flpr.tres");
 
 			// Load beams
-			bubbleBeam = GD.Load<PackedScene>("res://Prefabs/Player/Beams/BubbleBeam.tscn");
-			heatBeam = GD.Load<PackedScene>("res://Prefabs/Player/Beams/HeatBeam.tscn");
-			iceBeam = GD.Load<PackedScene>("res://Prefabs/Player/Beams/IceBeam.tscn");
+			bubbleBeam = GD.Load<PackedScene>(Utils.Paths.Resources.PlayerPath + "Beams/BubbleBeam.tscn");
+			heatBeam = GD.Load<PackedScene>(Utils.Paths.Resources.PlayerPath + "Beams/HeatBeam.tscn");
+			iceBeam = GD.Load<PackedScene>(Utils.Paths.Resources.PlayerPath + "Beams/IceBeam.tscn");
 
 			// MetSys
 			MetSys = GetTree().Root.GetNode("MetSys");
 			MetSysCompat = GetTree().Root.GetNode("MetSysCompat");
 
 			// Water Overlay Material
-			waterMaterial = GD.Load<CanvasItemMaterial>("res://Prefabs/Camera/Water Overlay/watermaterial.tres");
+			waterMaterial = GD.Load<CanvasItemMaterial>(Utils.Paths.Resources.Prefabs + "Camera/Water Overlay/watermaterial.tres");
 		}
 
 
@@ -79,14 +79,14 @@ namespace SeaSharp {
 			if (firstRun) {
 				GD.Print("First Run!");
 				firstRun = false;
-				PackedScene dialogPopup = GD.Load<PackedScene>("res://Menus/DialogPopup.tscn");
+				PackedScene dialogPopup = GD.Load<PackedScene>(Utils.Paths.Resources.Menus + "DialogPopup.tscn");
 
 				DialogPopup dialogPopupInstance = dialogPopup.Instantiate<DialogPopup>();
 				dialogPopupInstance.StringType = "speech";
 				dialogPopupInstance.StringId = "introText";
-				GetTree().Root.GetNode("GameLoop/HUD").AddChild(dialogPopupInstance);
+				GetTree().Root.GetNode(Utils.Paths.SceneTree.HUD).AddChild(dialogPopupInstance);
 
-				GetTree().Root.GetNode<PauseHandler>("GameLoop/PauseHandler").SetPaused(true);
+				GetTree().Root.GetNode<PauseHandler>(Utils.Paths.SceneTree.PauseHandler).SetPaused(true);
 			}
 
 			Vector2 velocity = Velocity;
@@ -120,7 +120,7 @@ namespace SeaSharp {
 			}
 
 			// Update health bar
-			GetTree().Root.GetNode<ProgressBar>("GameLoop/HUD/HealthBar").Value = ((float)Health / (float)MaxHealth) * 100;
+			GetTree().Root.GetNode<ProgressBar>(Utils.Paths.SceneTree.HUD + "/HealthBar").Value = ((float)Health / (float)MaxHealth) * 100;
 
 			// Count down I-Frames
 			if (invTimer > 0f) {
@@ -327,7 +327,7 @@ namespace SeaSharp {
 						beamDir = 0;
 					}
 					beamInstance.Start(beamDir, GlobalPosition, Inventory.HasBeam(BeamTypes.PressureBeam));
-					GetTree().Root.GetNode("GameLoop/Map").AddChild(beamInstance);
+					GetTree().Root.GetNode(Utils.Paths.SceneTree.Map).AddChild(beamInstance);
 				}
 
 				// Reset cooldown
